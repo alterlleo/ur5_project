@@ -1,2 +1,0 @@
-
--DCATKIN_DEVEL_PREFIX=/home/leo/UR5-project/devel -DCMAKE_INSTALL_PREFIX=/home/leo/UR5-project/install -G Unix Makefiles

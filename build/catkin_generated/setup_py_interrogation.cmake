@@ -1,7 +1,0 @@
-set(robotics_project_SETUP_PY_SETUP_MODULE "distutils.core")
-set(robotics_project_SETUP_PY_VERSION "0.0.0")
-set(robotics_project_SETUP_PY_SCRIPTS "")
-set(robotics_project_SETUP_PY_PACKAGES "Vision")
-set(robotics_project_SETUP_PY_PACKAGE_DIRS "src/Vision")
-set(robotics_project_SETUP_PY_MODULES "")
-set(robotics_project_SETUP_PY_MODULE_DIRS "")
