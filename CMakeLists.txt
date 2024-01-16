@@ -138,13 +138,29 @@ include_directories(
 ## either from message generation or dynamic reconfigure
 # add_dependencies(${PROJECT_NAME} ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
-## ADD FILE(GLOB ....)
+file(GLOB project_SOURCES
+    "src/bezier/*.cpp"
+    "src/checkpoint/*.cpp"
+    "src/obstacle_avoidance/*.cpp"
+    "src/spline/*.cpp"
+    "src/trajectory/trajectory.cpp"
+    "src/trajectory/move_object_trajectory.cpp"
+    "src/trajectory/linear_trajectory.cpp"
+    "src/ur5/*.h"
+    "src/ur5/*.cpp"
+    "src/utilities/*.cpp"
+    "src/tasks/rotations.cpp"
+    "src/vision_client/vision_client.cpp"
+)
 
 ## Declare a C++ executable
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
 # add_executable(${PROJECT_NAME}_node src/UR5-project_node.cpp)
 
+add_executable(main src/main.cpp ${project_SOURCES})
+add_executable(objects_server src/objects_server/objects_server.cpp ${project_SOURCES})
+add_executable(objects src/objects/objects.cpp ${project_SOURCES})
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
 ## target back to the shorter version for ease of user use
@@ -155,10 +171,16 @@ include_directories(
 ## same as for the library above
 # add_dependencies(${PROJECT_NAME}_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
+add_dependencies(main ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+
 ## Specify libraries to link a library or executable target against
 # target_link_libraries(${PROJECT_NAME}_node
 #   ${catkin_LIBRARIES}
 # )
+
+target_link_libraries(main ${catkin_LIBRARIES})
+target_link_libraries(objects_server ${catkin_LIBRARIES})
+target_link_libraries(objects ${catkin_LIBRARIES})
 
 #############
 ## Install ##
