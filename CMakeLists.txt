@@ -55,8 +55,8 @@ catkin_python_setup()
 ## Generate messages in the 'msg' folder
  add_message_files(
     FILES
-    ObjectPose.msg
-    ObjectPoseArray.msg
+    object.msg
+    object_array.msg
 )
 
 ## Generate services in the 'srv' folder
@@ -159,7 +159,7 @@ file(GLOB project_SOURCES
 # add_executable(${PROJECT_NAME}_node src/UR5-project_node.cpp)
 
 add_executable(main src/main.cpp ${project_SOURCES})
-add_executable(objects_server src/objects_server/objects_server.cpp ${project_SOURCES})
+#		add_executable(objects_server src/objects_server/objects_server.cpp ${project_SOURCES})
 add_executable(objects src/objects/objects.cpp ${project_SOURCES})
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -179,7 +179,7 @@ add_dependencies(main ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARG
 # )
 
 target_link_libraries(main ${catkin_LIBRARIES})
-target_link_libraries(objects_server ${catkin_LIBRARIES})
+#		target_link_libraries(objects_server ${catkin_LIBRARIES})
 target_link_libraries(objects ${catkin_LIBRARIES})
 
 #############
