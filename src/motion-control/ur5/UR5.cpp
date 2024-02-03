@@ -92,7 +92,8 @@ namespace Project {
 		return jointVelocities;
 	}
 
-    //move the robot from initial pose to the object 
+    //move the robot from initial pose to the object pose, then the movement is "linear"
+    
 	bool UR5::move_to_object(ObjectPose object_pose, ObstacleAvoidance &obstacle_av,
 					  std::vector <Eigen::Vector2d> &obstacle_pos, float height){
         Eigen::VectorXd new_joint_states;
@@ -123,22 +124,28 @@ namespace Project {
 	}
 
     //move the robot from object to the final position 
-	bool UR5::move_to_position(Eigen::Vector3d target, double targetYaw, ObstacleAvoidance &obstacleAvoidance,
-							 std::vector <Eigen::Vector2d> &obstaclePositions, double time){
+    
+    /*
+    
+	bool UR5::move_to_position(Eigen::Vector3d target, double final_yaw, ObstacleAvoidance &obstacle,
+							 std::vector <Eigen::Vector2d> &obstacle_poses, double time){
 		double timeStep = 0.001;
 		Eigen::VectorXd cur_position;
 		Eigen::Vector3d start;
-		double startYaw;
+		double starting_yaw;
 		MoveObjectTrajectory trajectory;
 
 		cur_position = get_position();
 		start = cur_position.head(3);
 		startYaw = cur_position[5];
 
-		trajectory = MoveObjectTrajectory(start, target, startYaw, targetYaw, obstacleAvoidance, obstaclePositions,
+		trajectory = MoveObjectTrajectory(start, target, starting_yaw, final_yaw, obstacle, obstacle_poses,
 										  time, timeStep);
 		return follow_trajectory(trajectory);
 	}
+	
+	*/
+	
 
     //move the robot in a linear trajectory
 	bool UR5::move_linear(Eigen::VectorXd target, double time) {
@@ -148,7 +155,10 @@ namespace Project {
 	}
 
     //follow a given trajectory
+    
+    /*
 	bool UR5::follow_trajectory(Trajectory &trajectory) {
+	
 		double time_step = trajectory.getTimeStep();
 		ros::Rate loop_rate(1.0 / (time_step * 1.0));
 		sensor_msgs::JointState joint_state;
@@ -198,43 +208,104 @@ namespace Project {
 		return true;
 	}
 	
-	bool UR5::move_to_position_with_object(std::string modelName, Eigen::Vector3d target, double targetYaw, ObstacleAvoidance &obstacleAvoidance, std::vector <Eigen::Vector2d> &obstaclePositions, double time = 5.0){
-		
-		
-		
-		
+	*/
 	
+	// move the robot with the grasped object to the right position
+	
+	bool UR5::move_to_position_with_object(std::string model_name, Eigen::Vector3d target, double final_yaw, ObstacleAvoidance &obstacle, std::vector <Eigen::Vector2d> &obstacle_poses, double time = 5.0){
+		
+		double timeStep = 0.001;
+		Eigen::VectorXd cur_position;
+		Eigen::Vector3d start;
+		double starting_yaw;
+		MoveObjectTrajectory trajectory;
+
+		cur_position = get_position();
+		start = cur_position.head(3);
+		startYaw = cur_position[5];
+
+		trajectory = MoveObjectTrajectory(start, target, starting_yaw, final_yaw, obstacle, obstacle_poses,
+										  time, timeStep);
+		return follow_trajectory_with_object(model_name, trajectory);	
 	
 	}
+	
+	// use the same trajectory for both the robot and for the object
 							 
 	bool UR5::trajectory_with_object(std::string model_name, Trajectory &trajectory){
-			
-			
-			/*
-							client = node -> serviceClient<gazebo_msgs::SetModelState>("/gazebo/set_model_state");
+		
+		double time_step = trajectory.getTimeStep();
+			ros::Rate loop_rate(1.0 / (time_step * 1.0));
+			sensor_msgs::JointState joint_state;
+			sensor_msgs::JointStateConstPtr msg;
+			Eigen::Vector3d cur_position, new_position;
+			Eigen::VectorXd q(6), new_q(6), vel(6), newVel(6), joint_vel_norm(6), grip_states, state;
+			Eigen::Matrix4d dir, new_dir;
+			Eigen::Matrix3d cur_orientation, new_orientation;
+			bool close_enough;
 
-				gazebo_msgs::SetModelState modelstate;
-				modelstate.request.model_state.model_name = modelName;
-				modelstate.request.model_state.pose.position.x = - desiredPosition.x() + 1.000;			//add offsets here
-				modelstate.request.model_state.pose.position.y = - desiredPosition.y() + 0.800;
-				modelstate.request.model_state.pose.position.z = desiredPosition.z() + 0.86;
+			grip_states = get_gripper_states();
+			state.resize(grip_states.size() + 6);
 
-				Eigen::Quaterniond tmp(desiredOrientation);
+			q = get_joint_states();
 
-				modelstate.request.model_state.pose.orientation.x = tmp.x();
-				modelstate.request.model_state.pose.orientation.y = tmp.y();
-				modelstate.request.model_state.pose.orientation.z = tmp.z();
-				modelstate.request.model_state.pose.orientation.w = tmp.w();
-				
-				
-				if(client.call(modelstate)){
-					ROS_INFO("Successfully moved the object %s \n", modelName.c_str());
-				} else{
-					ROS_ERROR("Object does not move \n");
-				}
-			*/
-	
-	
+			for (auto desired: trajectory.points) {
+				Eigen::Vector3d desired_pos = desired.head(3);
+				Eigen::Matrix3d desired_orientation = rpy2rotm(desired[3], desired[4], desired[5]);
+				do {
+					dir = direct(q);
+					cur_orientation = Eigen::Matrix3d(dir.block(0, 0, 3, 3));
+					cur_position << dir(0, 3), dir(1, 3), dir(2, 3);
+
+					vel = get_vel(cur_position, desired_pos, cur_orientation, desired_orientation, time_step);
+
+					joint_vel_norm = get_joint_velocities(jacobian(q), vel);
+					new_q = q + joint_vel_norm * time_step;
+
+					new_dir = direct(new_q);
+					new_orientation = Eigen::Matrix3d(new_dir.block(0, 0, 3, 3));
+					new_position << new_dir(0, 3), new_dir(1, 3), new_dir(2, 3);
+
+					newVel = get_vel(new_position, desired_pos, new_orientation, desired_orientation, time_step);
+					close_enough = newVel.norm() * time_step < 0.002;
+
+					q = new_q;
+
+					state << q, grip_states;
+					send_des_state(state);
+					
+								
+					// moving also the object by the same trajectory
+					
+					client = node -> serviceClient<gazebo_msgs::SetModelState>("/gazebo/set_model_state");
+
+					gazebo_msgs::SetModelState modelstate;
+					modelstate.request.model_state.model_name = modelName;
+					modelstate.request.model_state.pose.position.x = - desiredPosition.x() + 1.000;
+					modelstate.request.model_state.pose.position.y = - desiredPosition.y() + 0.800;
+					modelstate.request.model_state.pose.position.z = desiredPosition.z() + 0.86;
+
+					Eigen::Quaterniond tmp(desiredOrientation);
+
+					modelstate.request.model_state.pose.orientation.x = tmp.x();
+					modelstate.request.model_state.pose.orientation.y = tmp.y();
+					modelstate.request.model_state.pose.orientation.z = tmp.z();
+					modelstate.request.model_state.pose.orientation.w = tmp.w();
+					
+					
+					if(client.call(modelstate)){
+						ROS_INFO("Successfully moved the object %s \n", modelName.c_str());
+					} else{
+						ROS_ERROR("Object does not move \n");
+					}
+
+					//ros spin me round
+					
+					ros::spinOnce();
+					loop_rate.sleep();
+				} while (!close_enough);
+			}
+			return true;
 	
 	}
 
