@@ -10,7 +10,6 @@ project(UR5-project)
 find_package(catkin REQUIRED COMPONENTS
   roscpp
   rospy
-  gazebo_ros_link_attacher
   std_msgs
   geometry_msgs
   message_generation
@@ -139,6 +138,8 @@ include_directories(
 # add_dependencies(${PROJECT_NAME} ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 file(GLOB project_SOURCES
+    "src/motion-control/ur5/*.cpp"
+    
     "src/bezier/*.cpp"
     "src/checkpoint/*.cpp"
     "src/obstacle_avoidance/*.cpp"
