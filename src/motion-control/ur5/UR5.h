@@ -29,12 +29,13 @@ namespace Project {
 		bool move_to_object(ObjectPose object_pose, ObstacleAvoidance &obstacle_av,
 					      std::vector <Eigen::Vector2d> &obstacle_pos, float height);
 		bool move_linear(Eigen::VectorXd target, double time = 5.0);
+		
+		bool move_to_position_with_object(std::string modelName, Eigen::Vector3d target, double targetYaw, ObstacleAvoidance &obstacleAvoidance,
+							 std::vector <Eigen::Vector2d> &obstaclePositions, double time = 5.0);
+							 
+		bool trajectory_with_object(std::string model_name, Trajectory &trajectory);
 
-		bool attach(std::string modelName1, std::string linkName1, std::string modelName2, std::string linkName2);
-		bool detach(std::string modelName1, std::string linkName1, std::string modelName2, std::string linkName2);
-
-		bool grasp(std::string modelName, std::string linkName = "link");
-		bool release(std::string modelName, std::string linkName = "link");
+		
 
 	protected:
 
@@ -59,7 +60,6 @@ namespace Project {
 		ros::NodeHandle *node;
 
 		ros::Publisher pub_des_jstate;
-		ros::ServiceClient attach_srv, detach_srv;
 	};
 } // Robotics
 

@@ -13,10 +13,6 @@ namespace Project {
 			node.getParam("/real_robot", real_robot);
 			pub_des_jstate = node.advertise<std_msgs::Float64MultiArray>("/ur5/joint_group_pos_controller/command", 1);
 		} 
-		attach_srv = node.serviceClient<gazebo_ros_link_attacher::Attach>("/link_attacher_node/attach");
-		detach_srv = node.serviceClient<gazebo_ros_link_attacher::Attach>("/link_attacher_node/detach");
-		attach_srv.waitForExistence();
-		detach_srv.waitForExistence();
 	}
 
     //this publishing mechanism allows other ROS nodes to receive and use the desired state to control the UR5 robot.
@@ -31,7 +27,7 @@ namespace Project {
     //publish message on a specific topic, allowing other ROS nodes to receive and use the gripper state information
 	void UR5::send_gripper_state(const float n) {
 		std_msgs::Float64MultiArray jointState_msg_sim;
-        Eigen::VectorXd gripperStates = get_gripper_states();
+        	Eigen::VectorXd gripperStates = get_gripper_states();
 		Eigen::VectorXd jointStates;
 		if (gripperStates.size() == 2) {
 			jointStates = get_joint_states();
@@ -43,46 +39,10 @@ namespace Project {
 			pub_des_jstate.publish(jointState_msg_sim);
 		}
 	}
-
-    //attach two objects in Gazebo simulation 
-	bool UR5::attach(std::string modelName1, std::string linkName1, std::string modelName2, std::string linkName2) {
-		gazebo_ros_link_attacher::Attach attachReq;
-		attachReq.request.model_name_1 = modelName1;
-		attachReq.request.link_name_1 = linkName1;
-		attachReq.request.model_name_2 = modelName2;
-		attachReq.request.link_name_2 = linkName2;
-		return attach_srv.call(attachReq);
-	}
-
-    //detach two objects in Gazebo simulation
-	bool UR5::detach(std::string modelName1, std::string linkName1, std::string modelName2, std::string linkName2) {
-		gazebo_ros_link_attacher::Attach detachReq;
-		detachReq.request.model_name_1 = modelName1;
-		detachReq.request.link_name_1 = linkName1;
-		detachReq.request.model_name_2 = modelName2;
-		detachReq.request.link_name_2 = linkName2;
-		return detach_srv.call(detachReq);
-	}
-
-    //grasp an object in a Gazebo simulation
-	bool UR5::grasp(std::string modelName, std::string linkName) {
-		if (!attach("ur5", "wrist_3_link", modelName, linkName))
-			return false;
-		return detach("ur5", "base_link", modelName, linkName);
-	}
-
-    //release an object in a Gazebo simulation
-	bool UR5::release(std::string modelName, std::string linkName) {
-		if (!attach("ur5", "base_link", modelName, linkName))
-			return false;
-		return detach("ur5", "wrist_3_link", modelName, linkName);
-	}
-
-	Eigen::VectorXd
-
-    //generate the desired velocity for the robot to reach the desired position and orientation in a specified time step
-	UR5::get_vel(Eigen::Vector3d cur_position, Eigen::Vector3d desiredPosition, Eigen::Matrix3d currentRotation,
-				Eigen::Matrix3d desiredRotation, double timeStep) {
+	
+	//generate the desired velocity for the robot to reach the desired position and orientation in a specified time step
+	Eigen::VectorXd UR5::get_vel(Eigen::Vector3d cur_position, Eigen::Vector3d desiredPosition, Eigen::Matrix3d currentRotation,
+		Eigen::Matrix3d desiredRotation, double timeStep) {
 		Eigen::VectorXd vel(6);
 		Eigen::Vector3d linearError = desiredPosition - cur_position;
 		Eigen::Matrix3d relativeRotation = currentRotation.transpose() * desiredRotation;
@@ -228,12 +188,54 @@ namespace Project {
 
 				state << q, grip_states;
 				send_des_state(state);
+				
+				// add here the grasping simulation
 
 				ros::spinOnce();
 				loop_rate.sleep();
 			} while (!close_enough);
 		}
 		return true;
+	}
+	
+	bool UR5::move_to_position_with_object(std::string modelName, Eigen::Vector3d target, double targetYaw, ObstacleAvoidance &obstacleAvoidance, std::vector <Eigen::Vector2d> &obstaclePositions, double time = 5.0){
+		
+		
+		
+		
+	
+	
+	}
+							 
+	bool UR5::trajectory_with_object(std::string model_name, Trajectory &trajectory){
+			
+			
+			/*
+							client = node -> serviceClient<gazebo_msgs::SetModelState>("/gazebo/set_model_state");
+
+				gazebo_msgs::SetModelState modelstate;
+				modelstate.request.model_state.model_name = modelName;
+				modelstate.request.model_state.pose.position.x = - desiredPosition.x() + 1.000;			//add offsets here
+				modelstate.request.model_state.pose.position.y = - desiredPosition.y() + 0.800;
+				modelstate.request.model_state.pose.position.z = desiredPosition.z() + 0.86;
+
+				Eigen::Quaterniond tmp(desiredOrientation);
+
+				modelstate.request.model_state.pose.orientation.x = tmp.x();
+				modelstate.request.model_state.pose.orientation.y = tmp.y();
+				modelstate.request.model_state.pose.orientation.z = tmp.z();
+				modelstate.request.model_state.pose.orientation.w = tmp.w();
+				
+				
+				if(client.call(modelstate)){
+					ROS_INFO("Successfully moved the object %s \n", modelName.c_str());
+				} else{
+					ROS_ERROR("Object does not move \n");
+				}
+			*/
+	
+	
+	
 	}
 
     //get current joint positions of the robot 
