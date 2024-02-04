@@ -1,9 +1,8 @@
-#ifndef CPP_UR5_H
-#define CPP_UR5_H
+#ifndef __UR5_H__
+#define __UR5_H__
 
-#include <roboticsProject.h>
+#include <libraries.h>
 #include <structs.h>
-
 #include <iostream>
 
 namespace Project {
@@ -27,11 +26,11 @@ namespace Project {
 		// consider deleting move_to_position and move and follow_trajectory (without object) <-------
 
 		// bool move_to_position(Eigen::Vector3d target, double final_yaw, ObstacleAvoidance &obstacle,	std::vector <Eigen::Vector2d> &obstacle_poses, double time = 5.0);
-		bool move_to_object(ObjectPose object_pose, ObstacleAvoidance &obstacle_av,
+		bool move_to_object(ObjectPose object_pose, Obstacle &obstacle_av,
 					      std::vector <Eigen::Vector2d> &obstacle_pos, float height);
 		bool move_linear(Eigen::VectorXd target, double time = 5.0);
 		
-		bool UR5::move_to_position_with_object(std::string model_name, Eigen::Vector3d target, double final_yaw, ObstacleAvoidance &obstacle, std::vector <Eigen::Vector2d> &obstacle_poses, double time = 5.0)
+		bool UR5::move_to_position_with_object(std::string model_name, Eigen::Vector3d target, double final_yaw, Obstacle &obstacle, std::vector <Eigen::Vector2d> &obstacle_poses, double time = 5.0)
 							 
 		bool trajectory_with_object(std::string model_name, Trajectory &trajectory);
 
@@ -59,6 +58,6 @@ namespace Project {
 
 		ros::Publisher pub_des_jstate;
 	};
-} // Robotics
+}
 
-#endif //CPP_UR5_H
+#endif

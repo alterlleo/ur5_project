@@ -25,7 +25,7 @@ namespace Project {
 	}
 
     //publish message on a specific topic, allowing other ROS nodes to receive and use the gripper state information
-	void UR5::send_gripper_state(const float n) {
+	void UR5::send_gripper_state(const float n) {						
 		std_msgs::Float64MultiArray jointState_msg_sim;
         	Eigen::VectorXd gripperStates = get_gripper_states();
 		Eigen::VectorXd jointStates;
@@ -78,7 +78,7 @@ namespace Project {
 		return jointVelocities;
 	}
 
-    //compute the joint velocities necessary to achieve the desired end-effector velocity
+    //compute the joint velocities necessary to achieve the desired end-effector velocity	<--------------------------- consider deleting
 	Eigen::VectorXd UR5::follow_trajectorys(Eigen::MatrixXd jacobian, Eigen::VectorXd velocity) {
 		Eigen::VectorXd jointVelocities(6), ratios(6);
 		double min_r, max_r;
@@ -94,8 +94,7 @@ namespace Project {
 
     //move the robot from initial pose to the object pose, then the movement is "linear"
     
-	bool UR5::move_to_object(ObjectPose object_pose, ObstacleAvoidance &obstacle_av,
-					  std::vector <Eigen::Vector2d> &obstacle_pos, float height){
+	bool UR5::move_to_object(ObjectPose object_pose, Obstacle &obstacle_av, std::vector <Eigen::Vector2d> &obstacle_pos, float height){
         Eigen::VectorXd new_joint_states;
 		Eigen::VectorXd joint_states;
         Eigen::VectorXd target(6);
@@ -104,8 +103,15 @@ namespace Project {
 		bool res;
 
 		target << object_pose.x, object_pose.y, height + 0.05, 0.0, 0.0, object_pose.theta;
-		res = move_to_position(target.head(3), target[5], obstacle_av, obstacle_pos);
-		if (!res) return false;
+		// res = move_to_position(target.head(3), target[5], obstacle_av, obstacle_pos);
+
+		time_step = 0.001;
+		Move_trajectory = trajectory;
+		trajectory = Move_trajectory((get_position()).head(3), target.head(3), ((get_position())[5]), target[5], obstacle_av, obstacle_pos, time, time_step);
+		res = trajectory_without_object(trajectory);
+		if(!res){
+			return false;
+		}
 
 		joint_states = get_joint_states();
 
@@ -151,13 +157,13 @@ namespace Project {
 	bool UR5::move_linear(Eigen::VectorXd target, double time) {
 		Eigen::VectorXd cur_position = get_position();
 		LinearTrajectory trajectory = LinearTrajectory(cur_position, target, time, 0.001);
-		return follow_trajectory(trajectory);
+		return trajectory_without_object(trajectory);
 	}
 
     //follow a given trajectory
     
-    /*
-	bool UR5::follow_trajectory(Trajectory &trajectory) {
+    
+	bool UR5::trajectory_without_object(Trajectory &trajectory) {
 	
 		double time_step = trajectory.getTimeStep();
 		ros::Rate loop_rate(1.0 / (time_step * 1.0));
@@ -208,23 +214,23 @@ namespace Project {
 		return true;
 	}
 	
-	*/
+	
 	
 	// move the robot with the grasped object to the right position
 	
-	bool UR5::move_to_position_with_object(std::string model_name, Eigen::Vector3d target, double final_yaw, ObstacleAvoidance &obstacle, std::vector <Eigen::Vector2d> &obstacle_poses, double time = 5.0){
+	bool UR5::move_to_position_with_object(std::string model_name, Eigen::Vector3d target, double final_yaw, Obstacle &obstacle, std::vector <Eigen::Vector2d> &obstacle_poses, double time = 5.0){
 		
 		double timeStep = 0.001;
 		Eigen::VectorXd cur_position;
 		Eigen::Vector3d start;
 		double starting_yaw;
-		MoveObjectTrajectory trajectory;
+		Move_trajectory trajectory;
 
 		cur_position = get_position();
 		start = cur_position.head(3);
 		startYaw = cur_position[5];
 
-		trajectory = MoveObjectTrajectory(start, target, starting_yaw, final_yaw, obstacle, obstacle_poses,
+		trajectory = Move_trajectory(start, target, starting_yaw, final_yaw, obstacle, obstacle_poses,
 										  time, timeStep);
 		return follow_trajectory_with_object(model_name, trajectory);	
 	
