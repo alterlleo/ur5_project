@@ -18,6 +18,10 @@
 #include <UR5-project/output_vision.h>
 #include <UR5-project/spawn_object.h>
 
+#include "../src/motion-control/ur5/ur5.h"
+#include "../src/motion-control/trajectory/trajectory.h"
+#include "../src/motion-control/trajectory/move_trajectory.h"
+
 #include "ros/ros.h"
 
 // add utilities

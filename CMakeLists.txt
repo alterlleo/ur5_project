@@ -138,17 +138,16 @@ include_directories(
 # add_dependencies(${PROJECT_NAME} ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 file(GLOB project_SOURCES
-    "src/motion-control/ur5/*.cpp"
+    "src/motion-control/ur5/ur5.h"
+    "src/motion-control/ur5/ur5.cpp"
+    "src/motion-control/trajectory/trajectory.cpp"
+    "src/motion-control/trajectory/move_trajectory.cpp"
     
     "src/bezier/*.cpp"
     "src/checkpoint/*.cpp"
     "src/obstacle_avoidance/*.cpp"
     "src/spline/*.cpp"
-    "src/trajectory/trajectory.cpp"
-    "src/trajectory/move_object_trajectory.cpp"
     "src/trajectory/linear_trajectory.cpp"
-    "src/ur5/*.h"
-    "src/ur5/*.cpp"
     "src/utilities/*.cpp"
     "src/tasks/rotations.cpp"
     "src/vision_client/vision_client.cpp"
