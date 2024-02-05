@@ -5,7 +5,7 @@
 #include <gazebo_msgs/SetModelState.h>
 #include <gazebo_msgs/SpawnModel.h>
 #include <gazebo_msgs/DeleteModel.h>
-#include <sensor_msgs/HointState.h>
+#include <sensor_msgs/JointState.h>
 #include <std_msgs/Float64MultiArray.h>
 #include <geometry_msgs/Quaternion.h>
 #include <geometry_msgs/Point.h>
