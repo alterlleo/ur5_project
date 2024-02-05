@@ -54,14 +54,14 @@ catkin_python_setup()
 ## Generate messages in the 'msg' folder
  add_message_files(
     FILES
-    object.msg
-    object_array.msg
+    ObjectPose.msg
+    ObjectPoseArray.msg
 )
 
 ## Generate services in the 'srv' folder
  add_service_files(
     FILES
-    output_vision.srv
+    #output_vision.srv
     spawn_object.srv
 )
 
@@ -143,14 +143,10 @@ file(GLOB project_SOURCES
     "src/motion-control/trajectory/trajectory.cpp"
     "src/motion-control/trajectory/move_trajectory.cpp"
     
-    "src/bezier/*.cpp"
-    "src/checkpoint/*.cpp"
-    "src/obstacle_avoidance/*.cpp"
-    "src/spline/*.cpp"
-    "src/trajectory/linear_trajectory.cpp"
-    "src/utilities/*.cpp"
-    "src/tasks/rotations.cpp"
-    "src/vision_client/vision_client.cpp"
+    "src/motion-control/obstacles/obstacles.cpp"
+    "src/motion-control/obstacles/hill.cpp"
+    "src/motion-control/checkpoint/checkpoint.cpp"
+    "src/main/main.cpp"
 )
 
 ## Declare a C++ executable
@@ -158,7 +154,7 @@ file(GLOB project_SOURCES
 ## The recommended prefix ensures that target names across packages don't collide
 # add_executable(${PROJECT_NAME}_node src/UR5-project_node.cpp)
 
-add_executable(main src/main.cpp ${project_SOURCES})
+add_executable(main src/main/main.cpp ${project_SOURCES})
 #		add_executable(objects_server src/objects_server/objects_server.cpp ${project_SOURCES})
 add_executable(objects src/objects/objects.cpp ${project_SOURCES})
 ## Rename C++ executable without prefix
