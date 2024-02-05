@@ -18,17 +18,19 @@
 #include <chrono>
 #include <vector>
 
-
-#include "../src/motion-control/ur5/UR5.h"
+#include "../src/objects/objects.h"
+#include "../src/motion-control/utilities/utilities.h"
+#include "../src/motion-control/obstacle/hill.h"
+#include "../src/motion-control/obstacle/obstacle.h"
 #include "../src/motion-control/trajectory/trajectory.h"
 #include "../src/motion-control/trajectory/move_trajectory.h"
-#include "../src/motion-control/obstacle/obstacle.h"
-#include "../src/motion-control/obstacle/hill.h"
+#include "../src/motion-control/trajectory/move_linear.h"
 #include "../src/motion-control/checkpoint/checkpoint.h"
+#include "../src/motion-control/ur5/UR5.h"
 
-#include <UR5-project/ObjectPoseArray.h>
-//#include <UR5-project/output_vision.h>
-#include <UR5-project/spawn_object.h>
+#include <ur5_project/ObjectPoseArray.h>
+//#include <ur5_project/output_vision.h>
+#include <ur5_project/spawn_object.h>
 // add utilities
 
 

@@ -6,17 +6,17 @@ namespace Project{
         this -> dims = dims;
     }
 
-    void set_start(Eigen::Vector2d pos, double d, double height = 1.0){
+    void set_start(Eigen::Vector2d pos, double d, double height){
 
         start = Hill(pos, d, height);
 
     }
     
-    void set_target(Eigen::Vector2d pos, double d, double height = -1.0){
+    void set_target(Eigen::Vector2d pos, double d, double height){
         target = Hill(pos, d, height);
     }
     
-    void add_obstacle(Eigen::Vector2d pos, double d, double height = 1.0){
+    void add_obstacle(Eigen::Vector2d pos, double d, double height){
         obstacles.emplace_back(Hill(pos, d, height));
     }
 

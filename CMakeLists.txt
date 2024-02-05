@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.0.2)
-project(UR5-project)
+project(ur5_project)
 
 ## Compile as C++11, supported in ROS Kinetic and newer
 # add_compile_options(-std=c++11)
@@ -140,14 +140,17 @@ include_directories(
 # add_dependencies(${PROJECT_NAME} ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 file(GLOB project_SOURCES
-    "src/motion-control/ur5/ur5.h"
-    "src/motion-control/ur5/ur5.cpp"
+    "src/objects/*.h"
+    "src/objects/*.cpp"
+    "src/motion-control/utilities/*.cpp"
+    "src/motion-control/ur5/*.h"
+    "src/motion-control/ur5/*.cpp"
     "src/motion-control/trajectory/trajectory.cpp"
     "src/motion-control/trajectory/move_trajectory.cpp"
+    "src/motion-control/trajectory/move_linear.cpp"
     
-    "src/motion-control/obstacles/obstacles.cpp"
-    "src/motion-control/obstacles/hill.cpp"
-    "src/motion-control/checkpoint/checkpoint.cpp"
+    "src/motion-control/obstacles/*.cpp"
+    "src/motion-control/checkpoint/*cpp"
     #"src/main/main.cpp"
 )
 

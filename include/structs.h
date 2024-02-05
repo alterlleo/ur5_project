@@ -5,7 +5,7 @@ enum Block_name {X1_Y1_Z2, X1_Y2_Z1, X1_Y2_Z2, X1_Y2_Z2_CHAMFER, X1_Y2_Z2_TWINFI
 
 enum Face {BOTTOM, LEFT, RIGHT, FRONT, BACK, TOP};
 
-struct Pose_object{
+struct ObjectPose{
 	double x;
 	double y;
 	double z;

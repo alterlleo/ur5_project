@@ -79,7 +79,7 @@ namespace Project {
 	}
 
     //compute the joint velocities necessary to achieve the desired end-effector velocity	<--------------------------- consider deleting
-	Eigen::VectorXd UR5::follow_trajectorys(Eigen::MatrixXd jacobian, Eigen::VectorXd velocity) {
+/*	Eigen::VectorXd UR5::follow_trajectorys(Eigen::MatrixXd jacobian, Eigen::VectorXd velocity) {
 		Eigen::VectorXd jointVelocities(6), ratios(6);
 		double min_r, max_r;
 		jointVelocities = jacobian.inverse() * velocity;
@@ -91,6 +91,7 @@ namespace Project {
 		jointVelocities = jointVelocities / std::max(1.0, std::max(std::abs(min_r), std::abs(max_r)));
 		return jointVelocities;
 	}
+*/
 
     //move the robot from initial pose to the object pose, then the movement is "linear"
     
@@ -105,9 +106,8 @@ namespace Project {
 		target << object_pose.x, object_pose.y, height + 0.05, 0.0, 0.0, object_pose.theta;
 		// res = move_to_position(target.head(3), target[5], obstacle_av, obstacle_pos);
 
-		time_step = 0.001;
-		Move_trajectory = trajectory;
-		trajectory = Move_trajectory((get_position()).head(3), target.head(3), ((get_position())[5]), target[5], obstacle_av, obstacle_pos, time, time_step);
+		Move_trajectory trajectory;
+		trajectory = Move_trajectory((get_position()).head(3), target.head(3), ((get_position())[5]), target[5], obstacle_av, obstacle_pos, time, 0.001);
 		res = trajectory_without_object(trajectory);
 		if(!res){
 			return false;
@@ -126,7 +126,8 @@ namespace Project {
 		}
 		target << object_pose.x, object_pose.y, height, 0.0, 0.0, object_pose.theta;
 		res = move_linear(target, 1.0);
-		return res;
+		
+		return trajectory_without_object(trajectory);
 	}
 
     //move the robot from object to the final position 
@@ -156,7 +157,7 @@ namespace Project {
     //move the robot in a linear trajectory
 	bool UR5::move_linear(Eigen::VectorXd target, double time) {
 		Eigen::VectorXd cur_position = get_position();
-		LinearTrajectory trajectory = LinearTrajectory(cur_position, target, time, 0.001);
+		Move_linear trajectory = Move_linear(cur_position, target, time, 0.001);
 		return trajectory_without_object(trajectory);
 	}
 
@@ -165,7 +166,7 @@ namespace Project {
     
 	bool UR5::trajectory_without_object(Trajectory &trajectory) {
 	
-		double time_step = trajectory.getTimeStep();
+		double time_step = trajectory.get_time();
 		ros::Rate loop_rate(1.0 / (time_step * 1.0));
 		sensor_msgs::JointState joint_state;
 		sensor_msgs::JointStateConstPtr msg;
@@ -228,11 +229,11 @@ namespace Project {
 
 		cur_position = get_position();
 		start = cur_position.head(3);
-		startYaw = cur_position[5];
+		starting_yaw = cur_position[5];
 
 		trajectory = Move_trajectory(start, target, starting_yaw, final_yaw, obstacle, obstacle_poses,
 										  time, timeStep);
-		return follow_trajectory_with_object(model_name, trajectory);	
+		return trajectory_with_object(model_name, trajectory);	
 	
 	}
 	
@@ -240,7 +241,7 @@ namespace Project {
 							 
 	bool UR5::trajectory_with_object(std::string model_name, Trajectory &trajectory){
 		
-		double time_step = trajectory.getTimeStep();
+		double time_step = trajectory.get_time();
 			ros::Rate loop_rate(1.0 / (time_step * 1.0));
 			sensor_msgs::JointState joint_state;
 			sensor_msgs::JointStateConstPtr msg;
@@ -286,12 +287,12 @@ namespace Project {
 					client = node -> serviceClient<gazebo_msgs::SetModelState>("/gazebo/set_model_state");
 
 					gazebo_msgs::SetModelState modelstate;
-					modelstate.request.model_state.model_name = modelName;
-					modelstate.request.model_state.pose.position.x = - desiredPosition.x() + 1.000;
-					modelstate.request.model_state.pose.position.y = - desiredPosition.y() + 0.800;
-					modelstate.request.model_state.pose.position.z = desiredPosition.z() + 0.86;
+					modelstate.request.model_state.model_name = model_name;
+					modelstate.request.model_state.pose.position.x = - desired_pos.x() + 1.000;
+					modelstate.request.model_state.pose.position.y = - desired_pos.y() + 0.800;
+					modelstate.request.model_state.pose.position.z = desired_pos.z() + 0.86;
 
-					Eigen::Quaterniond tmp(desiredOrientation);
+					Eigen::Quaterniond tmp(desired_orientation);
 
 					modelstate.request.model_state.pose.orientation.x = tmp.x();
 					modelstate.request.model_state.pose.orientation.y = tmp.y();

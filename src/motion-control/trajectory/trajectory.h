@@ -7,6 +7,7 @@ namespace Project{
 
     class Trajectory{
         public:
+        	double get_time();
             double time_step;
             std::vector<Eigen::VectorXd> points;
     };

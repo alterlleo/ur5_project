@@ -1,4 +1,4 @@
-#include <libraries>
+#include <libraries.h>
 #include "structs.h"
 
 using namespace Project;
@@ -9,9 +9,10 @@ int main(int argc, char **argv){
     ros::NodeHandle node;
 
     UR5 ur5(node);
-    Eigen::VectoXd current_pos;
+    Eigen::VectorXd current_pos;
     Eigen::Vector3d start_pos;
     Eigen::Vector3d target_pos;
+
 
     double start_yaw = 0.0;
     double target_yaw = 0.0;
@@ -39,9 +40,20 @@ int main(int argc, char **argv){
    response = ur5.move_linear(joint_target, 1.0);
 
    target_pos << 0.0, 0.5, 0.45;
-   response = ur5.move_to_position(target_pos, 0.0, obstacle, obstacles_pos);
+
+    //move out of the vision area
+    trajectory = Move_trajectory((ur5.get_position()).head(3), target_pos.head(3), ((ur5.get_position())[5]), target_pos[5], obstacle, obstacles_pos, time, step);
+    bool res = ur5.trajectory_without_object(trajectory);
+    if(!res){
+        return false;
+    }
+
+
+   //response = ur5.move_to_position(target_pos, 0.0, obstacle, obstacles_pos);
 
    ur5.send_gripper_state(2.0);
+
+   enum Block_name name = X1_Y1_Z2;
 
    ObjectPose tmp;
     tmp.x = 0.9;

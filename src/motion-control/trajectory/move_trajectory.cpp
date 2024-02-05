@@ -4,10 +4,10 @@ namespace Project{
 
     Move_trajectory::Move_trajectory(){}
 
-    Move_trajectory::Move_trajectory(Eigen::Vector3d start_point, Eigen::Vector3d traget_point, double starting_yaw, double target_yaw, Project::Obstacle obstacle, std::vector<Eigen::Vector2d> obstacle_poses, double time, double time_step, double distance, double height){
+    Move_trajectory::Move_trajectory(Eigen::Vector3d start_point, Eigen::Vector3d target_point, double starting_yaw, double target_yaw, Project::Obstacle obstacle, std::vector<Eigen::Vector2d> obstacle_poses, double time, double time_step, double distance, double height){
         this -> time_step = time_step;
-        obstacle.set_start({start_point[0], start_point[1], 0.05});
-        obstacle.set_target({target_point[0], target_point[1], 0.05});
+        obstacle.set_start({start_point[0], start_point[1]}, 0.05);
+        obstacle.set_target({target_point[0], target_point[1]}, 0.05);
 
         for(auto obstacle_pos : obstacle_poses){
             obstacle.add_obstacle(obstacle_pos, 0.1);
@@ -39,7 +39,7 @@ namespace Project{
                 checkpoints.push_back({Eigen::Vector3d(horizontal_points[i][0], horizontal_points[i][1], height), Eigen::Vector3d((horizontal_points[i + 1][0] - horizontal_points[i - 1][0]) / 2.0, (horizontal_points[i + 1][1] - horizontal_points[i - 1][1]) / 2.0, 0.0)});
             }
 
-            checkpoints.push_back({Eigen::Vecto3d(horizontal_points.back()[0], horizontal_points.back()[1], height), Eigen::Vector3d((target_point[0] - horizontal_points[horizontal_points.size() - 2][0]) / 2.0, (target_point[1] - horizontal_points[horizontal_points.size() - 2][1]) / 2.0, 0.0)});
+            checkpoints.push_back({Eigen::Vector3d(horizontal_points.back()[0], horizontal_points.back()[1], height), Eigen::Vector3d((target_point[0] - horizontal_points[horizontal_points.size() - 2][0]) / 2.0, (target_point[1] - horizontal_points[horizontal_points.size() - 2][1]) / 2.0, 0.0)});
         }
 
         vertical_vel = final_heights[1] - final_heights[0];
@@ -90,7 +90,7 @@ Spline s(checkpoints);
             int d = (z - distance * 5.0 / 3.0) / distance;
             x = (height - starting_height) / (5.0 / 3.0 + d);
 
-            for(int i = 1; i <= n + 1; i++){
+            for(int i = 1; i <= d + 1; i++){
                 vertical_points.push_back(starting_height + x * i);
             }
         }
