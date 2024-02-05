@@ -30,7 +30,7 @@ namespace Project {
 					      std::vector <Eigen::Vector2d> &obstacle_pos, float height);
 		bool move_linear(Eigen::VectorXd target, double time = 5.0);
 		
-		bool UR5::move_to_position_with_object(std::string model_name, Eigen::Vector3d target, double final_yaw, Obstacle &obstacle, std::vector <Eigen::Vector2d> &obstacle_poses, double time = 5.0)
+		bool move_to_position_with_object(std::string model_name, Eigen::Vector3d target, double final_yaw, Obstacle &obstacle, std::vector <Eigen::Vector2d> &obstacle_poses, double time = 5.0)
 							 
 		bool trajectory_with_object(std::string model_name, Trajectory &trajectory);
 

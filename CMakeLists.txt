@@ -12,6 +12,7 @@ find_package(catkin REQUIRED COMPONENTS
   rospy
   std_msgs
   geometry_msgs
+  gazebo_msgs
   message_generation
   gazebo_ros
 )
@@ -76,6 +77,7 @@ catkin_python_setup()
  generate_messages(
     DEPENDENCIES
     std_msgs  # Or other packages containing msgs
+    gazebo_msgs
     geometry_msgs
 )
 
@@ -111,7 +113,7 @@ catkin_python_setup()
 catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES UR5-project
-    CATKIN_DEPENDS roscpp rospy std_msgs message_runtime
+    CATKIN_DEPENDS roscpp rospy std_msgs message_runtime gazebo_msgs
 #  DEPENDS system_lib
 )
 
@@ -146,7 +148,7 @@ file(GLOB project_SOURCES
     "src/motion-control/obstacles/obstacles.cpp"
     "src/motion-control/obstacles/hill.cpp"
     "src/motion-control/checkpoint/checkpoint.cpp"
-    "src/main/main.cpp"
+    #"src/main/main.cpp"
 )
 
 ## Declare a C++ executable
@@ -194,6 +196,8 @@ target_link_libraries(objects ${catkin_LIBRARIES})
 
 ## Mark executables for installation
 ## See http://docs.ros.org/melodic/api/catkin/html/howto/format1/building_executables.html
+install(TARGETS main RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})
+install(TARGETS objects RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})
 # install(TARGETS ${PROJECT_NAME}_node
 #   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 # )

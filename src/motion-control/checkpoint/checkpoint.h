@@ -1,7 +1,7 @@
 #ifndef __CHECKPOINT_H__
 #define __CHECKPOINT_H__
 
-#include <iostream;
+#include <iostream>
 #include "Eigen/Dense"
 
 namespace Project{
