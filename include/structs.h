@@ -12,7 +12,19 @@ struct ObjectPose{
 	double theta;
 	Face face;
 	Block_name name;
-	std::string gazeboName;
+	std::string gazebo_name;
+
+	public:
+		ObjectPose(){}
+		ObjectPose(double x, double y, double z, double theta, Face face, Block_name name, std::string gazebo_name){
+			this -> x = x;
+			this -> y = y;
+			this -> z = z;
+			this -> theta = theta;
+			this -> face = face;
+			this -> name = name;
+			this -> gazebo_name = gazebo_name;
+		}
 };
 
 #endif
