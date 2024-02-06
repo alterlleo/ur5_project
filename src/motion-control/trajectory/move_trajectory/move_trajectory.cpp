@@ -4,7 +4,7 @@ namespace Project{
 
     Move_trajectory::Move_trajectory(){}
 
-    Move_trajectory::Move_trajectory(Eigen::Vector3d start_point, Eigen::Vector3d target_point, double starting_yaw, double target_yaw, Project::Obstacle obstacle, std::vector<Eigen::Vector2d> obstacle_poses, double time, double time_step, double distance, double height){
+    Move_trajectory::Move_trajectory(Eigen::Vector3d start_point, Eigen::Vector3d target_point, double starting_yaw, double target_yaw, Obstacle obstacle, std::vector<Eigen::Vector2d> obstacle_poses, double time, double time_step, double distance, double height){
         this -> time_step = time_step;
         obstacle.set_start({start_point[0], start_point[1]}, 0.05);
         obstacle.set_target({target_point[0], target_point[1]}, 0.05);
@@ -122,7 +122,9 @@ Spline s(checkpoints);
         return horizontal_points;
     }
 
-
+    double Move_trajectory::get_time(){
+        return time_step;
+    }
 
 
 }

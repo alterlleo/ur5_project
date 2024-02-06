@@ -21,28 +21,41 @@ int main(int argc, char **argv){
 
     Eigen::Vector2d table_dims{1.000, 0.650};
     Eigen::Vector2d singularity{0.500, 0.450};
-    Obstacle obstacle{table_dims};
+    Obstacle obstacle(table_dims);
     obstacle.add_obstacle(singularity, 0.25);
+
+    /* inizialize objects */
     std::vector<Eigen::Vector2d> obstacles_pos;
-    Move_trajectory trajectory;
     bool response;
     std::vector<ObjectPose> objects;
+
+    /* define final positions for each block */
     std::vector<Eigen::Vector3d> targets_pos;
     targets_pos.reserve(11);
-    /*
-    aggiungi target finali per classe
     
-    */
+    target_pos[Block_name::X1_Y1_Z2] = {0.05, 0.1, 0.0};
+	target_pos[Block_name::X1_Y2_Z1] = {0.05, 0.2, 0.0};
+	target_pos[Block_name::X1_Y2_Z2] = {0.05, 0.31, 0.0};
+	target_pos[Block_name::X1_Y2_Z2_CHAMFER] = {0.05, 0.4, 0.0};
+	target_pos[Block_name::X1_Y2_Z2_TWINFILLET] = {0.05, 0.5, 0.0};
+	target_pos[Block_name::X1_Y3_Z2] = {0.18, 0.4, M_PI_2};
+	target_pos[Block_name::X1_Y3_Z2_FILLET] = {0.18, 0.1, M_PI_2};
+	target_pos[Block_name::X1_Y4_Z1] = {0.18, 0.3, M_PI_2};
+	target_pos[Block_name::X1_Y4_Z2] = {0.18, 0.5, M_PI_2};
+	target_pos[Block_name::X2_Y2_Z2] = {0.15, 0.2, 0.0};
+	target_pos[Block_name::X2_Y2_Z2_FILLET] = {0.25, 0.2, 0.0};
+
+    
 
    current_pos = ur5.get_position();
    Eigen::VectorXd joint_target(6);
    joint_target << current_pos.head(3), 0.0, 0.0, 0.0;
-   response = ur5.move_linear(joint_target, 1.0);
+   response = ur5.linear_motion(joint_target, 1.0);
 
    target_pos << 0.0, 0.5, 0.45;
 
     //move out of the vision area
-    trajectory = Move_trajectory((ur5.get_position()).head(3), target_pos.head(3), ((ur5.get_position())[5]), target_pos[5], obstacle, obstacles_pos, time, step);
+    Move_trajectory trajectory = Move_trajectory((ur5.get_position()).head(3), target_pos.head(3), ((ur5.get_position())[5]), target_pos[5], obstacle, obstacles_pos, time, step);
     bool res = ur5.trajectory_without_object(trajectory);
     if(!res){
         return false;
@@ -80,7 +93,7 @@ int main(int argc, char **argv){
    // move up
    current_pos = ur5.get_position();
    joint_target << current_pos.head(2), 0.35, 0.0, 0.0, 0.0;
-   response = ur5.move_linear(joint_target, 3.0);
+   response = ur5.linear_motion(joint_target, 3.0);
 
    return 0;   
 }

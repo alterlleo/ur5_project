@@ -2,7 +2,8 @@
 #define __OBSTACLE_H__
 
 #include <vector>
-#include <libraries.h>
+#include <Eigen/Dense>
+#include "../hill/hill.h"
 
 namespace Project{
 

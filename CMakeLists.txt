@@ -26,7 +26,7 @@ find_package(Eigen3 3.3 REQUIRED)
 ## Uncomment this if the package has a setup.py. This macro ensures
 ## modules and global scripts declared therein get installed
 ## See http://ros.org/doc/api/catkin/html/user_guide/setup_dot_py.html
-catkin_python_setup()
+#   catkin_python_setup()
 
 ################################################
 ## Declare ROS messages, services and actions ##
@@ -63,7 +63,7 @@ catkin_python_setup()
  add_service_files(
     FILES
     #output_vision.srv
-    spawn_object.srv
+    SpawnObject.srv
 )
 
 ## Generate actions in the 'action' folder
@@ -77,8 +77,8 @@ catkin_python_setup()
  generate_messages(
     DEPENDENCIES
     std_msgs  # Or other packages containing msgs
-    gazebo_msgs
     geometry_msgs
+    gazebo_msgs
 )
 
 ################################################
@@ -140,28 +140,31 @@ include_directories(
 # add_dependencies(${PROJECT_NAME} ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 file(GLOB project_SOURCES
-    "src/objects/*.h"
-    "src/objects/*.cpp"
-    "src/motion-control/utilities/*.cpp"
+    #"src/motion-control/checkpoint/*.h"
+    "src/motion-control/checkpoint/*.cpp"
+    #"src/motion-control/obstacles/hill.h"
+    "src/motion-control/obstacles/hill.cpp"
+    #"src/motion-control/obstacles/obstacle.h"
+    "src/motion-control/obstacles/obstacle.cpp"
+    #"src/motion-control/trajectory/move_linear/*.h"
+    "src/motion-control/trajectory/move_linear/*.cpp"
+    #"src/motion-control/trajectory/move_trajectory/*.h"
+    "src/motion-control/trajectory/move_trajectory/*.cpp"
     "src/motion-control/ur5/*.h"
     "src/motion-control/ur5/*.cpp"
-    "src/motion-control/trajectory/trajectory.cpp"
-    "src/motion-control/trajectory/move_trajectory.cpp"
-    "src/motion-control/trajectory/move_linear.cpp"
-    
-    "src/motion-control/obstacles/*.cpp"
-    "src/motion-control/checkpoint/*cpp"
-    #"src/main/main.cpp"
+    #"src/motion-control/utilities/*.h"
+    "src/motion-control/utilities/*.cpp"
 )
+
 
 ## Declare a C++ executable
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
 # add_executable(${PROJECT_NAME}_node src/UR5-project_node.cpp)
 
-add_executable(main src/main/main.cpp ${project_SOURCES})
+add_executable(project src/main.cpp ${project_SOURCES})
 #		add_executable(objects_server src/objects_server/objects_server.cpp ${project_SOURCES})
-add_executable(objects src/objects/objects.cpp ${project_SOURCES})
+add_executable(spawning src/objects/objects.cpp ${project_SOURCES})
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
 ## target back to the shorter version for ease of user use
@@ -172,16 +175,16 @@ add_executable(objects src/objects/objects.cpp ${project_SOURCES})
 ## same as for the library above
 # add_dependencies(${PROJECT_NAME}_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
-add_dependencies(main ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+add_dependencies(project ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 ## Specify libraries to link a library or executable target against
 # target_link_libraries(${PROJECT_NAME}_node
 #   ${catkin_LIBRARIES}
 # )
 
-target_link_libraries(main ${catkin_LIBRARIES})
 #		target_link_libraries(objects_server ${catkin_LIBRARIES})
-target_link_libraries(objects ${catkin_LIBRARIES})
+target_link_libraries(spawning ${catkin_LIBRARIES})
+target_link_libraries(project ${catkin_LIBRARIES})
 
 #############
 ## Install ##
@@ -199,8 +202,9 @@ target_link_libraries(objects ${catkin_LIBRARIES})
 
 ## Mark executables for installation
 ## See http://docs.ros.org/melodic/api/catkin/html/howto/format1/building_executables.html
-install(TARGETS main RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})
-install(TARGETS objects RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})
+install(TARGETS spawning RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})
+install(TARGETS project RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})
+
 # install(TARGETS ${PROJECT_NAME}_node
 #   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 # )

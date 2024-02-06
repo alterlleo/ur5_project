@@ -106,8 +106,7 @@ namespace Project {
 		target << object_pose.x, object_pose.y, height + 0.05, 0.0, 0.0, object_pose.theta;
 		// res = move_to_position(target.head(3), target[5], obstacle_av, obstacle_pos);
 
-		Move_trajectory trajectory;
-		trajectory = Move_trajectory((get_position()).head(3), target.head(3), ((get_position())[5]), target[5], obstacle_av, obstacle_pos, time, 0.001);
+		Move_trajectory trajectory = Move_trajectory((get_position()).head(3), target.head(3), ((get_position())[5]), target[5], obstacle_av, obstacle_pos, 5.0, 0.001);
 		res = trajectory_without_object(trajectory);
 		if(!res){
 			return false;
@@ -121,13 +120,16 @@ namespace Project {
 			new_joint_states << get_joint_states().head(5), 0.0, gripper_states;
 			send_des_state(new_joint_states);
 			sleep(2);
-			res = move_linear(target, 1.0);
+
+			res = linear_motion(target, 1.0);
 		} else {
 		}
 		target << object_pose.x, object_pose.y, height, 0.0, 0.0, object_pose.theta;
-		res = move_linear(target, 1.0);
+
+		res = linear_motion(target, 1.0);
 		
-		return trajectory_without_object(trajectory);
+		//return trajectory_without_object(trajectory);
+		return res;
 	}
 
     //move the robot from object to the final position 
@@ -155,7 +157,7 @@ namespace Project {
 	
 
     //move the robot in a linear trajectory
-	bool UR5::move_linear(Eigen::VectorXd target, double time) {
+	bool UR5::linear_motion(Eigen::VectorXd target, double time) {
 		Eigen::VectorXd cur_position = get_position();
 		Move_linear trajectory = Move_linear(cur_position, target, time, 0.001);
 		return trajectory_without_object(trajectory);
@@ -164,7 +166,58 @@ namespace Project {
     //follow a given trajectory
     
     
-	bool UR5::trajectory_without_object(Trajectory &trajectory) {
+	bool UR5::trajectory_without_object(Move_linear &trajectory) {
+	
+		double time_step = trajectory.get_time();
+		ros::Rate loop_rate(1.0 / (time_step * 1.0));
+		sensor_msgs::JointState joint_state;
+		sensor_msgs::JointStateConstPtr msg;
+		Eigen::Vector3d cur_position, new_position;
+		Eigen::VectorXd q(6), new_q(6), vel(6), newVel(6), joint_vel_norm(6), grip_states, state;
+		Eigen::Matrix4d dir, new_dir;
+		Eigen::Matrix3d cur_orientation, new_orientation;
+		bool close_enough;
+
+		grip_states = get_gripper_states();
+		state.resize(grip_states.size() + 6);
+
+		q = get_joint_states();
+
+		for (auto desired: trajectory.points) {
+			Eigen::Vector3d desired_pos = desired.head(3);
+			Eigen::Matrix3d desired_orientation = rpy2rotm(desired[3], desired[4], desired[5]);
+			do {
+				dir = direct(q);
+				cur_orientation = Eigen::Matrix3d(dir.block(0, 0, 3, 3));
+				cur_position << dir(0, 3), dir(1, 3), dir(2, 3);
+
+				vel = get_vel(cur_position, desired_pos, cur_orientation, desired_orientation, time_step);
+
+				joint_vel_norm = get_joint_velocities(jacobian(q), vel);
+				new_q = q + joint_vel_norm * time_step;
+
+				new_dir = direct(new_q);
+				new_orientation = Eigen::Matrix3d(new_dir.block(0, 0, 3, 3));
+				new_position << new_dir(0, 3), new_dir(1, 3), new_dir(2, 3);
+
+				newVel = get_vel(new_position, desired_pos, new_orientation, desired_orientation, time_step);
+				close_enough = newVel.norm() * time_step < 0.002;
+
+				q = new_q;
+
+				state << q, grip_states;
+				send_des_state(state);
+				
+				// add here the grasping simulation
+
+				ros::spinOnce();
+				loop_rate.sleep();
+			} while (!close_enough);
+		}
+		return true;
+	}
+	
+	bool UR5::trajectory_without_object(Move_trajectory &trajectory) {
 	
 		double time_step = trajectory.get_time();
 		ros::Rate loop_rate(1.0 / (time_step * 1.0));
@@ -219,7 +272,7 @@ namespace Project {
 	
 	// move the robot with the grasped object to the right position
 	
-	bool UR5::move_to_position_with_object(std::string model_name, Eigen::Vector3d target, double final_yaw, Obstacle &obstacle, std::vector <Eigen::Vector2d> &obstacle_poses, double time = 5.0){
+	bool UR5::move_to_position_with_object(std::string model_name, Eigen::Vector3d target, double final_yaw, Obstacle &obstacle, std::vector <Eigen::Vector2d> &obstacle_poses, double time){
 		
 		double timeStep = 0.001;
 		Eigen::VectorXd cur_position;
@@ -239,7 +292,7 @@ namespace Project {
 	
 	// use the same trajectory for both the robot and for the object
 							 
-	bool UR5::trajectory_with_object(std::string model_name, Trajectory &trajectory){
+	bool UR5::trajectory_with_object(std::string model_name, Move_trajectory &trajectory){
 		
 		double time_step = trajectory.get_time();
 			ros::Rate loop_rate(1.0 / (time_step * 1.0));
@@ -301,7 +354,84 @@ namespace Project {
 					
 					
 					if(client.call(modelstate)){
-						ROS_INFO("Successfully moved the object %s \n", modelName.c_str());
+						ROS_INFO("Successfully moved the object %s \n", model_name.c_str());
+					} else{
+						ROS_ERROR("Object does not move \n");
+					}
+
+					//ros spin me round
+					
+					ros::spinOnce();
+					loop_rate.sleep();
+				} while (!close_enough);
+			}
+			return true;
+	
+	}
+	
+	bool UR5::trajectory_with_object(std::string model_name, Move_linear &trajectory){
+		
+		double time_step = trajectory.get_time();
+			ros::Rate loop_rate(1.0 / (time_step * 1.0));
+			sensor_msgs::JointState joint_state;
+			sensor_msgs::JointStateConstPtr msg;
+			Eigen::Vector3d cur_position, new_position;
+			Eigen::VectorXd q(6), new_q(6), vel(6), newVel(6), joint_vel_norm(6), grip_states, state;
+			Eigen::Matrix4d dir, new_dir;
+			Eigen::Matrix3d cur_orientation, new_orientation;
+			bool close_enough;
+
+			grip_states = get_gripper_states();
+			state.resize(grip_states.size() + 6);
+
+			q = get_joint_states();
+
+			for (auto desired: trajectory.points) {
+				Eigen::Vector3d desired_pos = desired.head(3);
+				Eigen::Matrix3d desired_orientation = rpy2rotm(desired[3], desired[4], desired[5]);
+				do {
+					dir = direct(q);
+					cur_orientation = Eigen::Matrix3d(dir.block(0, 0, 3, 3));
+					cur_position << dir(0, 3), dir(1, 3), dir(2, 3);
+
+					vel = get_vel(cur_position, desired_pos, cur_orientation, desired_orientation, time_step);
+
+					joint_vel_norm = get_joint_velocities(jacobian(q), vel);
+					new_q = q + joint_vel_norm * time_step;
+
+					new_dir = direct(new_q);
+					new_orientation = Eigen::Matrix3d(new_dir.block(0, 0, 3, 3));
+					new_position << new_dir(0, 3), new_dir(1, 3), new_dir(2, 3);
+
+					newVel = get_vel(new_position, desired_pos, new_orientation, desired_orientation, time_step);
+					close_enough = newVel.norm() * time_step < 0.002;
+
+					q = new_q;
+
+					state << q, grip_states;
+					send_des_state(state);
+					
+								
+					// moving also the object by the same trajectory
+					
+					client = node -> serviceClient<gazebo_msgs::SetModelState>("/gazebo/set_model_state");
+
+					gazebo_msgs::SetModelState modelstate;
+					modelstate.request.model_state.model_name = model_name;
+					modelstate.request.model_state.pose.position.x = - desired_pos.x() + 1.000;
+					modelstate.request.model_state.pose.position.y = - desired_pos.y() + 0.800;
+					modelstate.request.model_state.pose.position.z = desired_pos.z() + 0.86;
+
+					Eigen::Quaterniond tmp(desired_orientation);
+
+					modelstate.request.model_state.pose.orientation.x = tmp.x();
+					modelstate.request.model_state.pose.orientation.y = tmp.y();
+					modelstate.request.model_state.pose.orientation.z = tmp.z();
+					modelstate.request.model_state.pose.orientation.w = tmp.w();
+					
+					
+					if(client.call(modelstate)){
+						ROS_INFO("Successfully moved the object %s \n", model_name.c_str());
 					} else{
 						ROS_ERROR("Object does not move \n");
 					}

@@ -15,4 +15,8 @@ namespace Project{
        points.push_back(starting_pos);
        points.push_back(target_pos);
     }
+    
+    double Move_linear::get_time(){
+        return time_step;
+    }
 }
