@@ -62,7 +62,7 @@ namespace Project{
             Eigen::Vector3d a3 = (-2 * ps + ts*ps_vel - p0_vel * ts + 2 * p0_vel * ts + 2 * p0) / (ts * ts * ts);
             Eigen::Vector3d a2 = (ps_vel - 3 * a3 * ts * ts - p0_vel) / (2 * ts);
 
-            for(double t = 0; t < 2.0; t = t + 0.1){
+            for(double t = 0; t < 2.0; t = t + 0.01){
                 Eigen::VectorXd point(6);
 
                 //cubic polinomial
