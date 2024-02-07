@@ -123,8 +123,8 @@ catkin_package(
 
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
+include_directories(include)
 include_directories(
-    include
     ${catkin_INCLUDE_DIRS}
     ${EIGEN3_INCLUDE_DIR}
 )
@@ -143,7 +143,7 @@ file(GLOB project_SOURCES
     #"src/motion-control/checkpoint/*.h"
     "src/motion-control/checkpoint/*.cpp"
     #"src/motion-control/obstacles/hill.h"
-    "src/motion-control/obstacles/hill.cpp"
+    "src/motion-control/obstacles/hill.cpp"    
     #"src/motion-control/obstacles/obstacle.h"
     "src/motion-control/obstacles/obstacle.cpp"
     #"src/motion-control/trajectory/move_linear/*.h"

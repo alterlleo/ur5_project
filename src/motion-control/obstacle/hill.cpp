@@ -1,4 +1,4 @@
-#include "hill.h"
+#include <hill.h>
 
 namespace Project{
     Hill::Hill(){

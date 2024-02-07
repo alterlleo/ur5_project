@@ -1,3 +1,5 @@
+#include <hill.h>
+#include <obstack.h>
 #include <libraries.h>
 #include <structs.h>
 

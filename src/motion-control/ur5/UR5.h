@@ -1,6 +1,9 @@
 #ifndef __UR5_H__
 #define __UR5_H__
 
+#include <hill.h>
+#include <obstacle.h>
+
 #include <libraries.h>
 #include <structs.h>
 #include <iostream>

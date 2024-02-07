@@ -5,8 +5,12 @@
 #include "ros/ros.h"
 
 #include "../src/motion-control/checkpoint/checkpoint.h"
-#include "../src/motion-control/obstacle/hill.h"
-#include "../src/motion-control/obstacle/obstacle.h"
+
+//#include <hill.h>
+//#include <obstacle.h>
+
+//#include "../src/motion-control/obstacle/hill.h"
+//#include "../src/motion-control/obstacle/obstacle.h"
 #include "../src/motion-control/trajectory/move_trajectory/move_trajectory.h"
 #include "../src/motion-control/trajectory/move_linear/move_linear.h"
 #include "../src/motion-control/ur5/UR5.h"
