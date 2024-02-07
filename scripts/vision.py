@@ -106,7 +106,7 @@ if __name__ == "__main__":
     rospy.init_node('vision_server')
 
     bridge = CvBridge()
-    model = YOLO('/home/alessandro/Downloads/dataset_alberto/scripts/runs/detect/yolov8n_custom5/weights/best.pt', "v8")
+    model = YOLO('/home/leo/best.pt', "v8")
 
     rgb_subscriber = rospy.Subscriber('/ur5/zed_node/left_raw/image_raw_color', Image, rgb_callback, queue_size=1)
     pc_subscriber = rospy.Subscriber('/ur5/zed_node/point_cloud/cloud_registered', PointCloud2, pc_callback, queue_size=1)

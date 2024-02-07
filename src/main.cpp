@@ -67,8 +67,7 @@ int main(int argc, char **argv){
    ObjectPose tmp;
    tmp = ObjectPose(0.9, 0.3, 0.0, 0.0, TOP, X1_Y1_Z2, "X1-Y1-Z2");
 
-    ObjectPose objects;
-
+/*
     x1y1z2 = ObjectPose(0.9, 0.3, 0.0, 0.0, TOP, X1_Y1_Z2, "X1-Y1-Z2");
     x1y2z1 = ObjectPose(0.9, 0.5, 0.0, 0.0, TOP, X1_Y2_Z1, "X1-Y2-Z1");
     x1y2z2 = ObjectPose(0.8, 0.2, 0.0, 0.0, TOP, X1_Y2_Z2, "X1-Y2-Z2");
@@ -80,8 +79,8 @@ int main(int argc, char **argv){
     x1y4z2 = ObjectPose(0.7, 0.2, 0.0, 0.0, TOP, X1_Y4_Z2, "X1-Y4-Z2");
     x2y2z2 = ObjectPose(0.5, 0.2, 0.0, 0.0, TOP, X2_Y2_Z2, "X2-Y2-Z2");
     x2y2z2fillet = ObjectPose(0.8, 0.7, 0.0, 0.0, TOP, X2_Y2_Z2_FILLET, "X2-Y2-Z2-FILLET");
+ */   
     
-    /*
     tmp.x = 0.9;
 	tmp.y = 0.3;
 	tmp.z = 0.0;
@@ -89,7 +88,7 @@ int main(int argc, char **argv){
 	tmp.face = TOP;
 	tmp.name = X1_Y1_Z2;
 	tmp.gazebo_name = "X1-Y1-Z2";
-    */
+    
 
    float height = 0.05;
    float clamp = 1.0;

@@ -26,7 +26,7 @@ namespace Project {
         Eigen::Vector2d target_gradient = target.gradient(pos);
         Eigen::Vector2d obstacles_gradient(0.0, 0.0);
 
-        for (auto& obs : obstacles) { // Corrected: Use auto& to access by reference
+        for (auto obs : obstacles) { // Corrected: Use auto& to access by reference
             obstacles_gradient += obs.gradient(pos); // Corrected: Use obs.gradient(pos) instead of obstacles.gradient(pos)
         }
 

@@ -5,6 +5,7 @@
 #include <Eigen/Dense>
 #include "../../utilities/utilities.h"
 #include "../../obstacle/obstacle/obstacle.h"
+#include "../../checkpoint/checkpoint.h"
 
 namespace Project{
 

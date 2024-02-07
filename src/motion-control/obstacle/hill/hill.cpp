@@ -1,6 +1,6 @@
 #include "hill.h"
 
-namespace Project {
+namespace Project{
     Hill::Hill(){
         this -> Hill({0.0, 0.0}, 1.0, 1.0)
     }

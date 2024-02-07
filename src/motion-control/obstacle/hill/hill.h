@@ -7,14 +7,16 @@ namespace Project{
 
     class Hill{
         public:
-            Eigen::Vector2d pos;
-            double d;
-            double height;
 
             Hill();
             Hill(Eigen::Vector2d pos, double d, double height);
             Eigen::Vector2d gradient(Eigen::Vector2d pos);
             Eigen::Vector2d get_pos();
+
+        private:
+            Eigen::Vector2d pos;
+            double d;
+            double height;
     };
 }
 

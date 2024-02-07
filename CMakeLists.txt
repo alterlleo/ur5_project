@@ -62,7 +62,7 @@ find_package(Eigen3 3.3 REQUIRED)
 ## Generate services in the 'srv' folder
  add_service_files(
     FILES
-    #output_vision.srv
+    VisionResults.srv
     SpawnObject.srv
 )
 
@@ -195,10 +195,10 @@ target_link_libraries(project ${catkin_LIBRARIES})
 
 ## Mark executable scripts (Python etc.) for installation
 ## in contrast to setup.py, you can choose the destination
-# catkin_install_python(PROGRAMS
-#   scripts/my_python_script
-#   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
-# )
+ catkin_install_python(PROGRAMS
+   scripts/vision.py
+   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+ )
 
 ## Mark executables for installation
 ## See http://docs.ros.org/melodic/api/catkin/html/howto/format1/building_executables.html
