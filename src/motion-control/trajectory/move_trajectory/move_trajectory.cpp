@@ -48,7 +48,36 @@ namespace Project{
             checkpoints.push_back({Eigen::Vector3d(target_point[0], target_point[1], z), Eigen::Vector3d(0.0, 0.0, vertical_vel)});
         }
 
+        for(int i = 0; i < checkpoints.size() - 1; i++){
+            Eigen::Vector3d p0 = checkpoints[i].pos;
+            Eigen::Vector3d ps = checkpoints[i + 1].pos;
+            Eigen::Vector3d p0_vel = checkpoints[i].vel;
+            Eigen::Vector3d ps_vel = checkpoints[i + 1].vel;
+            double t0 = 0.0;
+            double ts = 2.0;
+
+            // parameters definition
+            Eigen::Vector3d a0 = p0;
+            Eigen::Vector3d a1 = p0_vel;
+            Eigen::Vector3d a3 = (-2 * ps + ts*ps_vel - p0_vel * ts + 2 * p0_vel * ts + 2 * p0) / (ts * ts * ts);
+            Eigen::Vector3d a2 = (ps_vel - 3 * a3 * ts * ts - p0_vel) / (2 * ts);
+
+            for(double t = 0; t < 2.0; t = t + 0.1){
+                Eigen::VectorXd point(6);
+
+                //cubic polinomial
+                Eigen::Vector3d new_pos = a0 + a1 * t + a2 * t * t + a3 * t * t * t;
+
+                point << new_pos[0], new_pos[1], new_pos[2], 0.0, 0.0, 0.0;
+                points.push_back(point);
+            }
+
+        }
+        
         /*
+
+    
+
 Spline s(checkpoints);
 
         int nPoints = 1 + time / timeStep;
