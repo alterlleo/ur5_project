@@ -154,6 +154,7 @@ file(GLOB project_SOURCES
     "src/motion-control/ur5/*.cpp"
     #"src/motion-control/utilities/*.h"
     "src/motion-control/utilities/*.cpp"
+    "src/vision/vision.cpp"
 )
 
 

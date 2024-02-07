@@ -15,6 +15,7 @@
 #include "../src/motion-control/trajectory/move_linear/move_linear.h"
 #include "../src/motion-control/ur5/UR5.h"
 #include "../src/motion-control/utilities/utilities.h"
+#include "../src/vision/vision.h"
 
 #include <gazebo_msgs/ModelStates.h>
 #include <gazebo_msgs/SetModelState.h>
