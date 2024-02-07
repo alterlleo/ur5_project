@@ -116,6 +116,11 @@ def yaw_from_rotation_matrix(rot_matrix):
     return yaw_deg
 
 
+# service handler, it sends the ObjectPoseArray
+def handler(req):
+    res.ObjectPoseArray()
+
+
 #if main
 if __name__ == "__main__":
     print("Starting... ", end="")
@@ -130,7 +135,7 @@ if __name__ == "__main__":
     rgb_subscriber = rospy.Subscriber('/ur5/zed_node/left_raw/image_raw_color', Image, rgb_callback, queue_size=1)
     pc_subscriber = rospy.Subscriber('/ur5/zed_node/point_cloud/cloud_registered', PointCloud2, pc_callback, queue_size=1)
     #VisionResults = service on which we write an object 
-    s = rospy.Service('vision', VisionResults, handle_detection)
+    s = rospy.Service('vision', VisionResults, handler)
     print("Ready.")
     rospy.spin()
 
