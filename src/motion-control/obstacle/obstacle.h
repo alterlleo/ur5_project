@@ -3,7 +3,7 @@
 
 #include <vector>
 #include <Eigen/Dense>
-#include "../hill/hill.h"
+#include "hill.h"
 
 namespace Project{
 

@@ -57,8 +57,8 @@ def pc_callback(data):
         rotation_matrix = compute_rotation(obj["point_cloud"])
 
          # save the yaw in "rotations" field of models
-         rotations.append(yaw_from_rotation_matrix(rotation_matrix))
-         positions.append(center)
+        rotations.append(yaw_from_rotation_matrix(rotation_matrix))
+        positions.append(center)
 
 
 

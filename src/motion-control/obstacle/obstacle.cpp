@@ -1,5 +1,5 @@
 #include "obstacle.h"
-#include "../hill/hill.h"
+#include "hill.h"
 
 namespace Project {
 

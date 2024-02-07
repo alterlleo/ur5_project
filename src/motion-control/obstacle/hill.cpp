@@ -13,7 +13,7 @@ namespace Project{
 
     Eigen::Vector2d Hill::gradient(Eigen::Vector2d pos) {
         if ((pos - this->pos).isMuchSmallerThan(0.001)) {
-            return Eigen::Vector2d(0.0, 0.0);
+            return {0.0, 0.0};
         }
 
         double r = (pos - this->pos).norm();

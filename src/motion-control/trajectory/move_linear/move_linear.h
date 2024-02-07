@@ -4,7 +4,7 @@
 #include <vector>
 #include <Eigen/Dense>
 #include "../../utilities/utilities.h"
-#include "../../obstacle/obstacle/obstacle.h"
+#include "../../obstacle/obstacle.h"
 
 namespace Project{
 
