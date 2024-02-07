@@ -3,6 +3,7 @@ import numpy as np
 import sys
 import os
 import copy
+import cv2
 import open3d as o3d
 from time import time
 
@@ -13,6 +14,8 @@ from ur5_project.msg import ObjectPose, ObjectPoseArray
 from sensor_msgs.msg import Image, PointCloud2
 from ur5_project.srv import VisionResults, VisionResultsResponse
 
+model = YOLO('/home/leo/best.pt', "v8")
+
 #pcd = overall point cloud scene
 #from pcd is possible to find every objects point cluod (pcds)
 
@@ -20,6 +23,18 @@ from ur5_project.srv import VisionResults, VisionResultsResponse
 def rgb_callback(d):
     global rgb_message
     rgb_message = d
+
+    #convert the ros image to opencv image
+    cv_image = CvBridge().imgmsg_to_cv2(rgb_message, desired_encoding = "bgr8")
+    #detection with yolo
+    detections = model.detect_objects(cv_image)
+
+    for detection in detections:
+        label = detection['label']
+        confidence = detection['confidence']
+
+        # add label to labels array
+        labels.append(label)
 
 #callback fo point cloud
 def pc_callback(data):
@@ -40,6 +55,11 @@ def pc_callback(data):
         print("Center: ", center)
         
         rotation_matrix = compute_rotation(obj["point_cloud"])
+
+         # save the yaw in "rotations" field of models
+         rotations.append(yaw_from_rotation_matrix(rotation_matrix))
+         positions.append(center)
+
 
 
 #calculate rotation using eigenvalues and eigenvectors
@@ -101,12 +121,11 @@ if __name__ == "__main__":
     print("Starting... ", end="")
     sys.stdout.flush()
 
-    global model, rgb_subscriber, bridge, measures_matrix, models
+    global model, rgb_subscriber, models, labels, positions, rotations, bridge#, measures_matrix, models
 
     rospy.init_node('vision_server')
 
-    bridge = CvBridge()
-    model = YOLO('/home/leo/best.pt', "v8")
+   # bridge = CvBridge()
 
     rgb_subscriber = rospy.Subscriber('/ur5/zed_node/left_raw/image_raw_color', Image, rgb_callback, queue_size=1)
     pc_subscriber = rospy.Subscriber('/ur5/zed_node/point_cloud/cloud_registered', PointCloud2, pc_callback, queue_size=1)
