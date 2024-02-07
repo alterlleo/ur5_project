@@ -118,7 +118,22 @@ def yaw_from_rotation_matrix(rot_matrix):
 
 # service handler, it sends the ObjectPoseArray
 def handler(req):
-    res.ObjectPoseArray()
+    res = ObjectPoseArray()
+    poses = []
+
+    # let's iterate position, rotation and label
+    for label, position, rotation in zip(labels, positions, rotations):
+        object = ObjectPose()
+        object.name = label
+        object.pose.x = position[0]
+        object.pose.y = position[1]
+        object.pose.theta = rotation
+        object.face = 0
+
+        poses.append(object)
+    
+    res.poses = poses
+    return res
 
 
 #if main
@@ -126,7 +141,7 @@ if __name__ == "__main__":
     print("Starting... ", end="")
     sys.stdout.flush()
 
-    global model, rgb_subscriber, models, labels, positions, rotations, bridge#, measures_matrix, models
+    global rgb_subscriber, models, labels, positions, rotations, bridge#, measures_matrix, models
 
     rospy.init_node('vision_server')
 
