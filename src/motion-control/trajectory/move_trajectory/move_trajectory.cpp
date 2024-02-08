@@ -1,11 +1,13 @@
 #include "move_trajectory.h"
+//#include "../../Stay_away_from/Stay_away_from.h"
+
 #include "../../checkpoint/checkpoint.h"
 
 namespace Project{
 
     Move_trajectory::Move_trajectory(){}
 
-    Move_trajectory::Move_trajectory(Eigen::Vector3d start_point, Eigen::Vector3d target_point, double starting_yaw, double target_yaw, Obstacle obstacle, std::vector<Eigen::Vector2d> obstacle_poses, double time, double time_step, double distance, double height){
+    Move_trajectory::Move_trajectory(Eigen::Vector3d start_point, Eigen::Vector3d target_point, double starting_yaw, double target_yaw, Stay_away_from obstacle, std::vector<Eigen::Vector2d> obstacle_poses, double time, double time_step, double distance, double height){
         this -> time_step = time_step;
         obstacle.set_start({start_point[0], start_point[1]}, 0.05);
         obstacle.set_target({target_point[0], target_point[1]}, 0.05);
@@ -129,7 +131,7 @@ Spline s(checkpoints);
     }
 
 
-    std::vector<Eigen::Vector2d> Move_trajectory::move_horizontal(Project::Obstacle obstacle, double distance, double step, double precision, int max){
+    std::vector<Eigen::Vector2d> Move_trajectory::move_horizontal(Project::Stay_away_from obstacle, double distance, double step, double precision, int max){
         std::vector<Eigen::Vector2d> horizontal_points;
         std::vector<Eigen::Vector2d> path = obstacle.path(step, precision, max);
         double lenght = path.size() * step;

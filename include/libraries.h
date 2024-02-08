@@ -9,8 +9,12 @@
 //#include <hill.h>
 //#include <obstacle.h>
 
-//#include "../src/motion-control/obstacle/hill.h"
-//#include "../src/motion-control/obstacle/obstacle.h"
+#include "../src/motion-control/Stay_away_from/Stay_away_from.h"
+
+#include "../src/motion-control/Stay_away_from/Obstacle.h"
+#include "../src/motion-control/Stay_away_from/Hill.h"
+#include "../src/motion-control/Stay_away_from/Funnel.h"
+
 #include "../src/motion-control/trajectory/move_trajectory/move_trajectory.h"
 #include "../src/motion-control/trajectory/move_linear/move_linear.h"
 #include "../src/motion-control/ur5/UR5.h"

@@ -95,7 +95,7 @@ namespace Project {
 
     //move the robot from initial pose to the object pose, then the movement is "linear"
     
-	bool UR5::move_to_object(ObjectPose object_pose, Obstacle &obstacle_av, std::vector <Eigen::Vector2d> &obstacle_pos, float height){
+	bool UR5::move_to_object(ObjectPose object_pose, Stay_away_from &obstacle_av, std::vector <Eigen::Vector2d> &obstacle_pos, float height){
         Eigen::VectorXd new_joint_states;
 		Eigen::VectorXd joint_states;
         Eigen::VectorXd target(6);
@@ -272,7 +272,7 @@ namespace Project {
 	
 	// move the robot with the grasped object to the right position
 	
-	bool UR5::move_to_position_with_object(std::string model_name, Eigen::Vector3d target, double final_yaw, Obstacle &obstacle, std::vector <Eigen::Vector2d> &obstacle_poses, double time){
+	bool UR5::move_to_position_with_object(std::string model_name, Eigen::Vector3d target, double final_yaw, Stay_away_from &obstacle, std::vector <Eigen::Vector2d> &obstacle_poses, double time){
 		
 		double timeStep = 0.001;
 		Eigen::VectorXd cur_position;

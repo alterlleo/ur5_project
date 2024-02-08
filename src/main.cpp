@@ -1,5 +1,4 @@
-#include <hill.h>
-#include <obstack.h>
+
 #include <libraries.h>
 #include <structs.h>
 
@@ -23,7 +22,7 @@ int main(int argc, char **argv){
 
     Eigen::Vector2d table_dims{1.000, 0.650};
     Eigen::Vector2d singularity{0.500, 0.450};
-    Obstacle obstacle(table_dims);
+    Stay_away_from obstacle(table_dims);
     obstacle.add_obstacle(singularity, 0.25);
 
     /* inizialize objects */

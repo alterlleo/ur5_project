@@ -1,16 +1,19 @@
-#ifndef __OBSTACLE_H__
-#define __OBSTACLE_H__
+#ifndef CPP_OBSTACLEAVOIDANCE_H
+#define CPP_OBSTACLEAVOIDANCE_H
 
 #include <vector>
+
 #include <Eigen/Dense>
-#include <hill.h>
+
+#include "Hill.h"
+#include "Funnel.h"
 
 namespace Project{
 
-    class Obstacle{
+    class Stay_away_from{
         public:
-            Obstacle();
-            Obstacle(Eigen::Vector2d dims);
+            Stay_away_from();
+            Stay_away_from(Eigen::Vector2d dims);
 
             void set_start(Eigen::Vector2d pos, double d, double height = 1.0);
             void set_target(Eigen::Vector2d pos, double d, double height = -1.0);
@@ -21,11 +24,11 @@ namespace Project{
         private:
             Eigen::Vector2d dims;
             Hill start;
-            Hill target;
+            Funnel target;
             std::vector<Hill> obstacles;
     };
 }
 
 
 
-#endif
+#endif //CPP_OBSTACLEAVOIDANCE_H

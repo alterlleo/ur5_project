@@ -1,4 +1,6 @@
 #include "move_linear.h"
+#include "../../Stay_away_from/Stay_away_from.h"
+
 
 namespace Project{
     Move_linear::Move_linear(){ }

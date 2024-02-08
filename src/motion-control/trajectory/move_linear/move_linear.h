@@ -4,8 +4,8 @@
 #include <vector>
 #include <Eigen/Dense>
 #include "../../utilities/utilities.h"
-// #include "../../obstacle/obstacle.h"
-#include <obstacle.h>
+#include "../../Stay_away_from/Stay_away_from.h"
+//#include <obstacle.h>
 
 namespace Project{
 

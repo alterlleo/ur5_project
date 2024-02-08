@@ -1,13 +1,11 @@
 #ifndef __UR5_H__
 #define __UR5_H__
 
-#include <hill.h>
-#include <obstacle.h>
 
 #include <libraries.h>
 #include <structs.h>
 #include <iostream>
-#include "../src/motion-control/trajectory/move_linear/move_linear.h"
+//#include "../src/motion-control/trajectory/move_linear/move_linear.h"
 
 namespace Project {
 	class UR5 {
@@ -28,11 +26,11 @@ namespace Project {
 		// consider deleting move_to_position and move and follow_trajectory (without object) <-------
 
 		// bool move_to_position(Eigen::Vector3d target, double final_yaw, ObstacleAvoidance &obstacle,	std::vector <Eigen::Vector2d> &obstacle_poses, double time = 5.0);
-		bool move_to_object(ObjectPose object_pose, Obstacle &obstacle_av,
+		bool move_to_object(ObjectPose object_pose, Stay_away_from &obstacle_av,
 					      std::vector <Eigen::Vector2d> &obstacle_pos, float height);
 		bool linear_motion(Eigen::VectorXd target, double time = 5.0);
 		
-		bool move_to_position_with_object(std::string model_name, Eigen::Vector3d target, double final_yaw, Obstacle &obstacle, std::vector <Eigen::Vector2d> &obstacle_poses, double time = 5.0);
+		bool move_to_position_with_object(std::string model_name, Eigen::Vector3d target, double final_yaw, Stay_away_from &obstacle, std::vector <Eigen::Vector2d> &obstacle_poses, double time = 5.0);
 		
 		bool trajectory_without_object(Move_linear &trajectory);
 		bool trajectory_without_object(Move_trajectory &trajectory);
