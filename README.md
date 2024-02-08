@@ -1,5 +1,6 @@
 # UR5-project
-This is a ROS project that implements the motion for a UR5 manipulator and the data acquisition from ZedCamera 
+This is a ROS project that implements the motion for a UR5 manipulator and the data acquisition from ZedCamera.  
+It is written for Ubuntu 20 and relies on the following setup: https://github.com/mfocchi/lab-docker
 # How to use  ```ur5_project```
 In case one wishes to utilize this project, the following steps must be followed:  
 - **Create a ```workspace catkin```:**
@@ -40,7 +41,13 @@ rosrun ur5_project spawning
 ```
 rosrun ur5_project vision.py
 ```
-- **Run ```project``` :**  
+- **Run ```project``` :**
+1. Ensure that the environment is properly configured for the use of ROS packages within your workspace. This can be done by running the following instruction in the catkin_workspace directory:
+```
+source devel/setup.bash
+```
+2. Now you can run ```project``` :
 ```
 rosrun ur5_project project
 ```
+Please note: It may not work on the first compilation attempt. Don't worry and try again!
