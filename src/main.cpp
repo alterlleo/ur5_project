@@ -31,20 +31,20 @@ int main(int argc, char **argv){
     std::vector<ObjectPose> objects;
 
     /* define final positions for each block */
-    std::vector<Eigen::Vector3d> targets_pos;
-    targets_pos.reserve(11);
+    std::vector<Eigen::Vector3d> destinations;
+    destinations.reserve(11);
     
-    targets_pos[Block_name::X1_Y1_Z2] = {0.05, 0.1, 0.0};
-	targets_pos[Block_name::X1_Y2_Z1] = {0.05, 0.2, 0.0};
-	targets_pos[Block_name::X1_Y2_Z2] = {0.05, 0.31, 0.0};
-	targets_pos[Block_name::X1_Y2_Z2_CHAMFER] = {0.05, 0.4, 0.0};
-	targets_pos[Block_name::X1_Y2_Z2_TWINFILLET] = {0.05, 0.5, 0.0};
-	targets_pos[Block_name::X1_Y3_Z2] = {0.18, 0.4, M_PI_2};
-	targets_pos[Block_name::X1_Y3_Z2_FILLET] = {0.18, 0.1, M_PI_2};
-	targets_pos[Block_name::X1_Y4_Z1] = {0.18, 0.3, M_PI_2};
-	targets_pos[Block_name::X1_Y4_Z2] = {0.18, 0.5, M_PI_2};
-	targets_pos[Block_name::X2_Y2_Z2] = {0.15, 0.2, 0.0};
-	targets_pos[Block_name::X2_Y2_Z2_FILLET] = {0.25, 0.2, 0.0};
+    destinations[Block_name::X1_Y1_Z2] = {0.05, 0.1, 0.0};
+	destinations[Block_name::X1_Y2_Z1] = {0.05, 0.2, 0.0};
+	destinations[Block_name::X1_Y2_Z2] = {0.05, 0.31, 0.0};
+	destinations[Block_name::X1_Y2_Z2_CHAMFER] = {0.05, 0.4, 0.0};
+	destinations[Block_name::X1_Y2_Z2_TWINFILLET] = {0.05, 0.5, 0.0};
+	destinations[Block_name::X1_Y3_Z2] = {0.18, 0.4, M_PI_2};
+	destinations[Block_name::X1_Y3_Z2_FILLET] = {0.18, 0.1, M_PI_2};
+	destinations[Block_name::X1_Y4_Z1] = {0.18, 0.3, M_PI_2};
+	destinations[Block_name::X1_Y4_Z2] = {0.18, 0.5, M_PI_2};
+	destinations[Block_name::X2_Y2_Z2] = {0.15, 0.2, 0.0};
+	destinations[Block_name::X2_Y2_Z2_FILLET] = {0.25, 0.2, 0.0};
 
     current_pos = ur5.get_position();
     Eigen::VectorXd joint_target(6);
