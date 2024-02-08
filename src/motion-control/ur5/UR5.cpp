@@ -134,26 +134,26 @@ namespace Project {
 
     //move the robot from object to the final position 
     
-    /*
     
-	bool UR5::move_to_position(Eigen::Vector3d target, double final_yaw, ObstacleAvoidance &obstacle,
+    
+	bool UR5::move_to_position_without_object(Eigen::Vector3d target, double final_yaw, Stay_away_from &obstacle,
 							 std::vector <Eigen::Vector2d> &obstacle_poses, double time){
-		double timeStep = 0.001;
+		double time_step = 0.001;
 		Eigen::VectorXd cur_position;
 		Eigen::Vector3d start;
 		double starting_yaw;
-		MoveObjectTrajectory trajectory;
+		Move_trajectory trajectory;
 
 		cur_position = get_position();
 		start = cur_position.head(3);
-		startYaw = cur_position[5];
+		starting_yaw = cur_position[5];
 
-		trajectory = MoveObjectTrajectory(start, target, starting_yaw, final_yaw, obstacle, obstacle_poses,
-										  time, timeStep);
-		return follow_trajectory(trajectory);
+		trajectory = Move_trajectory(start, target, starting_yaw, final_yaw, obstacle, obstacle_poses,
+										  time, time_step);
+		return trajectory_without_object(trajectory);
 	}
 	
-	*/
+	
 	
 
     //move the robot in a linear trajectory

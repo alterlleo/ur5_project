@@ -54,14 +54,16 @@ int main(int argc, char **argv){
     target_pos << 0.0, 0.5, 0.45;
 
     //move out of the vision area
-    Move_trajectory trajectory = Move_trajectory((ur5.get_position()).head(3), target_pos.head(3), ((ur5.get_position())[5]), target_pos[5], obstacle, obstacles_pos, time, step);
+    /*
+    Move_trajectory trajectory = Move_trajectory((ur5.get_position()).head(3), target_pos, ((ur5.get_position())[5]), 0.0, obstacle, obstacles_pos, time, step);
     bool res = ur5.trajectory_without_object(trajectory);
     if(!res){
         return false;
     }
+    */
 
 
-   //response = ur5.move_to_position(target_pos, 0.0, obstacle, obstacles_pos);
+   response = ur5.move_to_position_without_object(target_pos, 0.0, obstacle, obstacles_pos);
 
    ur5.send_gripper_state(2.0);
 

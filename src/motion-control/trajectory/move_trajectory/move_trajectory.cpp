@@ -9,11 +9,11 @@ namespace Project{
 
     Move_trajectory::Move_trajectory(Eigen::Vector3d start_point, Eigen::Vector3d target_point, double starting_yaw, double target_yaw, Stay_away_from obstacle, std::vector<Eigen::Vector2d> obstacle_poses, double time, double time_step, double distance, double height){
         this -> time_step = time_step;
-        obstacle.set_start({start_point[0], start_point[1]}, 0.05);
-        obstacle.set_target({target_point[0], target_point[1]}, 0.05);
+        obstacle.set_start({start_point[0], start_point[1]}, 0.050);
+        obstacle.set_target({target_point[0], target_point[1]}, 0.050);
 
         for(auto obstacle_pos : obstacle_poses){
-            obstacle.add_obstacle(obstacle_pos, 0.1);
+            obstacle.add_obstacle(obstacle_pos, 0.100);
         }
 
         std::vector<double> starting_heights = move_vertical(start_point[2], height, distance);
@@ -32,13 +32,14 @@ namespace Project{
         }
 
         // horizontal motion
-        if(horizontal_points.size() == 1){
+        if(horizontal_points.size() == 0){
+        } else if(horizontal_points.size() == 1){
             checkpoints.push_back({Eigen::Vector3d(horizontal_points[0][0], horizontal_points[0][1], height), Eigen::Vector3d((target_point[0] - start_point[0]) / 2.0, (target_point[1] - start_point[1]) / 2.0, 0.0)});
         
-        } else if(horizontal_points.size() > 1){
+        } else {
             checkpoints.push_back({Eigen::Vector3d(horizontal_points[0][0], horizontal_points[0][1], height), Eigen::Vector3d((horizontal_points[1][0] - start_point[0]) / 2.0, (horizontal_points[1][1] - start_point[1]) / 2.0, 0.0)});
 
-            for(int i = 1; i < horizontal_points.size() - 1; i++){
+            for(int i = 1; i < horizontal_points.size() - 1; ++i){
                 checkpoints.push_back({Eigen::Vector3d(horizontal_points[i][0], horizontal_points[i][1], height), Eigen::Vector3d((horizontal_points[i + 1][0] - horizontal_points[i - 1][0]) / 2.0, (horizontal_points[i + 1][1] - horizontal_points[i - 1][1]) / 2.0, 0.0)});
             }
 
@@ -143,10 +144,10 @@ Spline s(checkpoints);
 
         } else{
             int horizontal_steps = floor(lenght / distance - 4.0 / 3);
-            double checkpoints = lenght / (horizontal_steps + 4.0 / 3);
+            double checkpoints_distance = lenght / (horizontal_steps + 4.0 / 3);
 
-            for(int i = 0; i <= horizontal_steps; i++){
-                int tmp = checkpoints / step * (2.0 / 3 + i);
+            for(int i = 0; i <= horizontal_steps; ++i){
+                int tmp = checkpoints_distance / step * (2.0 / 3 + i);
                 horizontal_points.push_back(path.at(tmp));
             }
         }

@@ -25,7 +25,7 @@ namespace Project {
 		
 		// consider deleting move_to_position and move and follow_trajectory (without object) <-------
 
-		// bool move_to_position(Eigen::Vector3d target, double final_yaw, ObstacleAvoidance &obstacle,	std::vector <Eigen::Vector2d> &obstacle_poses, double time = 5.0);
+		bool move_to_position_without_object(Eigen::Vector3d target, double final_yaw, Stay_away_from &obstacle,	std::vector <Eigen::Vector2d> &obstacle_poses, double time = 5.0);
 		bool move_to_object(ObjectPose object_pose, Stay_away_from &obstacle_av,
 					      std::vector <Eigen::Vector2d> &obstacle_pos, float height);
 		bool linear_motion(Eigen::VectorXd target, double time = 5.0);
