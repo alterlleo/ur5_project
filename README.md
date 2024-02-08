@@ -16,7 +16,7 @@ mkdir src
 ```  
 2. Run catkin_make;
 ```
-mkdir src
+catkin_make
 ``` 
 - **Clone this repository in src:**
 ```
@@ -24,6 +24,11 @@ cd src
 ```
 ```
 git clone https://github.com/alterlleo/ur5_project.git
+```
+- **Ensure that the environment is properly configured for the use of ROS packages within your workspace:**  
+This can be done by running the following instruction in the catkin_workspace directory:
+```
+source devel/setup.bash
 ```
 - **Run ```ur5_generic.py```:**
 ```
@@ -33,20 +38,23 @@ cd <locosim path>
 phyton3 ur5_generic.py
 ```
 - **Make the object spawn:**
+1. Open a new terminal and run:  
+```
+source <add path of catkin_workspace/>devel/setup.bash
+```
 ```
 rosrun ur5_project spawning
 ```
 - **Run vision:**
-1. Open a new terminal and run:  
+1. Open a new terminal and run:
+```
+source <add path of catkin_workspace/>devel/setup.bash
+``` 
 ```
 rosrun ur5_project vision.py
 ```
 - **Run ```project``` :**
-1. Ensure that the environment is properly configured for the use of ROS packages within your workspace. This can be done by running the following instruction in the catkin_workspace directory:
-```
-source devel/setup.bash
-```
-2. Now you can run ```project``` :
+1. Now you can run ```project``` :
 ```
 rosrun ur5_project project
 ```
