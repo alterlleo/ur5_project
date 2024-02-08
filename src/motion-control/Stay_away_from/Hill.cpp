@@ -23,4 +23,4 @@ namespace Project {
         }
         return direction * module;
     }
-} // Robotics
+}
