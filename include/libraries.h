@@ -15,7 +15,7 @@
 #include "../src/motion-control/trajectory/move_linear/move_linear.h"
 #include "../src/motion-control/ur5/UR5.h"
 #include "../src/motion-control/utilities/utilities.h"
-#include "../src/vision/vision.h"
+#include "../src/vision/vision_receiver.h"
 
 #include <gazebo_msgs/ModelStates.h>
 #include <gazebo_msgs/SetModelState.h>
@@ -34,6 +34,7 @@
 //#include <ur5_project/output_vision.h>
 #include <ur5_project/SpawnObject.h>
 #include <ur5_project/ObjectPoseArray.h>
+#include <ur5_project/VisionResults.h>
 // add utilities
 
 

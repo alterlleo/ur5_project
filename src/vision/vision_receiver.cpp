@@ -3,10 +3,10 @@
 namespace Project{
 
     std::vector <ObjectPose> vision_client(ros::NodeHandle &node){
-		ros::ServiceClient vision_receiver = node.serviceClient<robotics_project::VisionResults>("vision");
+		ros::ServiceClient vision_receiver = node.serviceClient<ur5_project::VisionResults>("vision");
 		vision_receiver.waitForExistence();
 
-		robotics_project::VisionResults service;
+		ur5_project::VisionResults service;
 
         std::vector <ObjectPose> objects_poses;
 		if (vision_receiver.call(service)) {
@@ -42,16 +42,16 @@ namespace Project{
 				object.x = pose.pose.x;
 				object.y = pose.pose.y;
 				object.theta = pose.pose.theta;
-				object.face = pose.face;
+				object.face = (Face)pose.face;
 				
                 // pupulate objectpose array
-				objects.push_back(object);
+				objects_poses.push_back(object);
 			}
 		} else {
 			std::cout << "vision service didn't work, you should re-do \n" << std::endl;
 		}
         
-		return objects;
+		return objects_poses;
     }
 }
 
