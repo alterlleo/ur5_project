@@ -73,7 +73,7 @@ namespace Project{
                 //cubic polinomial
                 Eigen::Vector3d new_pos = a0 + a1 * t + a2 * t * t + a3 * t * t * t;
 
-                point << new_pos[0], new_pos[1], new_pos[2], 0.0, 0.0, starting_yaw + (target_yaw - starting_yaw) * (t / 1.995);
+                point << new_pos[0], new_pos[1], new_pos[2], 0.0, 0.0, target_yaw;//starting_yaw + (target_yaw - starting_yaw) * (t / 1.995);
                 points.push_back(point);
             }
 
