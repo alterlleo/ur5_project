@@ -8,26 +8,85 @@
 //#include "../src/motion-control/trajectory/move_linear/move_linear.h"
 
 namespace Project {
+
+	/**
+	 * @class Main class that controls the ur5 movement
+	*/
 	class UR5 {
 	public:
+
+		/**
+		 * @brief UR5 constructor
+		 * @param node: rosnode address
+		*/
 		UR5(ros::NodeHandle &node);
 
+		/**
+		 * @brief Get current position of the end-effector
+		*/
 		Eigen::VectorXd get_position();
+
+		/**
+		 * @brief Get current state of all the joints
+		*/
 		Eigen::VectorXd get_joint_states();
+
+		/**
+		 * @brief Get current state of the gripper
+		*/
 		Eigen::VectorXd get_gripper_states();
 
+		/**
+		 * @brief Compute the direct kinematics
+		 * @param q: joint configuration
+		*/
 		static Eigen::Matrix4d direct(Eigen::VectorXd q);
+
+		/**
+		 * @brief Compute the inverse kinematics
+		 * @param p: position
+		*/
 		static std::vector <Eigen::VectorXd> inverse(Eigen::VectorXd p);
+
+		/**
+		 * @brief Compute the jacobian matrix
+		 * @param q: joint configuration
+		*/
 		static Eigen::MatrixXd jacobian(Eigen::VectorXd q);
 
+		/**
+		 * @brief this publishing mechanism allows other ROS nodes to receive and use the desired state to control the UR5 robot
+		 * @param joint_pos;
+		*/
 		void send_des_state(const Eigen::VectorXd &joint_pos);
+
+		/**
+		 * @brief publish message on a specific topic, allowing other ROS nodes to receive and use the gripper state information
+		 * @param n
+		*/
 		void send_gripper_state(const float n);
 		
 		// consider deleting move_to_position and move and follow_trajectory (without object) <-------
 
+		/**
+		 * @brief Compute the trajectory and send joint states in order to move the ur5 without a grasped object
+		 * @param target: final position
+		 * @param final_yaw
+		 * @param obstacle: address of a Stay_away_from instance
+		 * @param obstacle_poses: 
+		 * @param time
+		*/
 		bool move_to_position_without_object(Eigen::Vector3d target, double final_yaw, Stay_away_from &obstacle,	std::vector <Eigen::Vector2d> &obstacle_poses, double time = 5.0);
-		bool move_to_object(ObjectPose object_pose, Stay_away_from &obstacle_av,
-					      std::vector <Eigen::Vector2d> &obstacle_pos, float height);
+		
+		/**
+		 * @brief 
+		 * @param
+		 * @param
+		 * @param
+		 * @param
+		 * @param
+		*/
+		bool move_to_object(ObjectPose object_pose, Stay_away_from &obstacle_av, std::vector <Eigen::Vector2d> &obstacle_pos, float height);
 		bool linear_motion(Eigen::VectorXd target, double time = 5.0);
 		
 		bool move_to_position_with_object(std::string model_name, Eigen::Vector3d target, double final_yaw, Stay_away_from &obstacle, std::vector <Eigen::Vector2d> &obstacle_poses, double time = 5.0);
