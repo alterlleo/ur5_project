@@ -124,7 +124,7 @@ namespace Project {
 			res = linear_motion(target, 1.0);
 		} else {
 		}
-		target << object_pose.x, object_pose.y, height - 0.025, 0.0, 0.0, object_pose.theta;	// little offset to grab properly
+		target << object_pose.x, object_pose.y, height - 0.0275, 0.0, 0.0, object_pose.theta;	// little offset to grab properly
 
 		res = linear_motion(target, 1.0);
 		

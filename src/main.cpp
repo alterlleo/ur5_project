@@ -72,7 +72,7 @@ int main(int argc, char **argv){
 
     response = ur5.move_to_position_without_object(target_pos, 0.0, obstacle, obstacles_pos);
 
-    ur5.send_gripper_state(2.0);
+    ur5.send_gripper_state(3.0);
 
     /*ObjectPose tmp;
     tmp = ObjectPose(0.9, 0.3, 0.0, 0.0, TOP, X1_Y1_Z2, "X1-Y1-Z2");*/
@@ -104,24 +104,30 @@ int main(int argc, char **argv){
     float clamp = 1.0;
 
     
-    //for (int i = 0; i < 11; i++){
-        int i = 0;
+    for (int i = 0; i < 11; i++){
+        
         response = ur5.move_to_object(objects[i], obstacle, obstacles_pos, height);
 
-        ur5.send_gripper_state(0.0);
-   
+        if(objects[i].name == X2_Y2_Z2 || objects[i].name == X2_Y2_Z2_FILLET){
+
+            ur5.send_gripper_state(2.0);
+        } else{
+
+            ur5.send_gripper_state(0.0);
+        }
+        
         current_pos = ur5.get_position();
    
         response = ur5.move_to_position_with_object(objects[i].gazebo_name, destinations[/*static_cast<Project::Block_name>(i)*/i], 0.0, obstacle, obstacles_pos);
 
-        ur5.send_gripper_state(2.0);
+        ur5.send_gripper_state(3.0);
 
         // move up
         current_pos = ur5.get_position();
         joint_target << current_pos.head(2), 0.35, 0.0, 0.0, 0.0;
         response = ur5.linear_motion(joint_target, 3.0);
         sleep(1);
-    //}
+    }
    
 
     return 0;   
