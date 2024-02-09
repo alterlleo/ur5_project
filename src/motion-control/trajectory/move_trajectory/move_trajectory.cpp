@@ -79,36 +79,6 @@ namespace Project{
 
         }
         
-        /*
-
-    
-
-Spline s(checkpoints);
-
-        int nPoints = 1 + time / timeStep;
-        const int nCurves = s.getCurves().size();
-//        std::cout << nCurves << " curves" << std::endl << std::endl;
-        for (int i = 0; i < nPoints; ++i) {
-            double index = nCurves * quinticInterpolation((double) i / (nPoints - 1));
-            int curveIndex = std::min((int) index, nCurves - 1);
-
-            double rotationIndex = 0.0;
-            if (index >= 1.0 and index <= nCurves - 1) {
-                rotationIndex = (index - 1.0) / (nCurves - 2);
-            } else if (index > nCurves - 2) {
-                rotationIndex = 1.0;
-            }
-            rotationIndex = quinticInterpolation(rotationIndex);
-//            std::cout << index << " " << curveIndex << " " << index - curveIndex << " " << rotationIndex << std::endl;
-
-            Eigen::Vector3d position = s.getCurves()[curveIndex].point(index - curveIndex);
-            Eigen::VectorXd point(6);
-            double yaw = startYaw + rotationIndex * (targetYaw - startYaw);
-			point << position[0], position[1], position[2], 0.0, 0.0, yaw;
-            points.push_back(point);
-        }
-
-        */
     }
 
     std::vector<double> Move_trajectory::move_vertical(double starting_height, double height, double distance){

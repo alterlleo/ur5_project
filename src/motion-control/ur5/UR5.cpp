@@ -25,7 +25,7 @@ namespace Project {
 	}
 
     //publish message on a specific topic, allowing other ROS nodes to receive and use the gripper state information
-	void UR5::send_gripper_state(const float n) {						
+	void UR5::actuate_gripper(const float n) {						
 		std_msgs::Float64MultiArray jointState_msg_sim;
         	Eigen::VectorXd gripperStates = get_gripper_states();
 		Eigen::VectorXd jointStates;

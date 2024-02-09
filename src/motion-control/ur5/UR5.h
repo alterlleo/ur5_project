@@ -64,7 +64,7 @@ namespace Project {
 		 * @brief publish message on a specific topic, allowing other ROS nodes to receive and use the gripper state information
 		 * @param n
 		*/
-		void send_gripper_state(const float n);
+		void actuate_gripper(const float n);
 		
 		// consider deleting move_to_position and move and follow_trajectory (without object) <-------
 
