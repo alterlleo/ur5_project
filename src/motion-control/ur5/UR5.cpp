@@ -16,7 +16,7 @@ namespace Project {
 	}
 
     //this publishing mechanism allows other ROS nodes to receive and use the desired state to control the UR5 robot.
-	void UR5::send_des_state(const Eigen::VectorXd &state) {
+	void UR5::actuate_ur5(const Eigen::VectorXd &state) {
 		std_msgs::Float64MultiArray jointState_msg_sim;
 		for (int i = 0; i < state.size(); ++i) {
 			jointState_msg_sim.data.push_back(state[i]);
@@ -118,13 +118,13 @@ namespace Project {
 			gripper_states = get_gripper_states();
 			new_joint_states.resize(gripper_states.size() + 6);
 			new_joint_states << get_joint_states().head(5), 0.0, gripper_states;
-			send_des_state(new_joint_states);
+			actuate_ur5(new_joint_states);
 			sleep(2);
 
 			res = linear_motion(target, 1.0);
 		} else {
 		}
-		target << object_pose.x, object_pose.y, height - 0.0275, 0.0, 0.0, object_pose.theta;	// little offset to grab properly
+		target << object_pose.x, object_pose.y, height - 0.03, 0.0, 0.0, object_pose.theta;	// little offset to grab properly
 
 		res = linear_motion(target, 1.0);
 		
@@ -206,7 +206,7 @@ namespace Project {
 				q = new_q;
 
 				state << q, grip_states;
-				send_des_state(state);
+				actuate_ur5(state);
 				
 				// add here the grasping simulation
 
@@ -257,7 +257,7 @@ namespace Project {
 				q = new_q;
 
 				state << q, grip_states;
-				send_des_state(state);
+				actuate_ur5(state);
 				
 				// add here the grasping simulation
 
@@ -332,7 +332,7 @@ namespace Project {
 					q = new_q;
 
 					state << q, grip_states;
-					send_des_state(state);
+					actuate_ur5(state);
 					
 								
 					// moving also the object by the same trajectory
@@ -409,7 +409,7 @@ namespace Project {
 					q = new_q;
 
 					state << q, grip_states;
-					send_des_state(state);
+					actuate_ur5(state);
 					
 								
 					// moving also the object by the same trajectory

@@ -58,7 +58,7 @@ namespace Project {
 		 * @brief this publishing mechanism allows other ROS nodes to receive and use the desired state to control the UR5 robot
 		 * @param joint_pos;
 		*/
-		void send_des_state(const Eigen::VectorXd &joint_pos);
+		void actuate_ur5(const Eigen::VectorXd &joint_pos);
 
 		/**
 		 * @brief publish message on a specific topic, allowing other ROS nodes to receive and use the gripper state information
