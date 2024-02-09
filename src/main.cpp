@@ -28,12 +28,19 @@ int main(int argc, char **argv){
     /* inizialize objects */
     std::vector<Eigen::Vector2d> obstacles_pos;
     bool response;
-    std::vector<ObjectPose> objects;
+    
+    //std::vector<ObjectPose> objects;
+    //objects.reserve(11);
+
+    ObjectPose objects[11];
 
     /* define final positions for each block */
-    std::vector<Eigen::Vector3d> destinations;
-    destinations.reserve(11);
     
+    //std::vector<Eigen::Vector3d> destinations;
+    //destinations.reserve(11);
+    
+    Eigen::Vector3d destinations[11];
+
     destinations[Block_name::X1_Y1_Z2] = {0.05, 0.1, 0.0};
 	destinations[Block_name::X1_Y2_Z1] = {0.05, 0.2, 0.0};
 	destinations[Block_name::X1_Y2_Z2] = {0.05, 0.31, 0.0};
@@ -76,7 +83,7 @@ int main(int argc, char **argv){
     objects[2]  = ObjectPose(0.8, 0.2, 0.0, 0.0, TOP, X1_Y2_Z2, "X1-Y2-Z2");
     objects[3]  = ObjectPose(0.7, 0.1, 0.0, 0.0, TOP, X1_Y2_Z2_CHAMFER, "X1-Y2-Z2-CHAMFER");
     objects[4]  = ObjectPose(0.8, 0.4, 0.0, 0.0, TOP, X1_Y2_Z2_TWINFILLET, "X1-Y2-Z2-TWINFILLET");
-    objects[5]  = ObjectPose(0.7, 0.5, 0.0, 0.0, TOP, X1_Y3_Z3, "X1-Y3-Z3");
+    objects[5]  = ObjectPose(0.7, 0.5, 0.0, 0.0, TOP, X1_Y3_Z2, "X1-Y3-Z2");
     objects[6]  = ObjectPose(0.5, 0.5, 0.0, 0.0, TOP, X1_Y3_Z2_FILLET, "X1-Y3-Z2-FILLET");
     objects[7]  = ObjectPose(0.6, 0.1, 0.0, 0.0, TOP, X1_Y4_Z1, "X1-Y4-Z1");
     objects[8]  = ObjectPose(0.7, 0.2, 0.0, 0.0, TOP, X1_Y4_Z2, "X1-Y4-Z2");
@@ -96,14 +103,16 @@ int main(int argc, char **argv){
     float height = 0.05;
     float clamp = 1.0;
 
-    for (int i = 0; i < 11; i++){
+    
+    //for (int i = 0; i < 11; i++){
+        int i = 0;
         response = ur5.move_to_object(objects[i], obstacle, obstacles_pos, height);
 
         ur5.send_gripper_state(0.0);
    
         current_pos = ur5.get_position();
    
-        response = ur5.move_to_position_with_object(objects[i].gazebo_name, destinations[i], 0.0, obstacle, obstacles_pos);
+        response = ur5.move_to_position_with_object(objects[i].gazebo_name, destinations[/*static_cast<Project::Block_name>(i)*/i], 0.0, obstacle, obstacles_pos);
 
         ur5.send_gripper_state(2.0);
 
@@ -112,7 +121,7 @@ int main(int argc, char **argv){
         joint_target << current_pos.head(2), 0.35, 0.0, 0.0, 0.0;
         response = ur5.linear_motion(joint_target, 3.0);
         sleep(1);
-    }
+    //}
    
 
     return 0;   
