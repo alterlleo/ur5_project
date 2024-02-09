@@ -98,7 +98,7 @@ int main(int argc, char **argv){
 
    response = ur5.move_to_object(tmp, obstacle, obstacles_pos, height);
 
-   ur5.send_gripper_state(clamp);
+   ur5.send_gripper_state(0.0);
    
    current_pos = ur5.get_position();
    

@@ -103,7 +103,7 @@ namespace Project {
 		
 		bool res;
 
-		target << object_pose.x, object_pose.y, height + 0.05, 0.0, 0.0, object_pose.theta;
+		target << object_pose.x, object_pose.y, height + 0.01, 0.0, 0.0, object_pose.theta;
 		// res = move_to_position(target.head(3), target[5], obstacle_av, obstacle_pos);
 
 		Move_trajectory trajectory = Move_trajectory((get_position()).head(3), target.head(3), ((get_position())[5]), target[5], obstacle_av, obstacle_pos, 5.0, 0.001);
@@ -124,7 +124,7 @@ namespace Project {
 			res = linear_motion(target, 1.0);
 		} else {
 		}
-		target << object_pose.x, object_pose.y, height, 0.0, 0.0, object_pose.theta;
+		target << object_pose.x, object_pose.y, height - 0.025, 0.0, 0.0, object_pose.theta;	// little offset to grab properly
 
 		res = linear_motion(target, 1.0);
 		

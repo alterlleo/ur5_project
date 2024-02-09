@@ -32,6 +32,8 @@ namespace Project{
         }
 
         // horizontal motion
+        height = height + 0.1; // litle offset to be more distant from other blocks
+
         if(horizontal_points.size() == 0){
         } else if(horizontal_points.size() == 1){
             checkpoints.push_back({Eigen::Vector3d(horizontal_points[0][0], horizontal_points[0][1], height), Eigen::Vector3d((target_point[0] - start_point[0]) / 2.0, (target_point[1] - start_point[1]) / 2.0, 0.0)});
@@ -65,13 +67,13 @@ namespace Project{
             Eigen::Vector3d a3 = (-2 * ps + ts*ps_vel - p0_vel * ts + 2 * p0_vel * ts + 2 * p0) / (ts * ts * ts);
             Eigen::Vector3d a2 = (ps_vel - 3 * a3 * ts * ts - p0_vel) / (2 * ts);
 
-            for(double t = 0; t < 2.0; t = t + 0.01){
+            for(double t = 0; t < 2.0; t = t + 0.005){
                 Eigen::VectorXd point(6);
 
                 //cubic polinomial
                 Eigen::Vector3d new_pos = a0 + a1 * t + a2 * t * t + a3 * t * t * t;
 
-                point << new_pos[0], new_pos[1], new_pos[2], 0.0, 0.0, 0.0;
+                point << new_pos[0], new_pos[1], new_pos[2], 0.0, 0.0, starting_yaw + (target_yaw - starting_yaw) * (t / 1.995);
                 points.push_back(point);
             }
 
