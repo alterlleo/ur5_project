@@ -15,6 +15,8 @@ namespace Project{
         }
         */
 
+       /*
+
         Eigen::Vector3d p0 = {starting_pos[0], starting_pos[1], starting_pos[2]};
         Eigen::Vector3d ps = {target_pos[0], target_pos[1], target_pos[2]};
         Eigen::Vector3d p0_vel = {starting_pos[3], starting_pos[4], starting_pos[5]};
@@ -38,8 +40,10 @@ namespace Project{
             points.push_back(point);
         }
 
-       //points.push_back(starting_pos);
-       //points.push_back(target_pos);
+        */
+
+       points.push_back(starting_pos);
+       points.push_back(target_pos);
     }
     
     double Move_linear::get_time(){
