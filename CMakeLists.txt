@@ -147,6 +147,8 @@ file(GLOB project_SOURCES
     #"src/motion-control/obstacle/hill.cpp" 
     #"src/motion-control/obstacle/funnel.h"   
     #"src/motion-control/obstacles/obstacle.h"
+    "src/motion-control/Borders.cpp"
+    "src/motion-control/Singularities.cpp"
     "src/motion-control/Stay_away_from/*.cpp"
     #"src/motion-control/trajectory/move_trajectory/*.h"
     "src/motion-control/trajectory/move_trajectory/*.cpp"
