@@ -1,19 +1,19 @@
-#include "Funnel.h"
+#include "Borders.h"
 
 namespace Project {
-    Funnel::Funnel() : Funnel({0.0, 0.0}, 1.0, 1.0) {
+    Borders::Borders() : Borders({0.0, 0.0}, 1.0, 1.0) {
     }
 
-    Funnel::Funnel(Eigen::Vector2d position, double diameter, double height, double maxDist)
+    Borders::Borders(Eigen::Vector2d position, double diameter, double height, double maxDist)
             : Obstacle(position, diameter, height) {
         this->maxDist = maxDist;
     }
 
-    Funnel::Funnel(Eigen::Vector2d position, double diameter, double height)
-            : Funnel(position, diameter, height, 10.0) {
+    Borders::Borders(Eigen::Vector2d position, double diameter, double height)
+            : Borders(position, diameter, height, 10.0) {
     }
 
-    Eigen::Vector2d Funnel::gradient(Eigen::Vector2d point) {
+    Eigen::Vector2d Borders::gradient(Eigen::Vector2d point) {
         if ((point - position).isMuchSmallerThan(0.001))
             return {0.0, 0.0};
         double r = (point - position).norm();
@@ -28,4 +28,4 @@ namespace Project {
         }
         return direction * module;
     }
-} // Robotics
+}

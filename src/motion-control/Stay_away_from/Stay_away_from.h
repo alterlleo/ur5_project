@@ -5,8 +5,8 @@
 
 #include <Eigen/Dense>
 
-#include "Hill.h"
-#include "Funnel.h"
+#include "Singularities.h"
+#include "Borders.h"
 
 namespace Project{
 
@@ -28,7 +28,7 @@ namespace Project{
             Stay_away_from(Eigen::Vector2d dims);
 
             /**
-             * @brief set the start obstacle as a _____sinonimo hill____
+             * @brief set the start obstacle as a Singularities
              * @param pos: 2D position of the obstacle
              * @param d: ipothetical diemeter of the obstacle
              * @param height: ipothetical height of the obstalce, by default it is set to 1.0
@@ -36,7 +36,7 @@ namespace Project{
             void set_start(Eigen::Vector2d pos, double d, double height = 1.0);
 
             /**
-             * @brief set the target obstacle as a _____sinonimo hill____
+             * @brief set the target obstacle as a Singularities
              * @param pos: 2D position of the obstacle
              * @param d: ipothetical diemeter of the obstacle
              * @param height: ipothetical height of the obstalce, by default it is set to -1.0
@@ -67,9 +67,9 @@ namespace Project{
 
         private:
             Eigen::Vector2d dims;
-            Hill start;
-            Funnel target;
-            std::vector<Hill> obstacles;
+            Singularities start;
+            Borders target;
+            std::vector<Singularities> obstacles;
     };
 }
 

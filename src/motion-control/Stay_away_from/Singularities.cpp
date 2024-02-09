@@ -1,14 +1,14 @@
-#include "Hill.h"
+#include "Singularities.h"
 
 namespace Project {
-    Hill::Hill() : Hill({0.0, 0.0}, 1.0, 1.0) {
+    Singularities::Singularities() : Singularities({0.0, 0.0}, 1.0, 1.0) {
     }
 
-    Hill::Hill(Eigen::Vector2d position, double diameter, double height)
+    Singularities::Singularities(Eigen::Vector2d position, double diameter, double height)
             : Obstacle(position, diameter, height) {
     }
 
-    Eigen::Vector2d Hill::gradient(Eigen::Vector2d point) {
+    Eigen::Vector2d Singularities::gradient(Eigen::Vector2d point) {
         if ((point - position).isMuchSmallerThan(0.001))
             return {0.0, 0.0};
         double r = (point - position).norm();

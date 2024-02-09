@@ -9,15 +9,15 @@ namespace Project {
     }
 
     void Stay_away_from::set_start(Eigen::Vector2d pos, double d, double height) {
-        start = Hill(pos, d, height);
+        start = Singularities(pos, d, height);
     }
     
     void Stay_away_from::set_target(Eigen::Vector2d pos, double d, double height) {
-        target = Funnel(pos, d, height, 2.0);
+        target = Borders(pos, d, height, 2.0);
     }
     
     void Stay_away_from::add_obstacle(Eigen::Vector2d pos, double d, double height) {
-        obstacles.emplace_back(Hill(pos, d, height));
+        obstacles.emplace_back(Singularities(pos, d, height));
     }
 
     Eigen::Vector2d Stay_away_from::gradient(Eigen::Vector2d pos) {
