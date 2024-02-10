@@ -76,7 +76,7 @@ int main(int argc, char **argv){
     }
     sleep(1);
 
-
+/*
     objects[0]  = ObjectPose(0.9, 0.3, 0.0, 0.0, TOP, X1_Y1_Z2, "X1-Y1-Z2");
     objects[1]  = ObjectPose(0.9, 0.5, 0.0, 0.0, TOP, X1_Y2_Z1, "X1-Y2-Z1");
     objects[2]  = ObjectPose(0.8, 0.2, 0.0, 0.0, TOP, X1_Y2_Z2, "X1-Y2-Z2");
@@ -88,12 +88,13 @@ int main(int argc, char **argv){
     objects[8]  = ObjectPose(0.7, 0.2, 0.0, 0.0, TOP, X1_Y4_Z2, "X1-Y4-Z2");
     objects[9]  = ObjectPose(0.5, 0.2, 0.0, 0.0, TOP, X2_Y2_Z2, "X2-Y2-Z2");
     objects[10] = ObjectPose(0.8, 0.7, 0.0, 0.0, TOP, X2_Y2_Z2_FILLET, "X2-Y2-Z2-FILLET");
-  
+*/
 
     float height = 0.05;
     float clamp = 1.0;
 
     for(ObjectPose object : vision_results){
+
         response = ur5.move_to_object(object, obstacle, obstacles_pos, height);
 
         if(object.name == X2_Y2_Z2 || object.name == X2_Y2_Z2_FILLET){
