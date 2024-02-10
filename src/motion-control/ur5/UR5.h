@@ -43,12 +43,6 @@ namespace Project {
 		static Eigen::Matrix4d direct(Eigen::VectorXd q);
 
 		/**
-		 * @brief Compute the inverse kinematics
-		 * @param p: position
-		*/
-		static std::vector <Eigen::VectorXd> inverse(Eigen::VectorXd p);
-
-		/**
 		 * @brief Compute the jacobian matrix
 		 * @param q: joint configuration
 		*/

@@ -145,8 +145,7 @@ def handler(req):
             if np.array(brick_list(label))[0]-0.004 <= tmp_dim[0] <= np.array(brick_list(label))[0]+0.004:
                 if np.array(brick_list(label))[1]-0.004 <= tmp_dim[1] <= np.array(brick_list(label))[1]+0.004:
                     if np.array(brick_list(label))[2]-0.004 <= tmp_dim[2] <= np.array(brick_list(label))[2]+0.004:
-                        ordered_labels.append(label)
-                    
+                        ordered_labels.append(label)          
     # let's iterate position, rotation and label
     for label, position, rotation in zip(ordered_labels, positions, rotations):
         object = ObjectPose()
