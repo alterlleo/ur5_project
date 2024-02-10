@@ -74,6 +74,11 @@ int main(int argc, char **argv){
 
     ur5.actuate_gripper(3.0);
 
+    /*
+    actuate vision
+    */
+    sleep(1);
+
 
     objects[0]  = ObjectPose(0.9, 0.3, 0.0, 0.0, TOP, X1_Y1_Z2, "X1-Y1-Z2");
     objects[1]  = ObjectPose(0.9, 0.5, 0.0, 0.0, TOP, X1_Y2_Z1, "X1-Y2-Z1");

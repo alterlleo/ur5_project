@@ -114,17 +114,15 @@ namespace Project {
 
 		joint_states = get_joint_states();
 
-		if (joint_states[5] < -M_PI or joint_states[5] > M_PI) {
-			gripper_states = get_gripper_states();
-			new_joint_states.resize(gripper_states.size() + 6);
-			new_joint_states << get_joint_states().head(5), 0.0, gripper_states;
-			actuate_ur5(new_joint_states);
-			sleep(2);
+		double adjustement_yaw = - M_PI + object_pose.theta;
 
-			res = linear_motion(target, 1.0);
-		} else {
-		}
-		target << object_pose.x, object_pose.y, height - 0.03, 0.0, 0.0, object_pose.theta;	// little offset to grab properly
+		// set gripper rotation
+		target << (get_position()).head(5), adjustement_yaw;
+		res = linear_motion(target, 1.0);
+
+		target << object_pose.x, object_pose.y, height - 0.035, 0.0, 0.0, adjustement_yaw;	// little offset to grab properly
+
+		sleep(1);
 
 		res = linear_motion(target, 1.0);
 		
@@ -282,9 +280,9 @@ namespace Project {
 
 		cur_position = get_position();
 		start = cur_position.head(3);
-		starting_yaw = cur_position[5];
+		starting_yaw = M_PI - cur_position[5];
 
-		trajectory = Move_trajectory(start, target, starting_yaw, final_yaw, obstacle, obstacle_poses,
+		trajectory = Move_trajectory(start, target, starting_yaw, M_PI - final_yaw, obstacle, obstacle_poses,
 										  time, timeStep);
 		return trajectory_with_object(model_name, trajectory);	
 	
