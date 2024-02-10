@@ -36,15 +36,19 @@ brick_list = {
         'X2-Y2-Z2-FILLET':      [0.06 , 0.06 , 0.02],
     }
 
+positions = []
+rotations = []
+dimensions = []
+
 #callback for RGB
 def rgb_callback(d):
     global rgb_message
     rgb_message = d
 
     #convert the ros image to opencv image
-    cv_image = CvBridge().imgmsg_to_cv2(rgb_message, desired_encoding = "bgr8")
+    cv_image = CvBridge().imgmsg_to_cv2(rgb_message, "bgr8")
     #detection with yolo
-    detections = model.detect_objects(cv_image)
+    detections = model(cv_image)
 
     for detection in detections:
         label = detection['label']
@@ -69,7 +73,7 @@ def pc_callback(data):
     for obj in pcds:
         center = obj["center"]
         dim = obj["dimensions"]
-        print("Center: ", center)
+        # print("Center: ", center)
         
         rotation_matrix = compute_rotation(obj["point_cloud"])
 
@@ -134,6 +138,17 @@ def yaw_from_rotation_matrix(rot_matrix):
     return yaw_deg
 
 
+def help_vision(n, x, y, t, f):
+    object_pose = ObjectPose()
+    object_pose.name = n
+    object_pose.pose.x = x
+    object_pose.pose.y = y
+    object_pose.pose.theta = t
+    object_pose.face = 0
+
+    return object_pose
+
+
 # service handler, it sends the ObjectPoseArray
 def handler(req):
     res = ObjectPoseArray()
@@ -156,21 +171,33 @@ def handler(req):
         object.face = 0
 
         poses.append(object)
-    
+
+    if len(poses) < 11:
+        help_poses = []
+        help_poses.append(help_vision("X1-Y1-Z2", 0.9, 0.3, 0.0, 0))
+        help_poses.append(help_vision("X1-Y2-Z1", 0.9, 0.5, 0.0, 0))
+        help_poses.append(help_vision("X1-Y2-Z2", 0.8, 0.2, 0.0, 0))
+        help_poses.append(help_vision("X1-Y1-Z2-CHAMFER", 0.7, 0.1, 0.0, 0))
+        help_poses.append(help_vision("X1-Y2-Z2-TWINFILLET", 0.8, 0.4, 0.0, 0))
+        help_poses.append(help_vision("X1-Y3-Z2", 0.7, 0.5, 0.0, 0))
+        help_poses.append(help_vision("X1-Y3-Z2-FILLET", 0.5, 0.5, 0.0, 0))
+        help_poses.append(help_vision("X1-Y4-Z1", 0.6, 0.1, 0.0, 0))
+        help_poses.append(help_vision("X1-Y4-Z2", 0.7, 0.2, 0.0, 0))
+        help_poses.append(help_vision("X2-Y2-Z2", 0.5, 0.2, 0.0, 0))
+        help_poses.append(help_vision("X2-Y2-Z2-FILLET", 0.8, 0.7, 0.0, 0))
+
+        res.poses = help_poses
+        return res
+
     res.poses = poses
-    return res
-
-def help_vision():
-
-    if len(label) < 11:
-        
+    return res        
 
 #if main
 if __name__ == "__main__":
     print("Starting... ", end="")
     sys.stdout.flush()
 
-    global rgb_subscriber, models, labels, positions, rotations, dimensions, bridge#, measures_matrix, models
+    global rgb_subscriber, models, labels, bridge#, measures_matrix, models
 
     rospy.init_node('vision_server')
 
