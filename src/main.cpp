@@ -76,20 +76,6 @@ int main(int argc, char **argv){
     }
     sleep(1);
 
-/*
-    objects[0]  = ObjectPose(0.9, 0.3, 0.0, 0.0, TOP, X1_Y1_Z2, "X1-Y1-Z2");
-    objects[1]  = ObjectPose(0.9, 0.5, 0.0, 0.0, TOP, X1_Y2_Z1, "X1-Y2-Z1");
-    objects[2]  = ObjectPose(0.8, 0.2, 0.0, 0.0, TOP, X1_Y2_Z2, "X1-Y2-Z2");
-    objects[3]  = ObjectPose(0.7, 0.1, 0.0, 0.0, TOP, X1_Y2_Z2_CHAMFER, "X1-Y2-Z2-CHAMFER");
-    objects[4]  = ObjectPose(0.8, 0.4, 0.0, 0.0, TOP, X1_Y2_Z2_TWINFILLET, "X1-Y2-Z2-TWINFILLET");
-    objects[5]  = ObjectPose(0.7, 0.5, 0.0, 0.0, TOP, X1_Y3_Z2, "X1-Y3-Z2");
-    objects[6]  = ObjectPose(0.5, 0.5, 0.0, 0.0, TOP, X1_Y3_Z2_FILLET, "X1-Y3-Z2-FILLET");
-    objects[7]  = ObjectPose(0.6, 0.1, 0.0, 0.0, TOP, X1_Y4_Z1, "X1-Y4-Z1");
-    objects[8]  = ObjectPose(0.7, 0.2, 0.0, 0.0, TOP, X1_Y4_Z2, "X1-Y4-Z2");
-    objects[9]  = ObjectPose(0.5, 0.2, 0.0, 0.0, TOP, X2_Y2_Z2, "X2-Y2-Z2");
-    objects[10] = ObjectPose(0.8, 0.7, 0.0, 0.0, TOP, X2_Y2_Z2_FILLET, "X2-Y2-Z2-FILLET");
-*/
-
     float height = 0.05;
     float clamp = 1.0;
 
@@ -117,35 +103,6 @@ int main(int argc, char **argv){
         response = ur5.linear_motion(joint_target, 3.0);
         sleep(1);
     }
-    
-    /*
-    for (int i = 0; i < 11; i++){
-        
-        response = ur5.move_to_object(objects[i], obstacle, obstacles_pos, height);
-
-        if(objects[i].name == X2_Y2_Z2 || objects[i].name == X2_Y2_Z2_FILLET){
-
-            ur5.actuate_gripper(2.0);
-        } else{
-
-            ur5.actuate_gripper(0.0);
-        }
-        
-        current_pos = ur5.get_position();
-   
-        response = ur5.move_to_position_with_object(objects[i].gazebo_name, destinations[i], 0.0, obstacle, obstacles_pos);
-
-        ur5.actuate_gripper(3.0);
-
-        // move up
-        current_pos = ur5.get_position();
-        joint_target << current_pos.head(2), 0.35, 0.0, 0.0, 0.0;
-        response = ur5.linear_motion(joint_target, 3.0);
-        sleep(1);
-    }
-    */
-    
-   
 
     return 0;   
 }
