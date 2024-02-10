@@ -41,26 +41,26 @@ namespace Project {
 	}
 	
 	//generate the desired velocity for the robot to reach the desired position and orientation in a specified time step
-	Eigen::VectorXd UR5::get_vel(Eigen::Vector3d cur_position, Eigen::Vector3d desiredPosition, Eigen::Matrix3d currentRotation,
-		Eigen::Matrix3d desiredRotation, double timeStep) {
+	Eigen::VectorXd UR5::get_vel(Eigen::Vector3d cur_pos, Eigen::Vector3d desired_pos, Eigen::Matrix3d cur_rotation,
+		Eigen::Matrix3d desired_rotation, double time_step) {
 		Eigen::VectorXd vel(6);
-		Eigen::Vector3d linearError = desiredPosition - cur_position;
-		Eigen::Matrix3d relativeRotation = currentRotation.transpose() * desiredRotation;
-		Eigen::Vector3d angularVel;
+		Eigen::Vector3d linear_error = desired_pos - cur_pos;
+		Eigen::Matrix3d relativeRotation = cur_rotation.transpose() * desired_rotation;
+		Eigen::Vector3d angular_vel;
 		double angle = atan2(sqrt(pow(relativeRotation(2, 1) - relativeRotation(1, 2), 2) +
 								  pow(relativeRotation(0, 2) - relativeRotation(2, 0), 2) +
 								  pow(relativeRotation(1, 0) - relativeRotation(0, 1), 2)),
 							 relativeRotation(0, 0) + relativeRotation(1, 1) + relativeRotation(2, 2) - 1.0);
 		if (abs(angle) < 0.000001) {
-			angularVel << 0.0, 0.0, 0.0;
+			angular_vel << 0.0, 0.0, 0.0;
 		} else {
-			angularVel = angle / (2.0 * sin(angle)) / timeStep *
+			angular_vel = angle / (2.0 * sin(angle)) / timeStep *
 						 Eigen::Vector3d(relativeRotation(2, 1) - relativeRotation(1, 2),
 										 relativeRotation(0, 2) - relativeRotation(2, 0),
 										 relativeRotation(1, 0) - relativeRotation(0, 1));
-			angularVel = currentRotation * angularVel;
+			angular_vel = currentRotation * angular_vel;
 		}
-		vel << linearError / timeStep, angularVel;
+		vel << linear_error / time_step, angular_vel;
 		return vel;
 	}
 
@@ -77,21 +77,6 @@ namespace Project {
 		jointVelocities = jointVelocities / std::max(1.0, std::max(std::abs(minR), std::abs(maxR)));
 		return jointVelocities;
 	}
-
-    //compute the joint velocities necessary to achieve the desired end-effector velocity	<--------------------------- consider deleting
-/*	Eigen::VectorXd UR5::follow_trajectorys(Eigen::MatrixXd jacobian, Eigen::VectorXd velocity) {
-		Eigen::VectorXd jointVelocities(6), ratios(6);
-		double min_r, max_r;
-		jointVelocities = jacobian.inverse() * velocity;
-		ratios << jointVelocities[0] / speed_limits[0], jointVelocities[1] / speed_limits[1],
-				jointVelocities[2] / speed_limits[2], jointVelocities[3] / speed_limits[3],
-				jointVelocities[4] / speed_limits[4], jointVelocities[5] / speed_limits[5];
-		min_r = ratios.minCoeff();
-		max_r = ratios.maxCoeff();
-		jointVelocities = jointVelocities / std::max(1.0, std::max(std::abs(min_r), std::abs(max_r)));
-		return jointVelocities;
-	}
-*/
 
     //move the robot from initial pose to the object pose, then the movement is "linear"
     
