@@ -159,12 +159,7 @@ def handler(req):
         poses.append(object)
     
     res.poses = poses
-    return res
-
-def help_vision():
-
-    if len(label) < 11:
-        
+    return res        
 
 #if main
 if __name__ == "__main__":
