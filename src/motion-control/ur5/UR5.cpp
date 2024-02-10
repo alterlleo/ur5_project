@@ -54,11 +54,11 @@ namespace Project {
 		if (abs(angle) < 0.000001) {
 			angular_vel << 0.0, 0.0, 0.0;
 		} else {
-			angular_vel = angle / (2.0 * sin(angle)) / timeStep *
+			angular_vel = angle / (2.0 * sin(angle)) / time_step *
 						 Eigen::Vector3d(relativeRotation(2, 1) - relativeRotation(1, 2),
 										 relativeRotation(0, 2) - relativeRotation(2, 0),
 										 relativeRotation(1, 0) - relativeRotation(0, 1));
-			angular_vel = currentRotation * angular_vel;
+			angular_vel = cur_rotation * angular_vel;
 		}
 		vel << linear_error / time_step, angular_vel;
 		return vel;

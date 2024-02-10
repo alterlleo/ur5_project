@@ -110,6 +110,7 @@ namespace Project {
 		 * @param trajectory: linear trajectory
 		*/
 		bool trajectory_without_object(Move_linear &trajectory);
+
 		/**
 		 * @brief UR5 trajectory to be traversed
 		 * @param trajectory: trajectory
@@ -122,6 +123,7 @@ namespace Project {
 		 * @param trajectory: trajectory
 		*/					 
 		bool trajectory_with_object(std::string model_name, Move_trajectory &trajectory);
+
 		/**
 		 * @brief use the same linear trajectory for both the robot and for the object
 		 * @param model_name: name of model 
@@ -135,31 +137,37 @@ namespace Project {
 		static constexpr double a[6] = {0.0000, -0.425, -0.3922, 0.0000, 0.0000, 0.0000};
 		static constexpr double d[6] = {0.1625, 0.000, 0.0000, 0.1333, 0.0997, 0.2500};
 		static constexpr double speed_limits[6] = {3.15, 3.15, 3.15, 3.20, 3.20, 3.20};
+
 		/**
 		 * @brief transformation matrix 0->1
 		 * @param th: theta
 		*/
 		static Eigen::Matrix4d transformation01(double th);
+
 		/**
 		 * @brief transformation matrix 1->2
 		 * @param th: theta
 		*/
 		static Eigen::Matrix4d transformation12(double th);
-		ù/**
+		
+		/**
 		 * @brief transformation matrix 2->3
 		 * @param th: theta
 		*/
 		static Eigen::Matrix4d transformation23(double th);
+
 		/**
 		 * @brief transformation matrix 3->4
 		 * @param th: theta
 		*/
 		static Eigen::Matrix4d transformation34(double th);
+
 		/**
 		 * @brief transformation matrix 4->5
 		 * @param th: theta
 		*/
 		static Eigen::Matrix4d transformation45(double th);
+		
 		/**
 		 * @brief transformation matrix 5->6
 		 * @param th: theta

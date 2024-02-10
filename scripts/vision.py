@@ -135,6 +135,10 @@ def handler(req):
     res.poses = poses
     return res
 
+def help_vision():
+
+    if len(label) < 11:
+        
 
 #if main
 if __name__ == "__main__":
