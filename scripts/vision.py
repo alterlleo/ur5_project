@@ -19,6 +19,23 @@ model = YOLO('/home/leo/best.pt', "v8")
 #pcd = overall point cloud scene
 #from pcd is possible to find every objects point cluod (pcds)
 
+
+
+#list of bricks with their names and dimensions
+brick_list = {
+        'X1-Y1-Z2':             [0.03 , 0.03 , 0.02],
+        'X1-Y2-Z1':             [0.03 , 0.06 , 0.01],
+        'X1-Y2-Z2-CHAMFER':     [0.03 , 0.06 , 0.02],
+        'X1-Y2-Z2-TWINFILLET':  [0.03 , 0.06 , 0.02],
+        'X1-Y2-Z2':             [0.03 , 0.06 , 0.02],
+        'X1-Y3-Z2-FILLET':      [0.01 , 0.09 , 0.02],
+        'X1-Y3-Z2':             [0.03 , 0.09 , 0.02],
+        'X1-Y4-Z1':             [0.03 , 0.12 , 0.01],
+        'X1-Y4-Z2':             [0.03 , 0.12 , 0.02],
+        'X2-Y2-Z2':             [0.06 , 0.06 , 0.02],
+        'X2-Y2-Z2-FILLET':      [0.06 , 0.06 , 0.02],
+    }
+
 #callback for RGB
 def rgb_callback(d):
     global rgb_message
@@ -51,7 +68,7 @@ def pc_callback(data):
     #find the rotation of every object by computing the eigenvectors
     for obj in pcds:
         center = obj["center"]
-        dimensions = obj["dimensions"]
+        dim = obj["dimensions"]
         print("Center: ", center)
         
         rotation_matrix = compute_rotation(obj["point_cloud"])
@@ -59,6 +76,7 @@ def pc_callback(data):
          # save the yaw in "rotations" field of models
         rotations.append(yaw_from_rotation_matrix(rotation_matrix))
         positions.append(center)
+        dimensions.append(dim)
 
 
 
@@ -120,9 +138,17 @@ def yaw_from_rotation_matrix(rot_matrix):
 def handler(req):
     res = ObjectPoseArray()
     poses = []
-
+    ordered_labels = []
+    # for each dimensions and for each labels check tmp_dim array (with error)
+    for tmp_dim in dimensions:
+        for label in labels:
+            if np.array(brick_list(label))[0]-0.004 <= tmp_dim[0] <= np.array(brick_list(label))[0]+0.004:
+                if np.array(brick_list(label))[1]-0.004 <= tmp_dim[1] <= np.array(brick_list(label))[1]+0.004:
+                    if np.array(brick_list(label))[2]-0.004 <= tmp_dim[2] <= np.array(brick_list(label))[2]+0.004:
+                        ordered_labels.append(label)
+                    
     # let's iterate position, rotation and label
-    for label, position, rotation in zip(labels, positions, rotations):
+    for label, position, rotation in zip(ordered_labels, positions, rotations):
         object = ObjectPose()
         object.name = label
         object.pose.x = position[0]
@@ -145,7 +171,7 @@ if __name__ == "__main__":
     print("Starting... ", end="")
     sys.stdout.flush()
 
-    global rgb_subscriber, models, labels, positions, rotations, bridge#, measures_matrix, models
+    global rgb_subscriber, models, labels, positions, rotations, dimensions, bridge#, measures_matrix, models
 
     rospy.init_node('vision_server')
 
