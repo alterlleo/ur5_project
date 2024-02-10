@@ -11,7 +11,18 @@ namespace Project{
 
     class Move_linear{
         public:
+            /**
+             * @brief Move_linear default constructr. It does nothing, but it is necessary   
+            */
             Move_linear();
+
+            /**
+             * @brief linear motion between two points
+             * @param starting_pos: starting vector
+             * @param target_pos: target vector
+             * @param time: 
+             * @param step: time step 
+            */
             Move_linear(Eigen::VectorXd starting_pos, Eigen::VectorXd target_pos, double time, double step = 0.001);
             
             double get_time();
