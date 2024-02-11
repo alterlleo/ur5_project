@@ -142,11 +142,7 @@ include_directories(
 file(GLOB project_SOURCES
     #"src/motion-control/checkpoint/*.h"
     "src/motion-control/checkpoint/*.cpp"
-    #"src/motion-control/obstacles/hill.h"
-    #"src/motion-control/obstacle/stay_away_from.cpp"
-    #"src/motion-control/obstacle/hill.cpp" 
-    #"src/motion-control/obstacle/funnel.h"   
-    #"src/motion-control/obstacles/obstacle.h"
+
     "src/motion-control/Borders.cpp"
     "src/motion-control/Singularities.cpp"
     "src/motion-control/Stay_away_from/*.cpp"
