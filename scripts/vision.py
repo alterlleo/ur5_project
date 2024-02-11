@@ -106,6 +106,9 @@ def get_point_clouds(scene):
     with o3d.utility.VerbosityContextManager(o3d.utility.VerbosityLevel.Debug) as cm:
         labels = np.array(scene.cluster_dbscan(eps=0.02, min_points=10, print_progress=False, ))
 
+    rotation_matrix = np.array([[0., -0.49948, 0.86632], [-1., 0., 0.], [-0., -0.86632, -0.49948]])
+    camera_position = np.array([-0.4, 0.59, 1.4])
+
     if len(labels) > 0:
         n_label = labels.max() + 1
         objects = []
@@ -117,6 +120,10 @@ def get_point_clouds(scene):
         for o in objects:
             pcd = o3d.geometry.PointCloud()
             pcd.points = o3d.utility.Vector3dVector(o)
+
+            array_points = np.asarray(pcd.points)
+            pcd.points = np.dot(rotation_matrix, array_points) + camera_position
+
             bb = pcd.get_axis_aligned_bounding_box()
             center_x = (bb.max_bound[0] + bb.min_bound[0]) / 2.0
             center_y = (bb.max_bound[1] + bb.min_bound[1]) / 2.0
@@ -172,12 +179,12 @@ def handler(req):
     if len(poses) < 11:
         help_poses = []
         help_poses.append(help_vision("X1-Y1-Z2", 0.8, 0.2, 0.0))
-        help_poses.append(help_vision("X1-Y2-Z1", 0.9, 0.4, 0.0))
+        help_poses.append(help_vision("X1-Y2-Z1", 0.9, 0.2, 0.0))
         help_poses.append(help_vision("X1-Y2-Z2", 0.9, 0.3, 0.0))
         help_poses.append(help_vision("X1-Y1-Z2-CHAMFER", 0.7, 0.1, 0.0))
         help_poses.append(help_vision("X1-Y2-Z2-TWINFILLET", 0.7, 0.6, 0.0))
         help_poses.append(help_vision("X1-Y3-Z2", 0.8, 0.6, 0.0))
-        help_poses.append(help_vision("X1-Y3-Z2-FILLET", 0.9, 0.2, 0.0))
+        help_poses.append(help_vision("X1-Y3-Z2-FILLET", 0.9, 0.5, 0.0))
         help_poses.append(help_vision("X1-Y4-Z1", 0.5, 0.1, 0.0))
         help_poses.append(help_vision("X1-Y4-Z2", 0.6, 0.6, 0.0))
         help_poses.append(help_vision("X2-Y2-Z2", 0.6, 0.2, 0.0))
