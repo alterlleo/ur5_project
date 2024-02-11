@@ -138,13 +138,12 @@ def yaw_from_rotation_matrix(rot_matrix):
     return yaw_deg
 
 
-def help_vision(n, x, y, t, f):
+def help_vision(n, x, y, t):
     object_pose = ObjectPose()
     object_pose.name = n
     object_pose.pose.x = x
     object_pose.pose.y = y
     object_pose.pose.theta = t
-    object_pose.face = 0
 
     return object_pose
 
@@ -174,17 +173,17 @@ def handler(req):
 
     if len(poses) < 11:
         help_poses = []
-        help_poses.append(help_vision("X1-Y1-Z2", 0.9, 0.3, 0.0, 0))
-        help_poses.append(help_vision("X1-Y2-Z1", 0.9, 0.5, 0.0, 0))
-        help_poses.append(help_vision("X1-Y2-Z2", 0.8, 0.2, 0.0, 0))
-        help_poses.append(help_vision("X1-Y1-Z2-CHAMFER", 0.7, 0.1, 0.0, 0))
-        help_poses.append(help_vision("X1-Y2-Z2-TWINFILLET", 0.8, 0.4, 0.0, 0))
-        help_poses.append(help_vision("X1-Y3-Z2", 0.7, 0.5, 0.0, 0))
-        help_poses.append(help_vision("X1-Y3-Z2-FILLET", 0.5, 0.5, 0.0, 0))
-        help_poses.append(help_vision("X1-Y4-Z1", 0.6, 0.1, 0.0, 0))
-        help_poses.append(help_vision("X1-Y4-Z2", 0.7, 0.2, 0.0, 0))
-        help_poses.append(help_vision("X2-Y2-Z2", 0.5, 0.2, 0.0, 0))
-        help_poses.append(help_vision("X2-Y2-Z2-FILLET", 0.8, 0.7, 0.0, 0))
+        help_poses.append(help_vision("X1-Y1-Z2", 0.9, 0.3, 0.0))
+        help_poses.append(help_vision("X1-Y2-Z1", 0.9, 0.5, 0.0))
+        help_poses.append(help_vision("X1-Y2-Z2", 0.8, 0.2, 0.0))
+        help_poses.append(help_vision("X1-Y1-Z2-CHAMFER", 0.7, 0.1, 0.0))
+        help_poses.append(help_vision("X1-Y2-Z2-TWINFILLET", 0.8, 0.4, 0.0))
+        help_poses.append(help_vision("X1-Y3-Z2", 0.7, 0.5, 0.0))
+        help_poses.append(help_vision("X1-Y3-Z2-FILLET", 0.5, 0.5, 0.0))
+        help_poses.append(help_vision("X1-Y4-Z1", 0.6, 0.1, 0.0))
+        help_poses.append(help_vision("X1-Y4-Z2", 0.7, 0.2, 0.0))
+        help_poses.append(help_vision("X2-Y2-Z2", 0.5, 0.2, 0.0))
+        help_poses.append(help_vision("X2-Y2-Z2-FILLET", 0.8, 0.7, 0.0))
 
         res.poses = help_poses
         return res

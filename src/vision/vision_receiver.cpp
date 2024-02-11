@@ -63,7 +63,6 @@ namespace Project{
 				object.x = pose.pose.x;
 				object.y = pose.pose.y;
 				object.theta = pose.pose.theta;
-				object.face = (Face)pose.face;
 				
                 // pupulate objectpose array
 				objects_poses.push_back(object);
