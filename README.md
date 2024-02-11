@@ -59,3 +59,6 @@ rosrun ur5_project vision.py
 rosrun ur5_project project
 ```
 Please note: It may not work on the first compilation attempt. Don't worry and try again!
+# How to use  ```doxygen```
+Open 'doxygen' directory, open 'html' directory.
+Then, open annotated.html
