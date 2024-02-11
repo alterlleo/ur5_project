@@ -1,0 +1,85 @@
+\doxysection{Project\+::Singularities Class Reference}
+\hypertarget{class_project_1_1_singularities}{}\label{class_project_1_1_singularities}\index{Project::Singularities@{Project::Singularities}}
+Inheritance diagram for Project\+::Singularities\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_project_1_1_singularities}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_project_1_1_singularities_abaed298f0596bdfc96cd24f5be07e8c2}\label{class_project_1_1_singularities_abaed298f0596bdfc96cd24f5be07e8c2} 
+{\bfseries Singularities} ()
+\begin{DoxyCompactList}\small\item\em \doxylink{class_project_1_1_singularities}{Singularities} class default constructor. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_project_1_1_singularities_aec8bb8b190e827dc14fc9cdb0e2d7722}{Singularities}} (Eigen\+::\+Vector2d position, double diameter, double height)
+\begin{DoxyCompactList}\small\item\em \doxylink{class_project_1_1_singularities}{Singularities} specific contructor. \end{DoxyCompactList}\item 
+Eigen\+::\+Vector2d \mbox{\hyperlink{class_project_1_1_singularities_a3709c082a8970611ea1e01dd6a48d319}{gradient}} (Eigen\+::\+Vector2d point)
+\begin{DoxyCompactList}\small\item\em compute the gradient of a given position with respect to the singularities, returning a vector indicating the direction and intensity of the gradient at that point \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_project_1_1_obstacle}{Project\+::\+Obstacle}}}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries Obstacle} ()
+\begin{DoxyCompactList}\small\item\em \doxylink{class_project_1_1_obstacle}{Obstacle} class default constructor. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_project_1_1_obstacle_addb12edce066207176031ed70b4dbb62}{Obstacle}} (Eigen\+::\+Vector2d position, double diameter, double height)
+\begin{DoxyCompactList}\small\item\em \doxylink{class_project_1_1_obstacle}{Obstacle} specific contructor. \end{DoxyCompactList}\item 
+Eigen\+::\+Vector2d \mbox{\hyperlink{class_project_1_1_obstacle_acea10e451db138afe871418b352c7750}{gradient}} (Eigen\+::\+Vector2d position)
+\begin{DoxyCompactList}\small\item\em Compute the gradient of a position. \end{DoxyCompactList}\item 
+Eigen\+::\+Vector2d {\bfseries get\+Position} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Protected Attributes inherited from \mbox{\hyperlink{class_project_1_1_obstacle}{Project\+::\+Obstacle}}}
+\begin{DoxyCompactItemize}
+\item 
+Eigen\+::\+Vector2d {\bfseries position}
+\item 
+double {\bfseries diameter}
+\item 
+double {\bfseries height}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_project_1_1_singularities_aec8bb8b190e827dc14fc9cdb0e2d7722}\label{class_project_1_1_singularities_aec8bb8b190e827dc14fc9cdb0e2d7722} 
+\index{Project::Singularities@{Project::Singularities}!Singularities@{Singularities}}
+\index{Singularities@{Singularities}!Project::Singularities@{Project::Singularities}}
+\doxysubsubsection{\texorpdfstring{Singularities()}{Singularities()}}
+{\footnotesize\ttfamily Project\+::\+Singularities\+::\+Singularities (\begin{DoxyParamCaption}\item[{Eigen\+::\+Vector2d}]{position,  }\item[{double}]{diameter,  }\item[{double}]{height }\end{DoxyParamCaption})}
+
+
+
+\doxylink{class_project_1_1_singularities}{Singularities} specific contructor. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em position} & 2D position of the obstacle \\
+\hline
+{\em diameter} & ipothetic radial diameter of the obstacle \\
+\hline
+{\em height} & ipothetic height of the obstacle \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_project_1_1_singularities_a3709c082a8970611ea1e01dd6a48d319}\label{class_project_1_1_singularities_a3709c082a8970611ea1e01dd6a48d319} 
+\index{Project::Singularities@{Project::Singularities}!gradient@{gradient}}
+\index{gradient@{gradient}!Project::Singularities@{Project::Singularities}}
+\doxysubsubsection{\texorpdfstring{gradient()}{gradient()}}
+{\footnotesize\ttfamily Eigen\+::\+Vector2d Project\+::\+Singularities\+::gradient (\begin{DoxyParamCaption}\item[{Eigen\+::\+Vector2d}]{point }\end{DoxyParamCaption})}
+
+
+
+compute the gradient of a given position with respect to the singularities, returning a vector indicating the direction and intensity of the gradient at that point 
+
+
+\begin{DoxyParams}{Parameters}
+{\em point} & 2D position of the obstacle \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/aless/\+One\+Drive/\+Documenti/\+Git\+Hub/\+UR5-\/project/src/motion-\/control/\+Stay\+\_\+away\+\_\+from/Singularities.\+h\item 
+C\+:/\+Users/aless/\+One\+Drive/\+Documenti/\+Git\+Hub/\+UR5-\/project/src/motion-\/control/\+Stay\+\_\+away\+\_\+from/Singularities.\+cpp\end{DoxyCompactItemize}

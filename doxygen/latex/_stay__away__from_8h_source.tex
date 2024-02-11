@@ -1,0 +1,46 @@
+\doxysection{Stay\+\_\+away\+\_\+from.\+h}
+\hypertarget{_stay__away__from_8h_source}{}\label{_stay__away__from_8h_source}\index{C:/Users/aless/OneDrive/Documenti/GitHub/UR5-\/project/src/motion-\/control/Stay\_away\_from/Stay\_away\_from.h@{C:/Users/aless/OneDrive/Documenti/GitHub/UR5-\/project/src/motion-\/control/Stay\_away\_from/Stay\_away\_from.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ CPP\_OBSTACLEAVOIDANCE\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ CPP\_OBSTACLEAVOIDANCE\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <Eigen/Dense>}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ "{}Singularities.h"{}}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ "{}Borders.h"{}}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{keyword}{namespace\ }Project\{}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00016\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_project_1_1_stay__away__from}{Stay\_away\_from}}\{}
+\DoxyCodeLine{00017\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_project_1_1_stay__away__from_ad5b0a40e7e27352c595210d588ef2a63}{Stay\_away\_from}}();}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_project_1_1_stay__away__from_ad5b0a40e7e27352c595210d588ef2a63}{Stay\_away\_from}}(Eigen::Vector2d\ dims);}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_project_1_1_stay__away__from_aad99834266592d0e3e68a2d4693e3f02}{set\_start}}(Eigen::Vector2d\ pos,\ \textcolor{keywordtype}{double}\ d,\ \textcolor{keywordtype}{double}\ height\ =\ 1.0);}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_project_1_1_stay__away__from_a720daf1be294da10e7472b68117083fc}{set\_target}}(Eigen::Vector2d\ pos,\ \textcolor{keywordtype}{double}\ d,\ \textcolor{keywordtype}{double}\ height\ =\ -\/1.0);}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_project_1_1_stay__away__from_aa88017fe1daf2dcc41b2a82f7555dfd0}{add\_obstacle}}(Eigen::Vector2d\ pos,\ \textcolor{keywordtype}{double}\ d,\ \textcolor{keywordtype}{double}\ height\ =\ 1.0);}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \ \ \ \ Eigen::Vector2d\ \mbox{\hyperlink{class_project_1_1_stay__away__from_a91ab82e62ea7d980456970583e359d9b}{gradient}}(Eigen::Vector2d\ pos);}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \ \ \ \ std::vector<Eigen::Vector2d>\ \mbox{\hyperlink{class_project_1_1_stay__away__from_a65aa26ea73585744cf349821ca94a4a7}{path}}(\textcolor{keywordtype}{double}\ step,\ \textcolor{keywordtype}{double}\ precision,\ \textcolor{keywordtype}{int}\ max);}
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \ \ \ \ Eigen::Vector2d\ dims;}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_project_1_1_singularities}{Singularities}}\ start;}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_project_1_1_borders}{Borders}}\ target;}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \ \ \ \ std::vector<Singularities>\ obstacles;}
+\DoxyCodeLine{00073\ \ \ \ \ \};}
+\DoxyCodeLine{00074\ \}}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00078\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//CPP\_OBSTACLEAVOIDANCE\_H}}
+
+\end{DoxyCode}

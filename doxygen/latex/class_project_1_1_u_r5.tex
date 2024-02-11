@@ -1,0 +1,456 @@
+\doxysection{Project\+::UR5 Class Reference}
+\hypertarget{class_project_1_1_u_r5}{}\label{class_project_1_1_u_r5}\index{Project::UR5@{Project::UR5}}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_project_1_1_u_r5_aaeee73ef966a22dbcd918e36a7b014f6}{UR5}} (ros\+::\+Node\+Handle \&node)
+\begin{DoxyCompactList}\small\item\em \doxylink{class_project_1_1_u_r5}{UR5} constructor. \end{DoxyCompactList}\item 
+\Hypertarget{class_project_1_1_u_r5_a171fcbb4ea90837f267a1b24a033406d}\label{class_project_1_1_u_r5_a171fcbb4ea90837f267a1b24a033406d} 
+Eigen\+::\+Vector\+Xd {\bfseries get\+\_\+position} ()
+\begin{DoxyCompactList}\small\item\em Get current position of the end-\/effector. \end{DoxyCompactList}\item 
+\Hypertarget{class_project_1_1_u_r5_ac24679488f7c090000ca201bcaaf6eb2}\label{class_project_1_1_u_r5_ac24679488f7c090000ca201bcaaf6eb2} 
+Eigen\+::\+Vector\+Xd {\bfseries get\+\_\+joint\+\_\+states} ()
+\begin{DoxyCompactList}\small\item\em Get current state of all the joints. \end{DoxyCompactList}\item 
+\Hypertarget{class_project_1_1_u_r5_addf4792fc3e7fd3f9b3a2eb81fd0d94e}\label{class_project_1_1_u_r5_addf4792fc3e7fd3f9b3a2eb81fd0d94e} 
+Eigen\+::\+Vector\+Xd {\bfseries get\+\_\+gripper\+\_\+states} ()
+\begin{DoxyCompactList}\small\item\em Get current state of the gripper. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_project_1_1_u_r5_a4b2f5a7a81e815a3109f79e1e1f9f545}{actuate\+\_\+ur5}} (const Eigen\+::\+Vector\+Xd \&joint\+\_\+pos)
+\begin{DoxyCompactList}\small\item\em this publishing mechanism allows other ROS nodes to receive and use the desired state to control the \doxylink{class_project_1_1_u_r5}{UR5} robot \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_project_1_1_u_r5_acf1f2ae055a28e9139420fc381b7b3a8}{actuate\+\_\+gripper}} (const float n)
+\begin{DoxyCompactList}\small\item\em publish message on a specific topic, allowing other ROS nodes to receive and use the gripper state information \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_project_1_1_u_r5_a1926587089f098058157ac5713a5fee0}{move\+\_\+to\+\_\+position\+\_\+without\+\_\+object}} (Eigen\+::\+Vector3d target, double final\+\_\+yaw, \mbox{\hyperlink{class_project_1_1_stay__away__from}{Stay\+\_\+away\+\_\+from}} \&obstacle, std\+::vector$<$ Eigen\+::\+Vector2d $>$ \&obstacle\+\_\+poses, double time=5.\+0)
+\begin{DoxyCompactList}\small\item\em compute the trajectory and send joint states in order to move the ur5 without a grasped object \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_project_1_1_u_r5_adfd5bd20b25fb28ca2843789cf6a9871}{move\+\_\+to\+\_\+object}} (Object\+Pose object\+\_\+pose, \mbox{\hyperlink{class_project_1_1_stay__away__from}{Stay\+\_\+away\+\_\+from}} \&obstacle\+\_\+av, std\+::vector$<$ Eigen\+::\+Vector2d $>$ \&obstacle\+\_\+pos, float height)
+\begin{DoxyCompactList}\small\item\em move the robot from initial pose to the object pose, then the movement is "{}linear"{} \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_project_1_1_u_r5_ac2cf32574081a31b5c444948b7eb4b18}{linear\+\_\+motion}} (Eigen\+::\+Vector\+Xd target, double time=5.\+0)
+\begin{DoxyCompactList}\small\item\em move the robot in a linear trajectory \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_project_1_1_u_r5_a6a6695b765bc423cb2da2a17d1f272d5}{move\+\_\+to\+\_\+position\+\_\+with\+\_\+object}} (std\+::string model\+\_\+name, Eigen\+::\+Vector3d target, double final\+\_\+yaw, \mbox{\hyperlink{class_project_1_1_stay__away__from}{Stay\+\_\+away\+\_\+from}} \&obstacle, std\+::vector$<$ Eigen\+::\+Vector2d $>$ \&obstacle\+\_\+poses, double time=5.\+0)
+\begin{DoxyCompactList}\small\item\em move the robot with the grasped object to the right position \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_project_1_1_u_r5_af76973895fcf65b2d4746f92e1f9553b}{trajectory\+\_\+without\+\_\+object}} (\mbox{\hyperlink{class_project_1_1_move__linear}{Move\+\_\+linear}} \&trajectory)
+\begin{DoxyCompactList}\small\item\em \doxylink{class_project_1_1_u_r5}{UR5} linear trajectory to be traversed. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_project_1_1_u_r5_a9c22803c365948071ce1e9a3a2447cb5}{trajectory\+\_\+without\+\_\+object}} (\mbox{\hyperlink{class_project_1_1_move__trajectory}{Move\+\_\+trajectory}} \&trajectory)
+\begin{DoxyCompactList}\small\item\em \doxylink{class_project_1_1_u_r5}{UR5} trajectory to be traversed. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_project_1_1_u_r5_a05f04af84400b0b023a828ae05112b92}{trajectory\+\_\+with\+\_\+object}} (std\+::string model\+\_\+name, \mbox{\hyperlink{class_project_1_1_move__trajectory}{Move\+\_\+trajectory}} \&trajectory)
+\begin{DoxyCompactList}\small\item\em use the same trajectory for both the robot and for the object \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_project_1_1_u_r5_af7d3bf71970551f46d4a12e8f1bd35bc}{trajectory\+\_\+with\+\_\+object}} (std\+::string model\+\_\+name, \mbox{\hyperlink{class_project_1_1_move__linear}{Move\+\_\+linear}} \&trajectory)
+\begin{DoxyCompactList}\small\item\em use the same linear trajectory for both the robot and for the object \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static Eigen\+::\+Matrix4d \mbox{\hyperlink{class_project_1_1_u_r5_a04196f8770584466cc7ee0acefc7d71e}{direct}} (Eigen\+::\+Vector\+Xd q)
+\begin{DoxyCompactList}\small\item\em Compute the direct kinematics. \end{DoxyCompactList}\item 
+static Eigen\+::\+Matrix\+Xd \mbox{\hyperlink{class_project_1_1_u_r5_aec1cfe739ab8801161be3f60970d501a}{jacobian}} (Eigen\+::\+Vector\+Xd q)
+\begin{DoxyCompactList}\small\item\em Compute the jacobian matrix. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static Eigen\+::\+Matrix4d \mbox{\hyperlink{class_project_1_1_u_r5_a463715343a4be5ffabe545b2e0405d0f}{transformation01}} (double th)
+\begin{DoxyCompactList}\small\item\em transformation matrix 0-\/\texorpdfstring{$>$}{>}1 \end{DoxyCompactList}\item 
+static Eigen\+::\+Matrix4d \mbox{\hyperlink{class_project_1_1_u_r5_a2a0788680894e46ca8edcc70dee6f936}{transformation12}} (double th)
+\begin{DoxyCompactList}\small\item\em transformation matrix 1-\/\texorpdfstring{$>$}{>}2 \end{DoxyCompactList}\item 
+static Eigen\+::\+Matrix4d \mbox{\hyperlink{class_project_1_1_u_r5_a2e27d825a41de836d451fb1471ec5e3a}{transformation23}} (double th)
+\begin{DoxyCompactList}\small\item\em transformation matrix 2-\/\texorpdfstring{$>$}{>}3 \end{DoxyCompactList}\item 
+static Eigen\+::\+Matrix4d \mbox{\hyperlink{class_project_1_1_u_r5_abb0df8cf9c26d7b0615e4271f1b13eda}{transformation34}} (double th)
+\begin{DoxyCompactList}\small\item\em transformation matrix 3-\/\texorpdfstring{$>$}{>}4 \end{DoxyCompactList}\item 
+static Eigen\+::\+Matrix4d \mbox{\hyperlink{class_project_1_1_u_r5_a03c1ce47a9b647441edaba95e772851a}{transformation45}} (double th)
+\begin{DoxyCompactList}\small\item\em transformation matrix 4-\/\texorpdfstring{$>$}{>}5 \end{DoxyCompactList}\item 
+static Eigen\+::\+Matrix4d \mbox{\hyperlink{class_project_1_1_u_r5_a86b24faa89d42d5e14645c29bbe58757}{transformation56}} (double th)
+\begin{DoxyCompactList}\small\item\em transformation matrix 5-\/\texorpdfstring{$>$}{>}6 \end{DoxyCompactList}\item 
+static Eigen\+::\+Vector\+Xd \mbox{\hyperlink{class_project_1_1_u_r5_a3d349b4a82d109bd2ec9fa09c1610bc7}{get\+\_\+joint\+\_\+velocities}} (Eigen\+::\+Matrix\+Xd \mbox{\hyperlink{class_project_1_1_u_r5_aec1cfe739ab8801161be3f60970d501a}{jacobian}}, Eigen\+::\+Vector\+Xd velocity)
+\begin{DoxyCompactList}\small\item\em compute the joint velocities based on the provided Jacobian matrix and desired end-\/effector velocities \end{DoxyCompactList}\item 
+static Eigen\+::\+Vector\+Xd \mbox{\hyperlink{class_project_1_1_u_r5_a0e65d2223e8b738c3c6521f37b16071f}{get\+\_\+vel}} (Eigen\+::\+Vector3d cur\+\_\+pos, Eigen\+::\+Vector3d desired\+\_\+pos, Eigen\+::\+Matrix3d cur\+\_\+rotation, Eigen\+::\+Matrix3d desired\+\_\+rotation, double time\+\_\+step)
+\begin{DoxyCompactList}\small\item\em generate the desired velocity for the robot to reach the desired position and orientation in a specified time step \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_project_1_1_u_r5_ae7c70f4f2dcbd3db75731a63efa0ed15}\label{class_project_1_1_u_r5_ae7c70f4f2dcbd3db75731a63efa0ed15} 
+bool {\bfseries real\+\_\+robot}
+\item 
+\Hypertarget{class_project_1_1_u_r5_a5083dccd59d7b672a1a3c89b0e08de76}\label{class_project_1_1_u_r5_a5083dccd59d7b672a1a3c89b0e08de76} 
+ros\+::\+Node\+Handle \texorpdfstring{$\ast$}{*} {\bfseries node}
+\item 
+\Hypertarget{class_project_1_1_u_r5_a29cb773c9c2292d8187bad7321e478ae}\label{class_project_1_1_u_r5_a29cb773c9c2292d8187bad7321e478ae} 
+ros\+::\+Service\+Client {\bfseries client}
+\item 
+\Hypertarget{class_project_1_1_u_r5_aaa50e545e033b14e59a19689d8ab3440}\label{class_project_1_1_u_r5_aaa50e545e033b14e59a19689d8ab3440} 
+ros\+::\+Publisher {\bfseries pub\+\_\+des\+\_\+jstate}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_project_1_1_u_r5_a385026cf59db18fd88d15a4fd7972eed}\label{class_project_1_1_u_r5_a385026cf59db18fd88d15a4fd7972eed} 
+static constexpr double {\bfseries a} \mbox{[}6\mbox{]} = \{0.\+0000, -\/0.\+425, -\/0.\+3922, 0.\+0000, 0.\+0000, 0.\+0000\}
+\item 
+\Hypertarget{class_project_1_1_u_r5_a176d8dc68694c89c386863b86a7b6eff}\label{class_project_1_1_u_r5_a176d8dc68694c89c386863b86a7b6eff} 
+static constexpr double {\bfseries d} \mbox{[}6\mbox{]} = \{0.\+1625, 0.\+000, 0.\+0000, 0.\+1333, 0.\+0997, 0.\+2500\}
+\item 
+\Hypertarget{class_project_1_1_u_r5_a0d183c772736329462582e2adb301275}\label{class_project_1_1_u_r5_a0d183c772736329462582e2adb301275} 
+static constexpr double {\bfseries speed\+\_\+limits} \mbox{[}6\mbox{]} = \{3.\+15, 3.\+15, 3.\+15, 3.\+20, 3.\+20, 3.\+20\}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_project_1_1_u_r5_aaeee73ef966a22dbcd918e36a7b014f6}\label{class_project_1_1_u_r5_aaeee73ef966a22dbcd918e36a7b014f6} 
+\index{Project::UR5@{Project::UR5}!UR5@{UR5}}
+\index{UR5@{UR5}!Project::UR5@{Project::UR5}}
+\doxysubsubsection{\texorpdfstring{UR5()}{UR5()}}
+{\footnotesize\ttfamily Project\+::\+UR5\+::\+UR5 (\begin{DoxyParamCaption}\item[{ros\+::\+Node\+Handle \&}]{node }\end{DoxyParamCaption})}
+
+
+
+\doxylink{class_project_1_1_u_r5}{UR5} constructor. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em node} & rosnode address \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_project_1_1_u_r5_acf1f2ae055a28e9139420fc381b7b3a8}\label{class_project_1_1_u_r5_acf1f2ae055a28e9139420fc381b7b3a8} 
+\index{Project::UR5@{Project::UR5}!actuate\_gripper@{actuate\_gripper}}
+\index{actuate\_gripper@{actuate\_gripper}!Project::UR5@{Project::UR5}}
+\doxysubsubsection{\texorpdfstring{actuate\_gripper()}{actuate\_gripper()}}
+{\footnotesize\ttfamily void Project\+::\+UR5\+::actuate\+\_\+gripper (\begin{DoxyParamCaption}\item[{const float}]{n }\end{DoxyParamCaption})}
+
+
+
+publish message on a specific topic, allowing other ROS nodes to receive and use the gripper state information 
+
+
+\begin{DoxyParams}{Parameters}
+{\em n} & \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_project_1_1_u_r5_a4b2f5a7a81e815a3109f79e1e1f9f545}\label{class_project_1_1_u_r5_a4b2f5a7a81e815a3109f79e1e1f9f545} 
+\index{Project::UR5@{Project::UR5}!actuate\_ur5@{actuate\_ur5}}
+\index{actuate\_ur5@{actuate\_ur5}!Project::UR5@{Project::UR5}}
+\doxysubsubsection{\texorpdfstring{actuate\_ur5()}{actuate\_ur5()}}
+{\footnotesize\ttfamily void Project\+::\+UR5\+::actuate\+\_\+ur5 (\begin{DoxyParamCaption}\item[{const Eigen\+::\+Vector\+Xd \&}]{joint\+\_\+pos }\end{DoxyParamCaption})}
+
+
+
+this publishing mechanism allows other ROS nodes to receive and use the desired state to control the \doxylink{class_project_1_1_u_r5}{UR5} robot 
+
+
+\begin{DoxyParams}{Parameters}
+{\em joint\+\_\+pos} & vector \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_project_1_1_u_r5_a04196f8770584466cc7ee0acefc7d71e}\label{class_project_1_1_u_r5_a04196f8770584466cc7ee0acefc7d71e} 
+\index{Project::UR5@{Project::UR5}!direct@{direct}}
+\index{direct@{direct}!Project::UR5@{Project::UR5}}
+\doxysubsubsection{\texorpdfstring{direct()}{direct()}}
+{\footnotesize\ttfamily Eigen\+::\+Matrix4d Project\+::\+UR5\+::direct (\begin{DoxyParamCaption}\item[{Eigen\+::\+Vector\+Xd}]{q }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Compute the direct kinematics. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em q} & joint configuration \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_project_1_1_u_r5_a3d349b4a82d109bd2ec9fa09c1610bc7}\label{class_project_1_1_u_r5_a3d349b4a82d109bd2ec9fa09c1610bc7} 
+\index{Project::UR5@{Project::UR5}!get\_joint\_velocities@{get\_joint\_velocities}}
+\index{get\_joint\_velocities@{get\_joint\_velocities}!Project::UR5@{Project::UR5}}
+\doxysubsubsection{\texorpdfstring{get\_joint\_velocities()}{get\_joint\_velocities()}}
+{\footnotesize\ttfamily Eigen\+::\+Vector\+Xd Project\+::\+UR5\+::get\+\_\+joint\+\_\+velocities (\begin{DoxyParamCaption}\item[{Eigen\+::\+Matrix\+Xd}]{jacobian,  }\item[{Eigen\+::\+Vector\+Xd}]{velocity }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [private]}}
+
+
+
+compute the joint velocities based on the provided Jacobian matrix and desired end-\/effector velocities 
+
+
+\begin{DoxyParams}{Parameters}
+{\em jacobian} & jacobian \\
+\hline
+{\em velocity} & velocity \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_project_1_1_u_r5_a0e65d2223e8b738c3c6521f37b16071f}\label{class_project_1_1_u_r5_a0e65d2223e8b738c3c6521f37b16071f} 
+\index{Project::UR5@{Project::UR5}!get\_vel@{get\_vel}}
+\index{get\_vel@{get\_vel}!Project::UR5@{Project::UR5}}
+\doxysubsubsection{\texorpdfstring{get\_vel()}{get\_vel()}}
+{\footnotesize\ttfamily Eigen\+::\+Vector\+Xd Project\+::\+UR5\+::get\+\_\+vel (\begin{DoxyParamCaption}\item[{Eigen\+::\+Vector3d}]{cur\+\_\+pos,  }\item[{Eigen\+::\+Vector3d}]{desired\+\_\+pos,  }\item[{Eigen\+::\+Matrix3d}]{cur\+\_\+rotation,  }\item[{Eigen\+::\+Matrix3d}]{desired\+\_\+rotation,  }\item[{double}]{time\+\_\+step }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [private]}}
+
+
+
+generate the desired velocity for the robot to reach the desired position and orientation in a specified time step 
+
+
+\begin{DoxyParams}{Parameters}
+{\em cur\+\_\+pos} & 3D current position \\
+\hline
+{\em desired\+\_\+pos} & 3D desired position \\
+\hline
+{\em cur\+\_\+rotation} & current rotation matrix \\
+\hline
+{\em desired\+\_\+rotation} & desired rotation matrix \\
+\hline
+{\em time\+\_\+step} & time step \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_project_1_1_u_r5_aec1cfe739ab8801161be3f60970d501a}\label{class_project_1_1_u_r5_aec1cfe739ab8801161be3f60970d501a} 
+\index{Project::UR5@{Project::UR5}!jacobian@{jacobian}}
+\index{jacobian@{jacobian}!Project::UR5@{Project::UR5}}
+\doxysubsubsection{\texorpdfstring{jacobian()}{jacobian()}}
+{\footnotesize\ttfamily Eigen\+::\+Matrix\+Xd Project\+::\+UR5\+::jacobian (\begin{DoxyParamCaption}\item[{Eigen\+::\+Vector\+Xd}]{q }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Compute the jacobian matrix. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em q} & joint configuration \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_project_1_1_u_r5_ac2cf32574081a31b5c444948b7eb4b18}\label{class_project_1_1_u_r5_ac2cf32574081a31b5c444948b7eb4b18} 
+\index{Project::UR5@{Project::UR5}!linear\_motion@{linear\_motion}}
+\index{linear\_motion@{linear\_motion}!Project::UR5@{Project::UR5}}
+\doxysubsubsection{\texorpdfstring{linear\_motion()}{linear\_motion()}}
+{\footnotesize\ttfamily bool Project\+::\+UR5\+::linear\+\_\+motion (\begin{DoxyParamCaption}\item[{Eigen\+::\+Vector\+Xd}]{target,  }\item[{double}]{time = {\ttfamily 5.0} }\end{DoxyParamCaption})}
+
+
+
+move the robot in a linear trajectory 
+
+
+\begin{DoxyParams}{Parameters}
+{\em target} & targetvector \\
+\hline
+{\em time} & time = 5.\+0 \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_project_1_1_u_r5_adfd5bd20b25fb28ca2843789cf6a9871}\label{class_project_1_1_u_r5_adfd5bd20b25fb28ca2843789cf6a9871} 
+\index{Project::UR5@{Project::UR5}!move\_to\_object@{move\_to\_object}}
+\index{move\_to\_object@{move\_to\_object}!Project::UR5@{Project::UR5}}
+\doxysubsubsection{\texorpdfstring{move\_to\_object()}{move\_to\_object()}}
+{\footnotesize\ttfamily bool Project\+::\+UR5\+::move\+\_\+to\+\_\+object (\begin{DoxyParamCaption}\item[{Object\+Pose}]{object\+\_\+pose,  }\item[{\mbox{\hyperlink{class_project_1_1_stay__away__from}{Stay\+\_\+away\+\_\+from}} \&}]{obstacle\+\_\+av,  }\item[{std\+::vector$<$ Eigen\+::\+Vector2d $>$ \&}]{obstacle\+\_\+pos,  }\item[{float}]{height }\end{DoxyParamCaption})}
+
+
+
+move the robot from initial pose to the object pose, then the movement is "{}linear"{} 
+
+
+\begin{DoxyParams}{Parameters}
+{\em object\+\_\+pose} & target position \\
+\hline
+{\em obstacle\+\_\+av} & obstacle to avoid \\
+\hline
+{\em obstacle\+\_\+pos} & 2D position of obstacle \\
+\hline
+{\em height} & desired height \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_project_1_1_u_r5_a6a6695b765bc423cb2da2a17d1f272d5}\label{class_project_1_1_u_r5_a6a6695b765bc423cb2da2a17d1f272d5} 
+\index{Project::UR5@{Project::UR5}!move\_to\_position\_with\_object@{move\_to\_position\_with\_object}}
+\index{move\_to\_position\_with\_object@{move\_to\_position\_with\_object}!Project::UR5@{Project::UR5}}
+\doxysubsubsection{\texorpdfstring{move\_to\_position\_with\_object()}{move\_to\_position\_with\_object()}}
+{\footnotesize\ttfamily bool Project\+::\+UR5\+::move\+\_\+to\+\_\+position\+\_\+with\+\_\+object (\begin{DoxyParamCaption}\item[{std\+::string}]{model\+\_\+name,  }\item[{Eigen\+::\+Vector3d}]{target,  }\item[{double}]{final\+\_\+yaw,  }\item[{\mbox{\hyperlink{class_project_1_1_stay__away__from}{Stay\+\_\+away\+\_\+from}} \&}]{obstacle,  }\item[{std\+::vector$<$ Eigen\+::\+Vector2d $>$ \&}]{obstacle\+\_\+poses,  }\item[{double}]{time = {\ttfamily 5.0} }\end{DoxyParamCaption})}
+
+
+
+move the robot with the grasped object to the right position 
+
+
+\begin{DoxyParams}{Parameters}
+{\em model\+\_\+name} & name of model \\
+\hline
+{\em target} & target 3D position \\
+\hline
+{\em final\+\_\+yaw} & final yaw \\
+\hline
+{\em obstacle} & obstacle to avoid \\
+\hline
+{\em obstacle\+\_\+poses} & vector of 2D poses of obstacles \\
+\hline
+{\em time} & max time \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_project_1_1_u_r5_a1926587089f098058157ac5713a5fee0}\label{class_project_1_1_u_r5_a1926587089f098058157ac5713a5fee0} 
+\index{Project::UR5@{Project::UR5}!move\_to\_position\_without\_object@{move\_to\_position\_without\_object}}
+\index{move\_to\_position\_without\_object@{move\_to\_position\_without\_object}!Project::UR5@{Project::UR5}}
+\doxysubsubsection{\texorpdfstring{move\_to\_position\_without\_object()}{move\_to\_position\_without\_object()}}
+{\footnotesize\ttfamily bool Project\+::\+UR5\+::move\+\_\+to\+\_\+position\+\_\+without\+\_\+object (\begin{DoxyParamCaption}\item[{Eigen\+::\+Vector3d}]{target,  }\item[{double}]{final\+\_\+yaw,  }\item[{\mbox{\hyperlink{class_project_1_1_stay__away__from}{Stay\+\_\+away\+\_\+from}} \&}]{obstacle,  }\item[{std\+::vector$<$ Eigen\+::\+Vector2d $>$ \&}]{obstacle\+\_\+poses,  }\item[{double}]{time = {\ttfamily 5.0} }\end{DoxyParamCaption})}
+
+
+
+compute the trajectory and send joint states in order to move the ur5 without a grasped object 
+
+
+\begin{DoxyParams}{Parameters}
+{\em target} & final position \\
+\hline
+{\em final\+\_\+yaw} & final yaw \\
+\hline
+{\em obstacle} & address of a \doxylink{class_project_1_1_stay__away__from}{Stay\+\_\+away\+\_\+from} instance \\
+\hline
+{\em obstacle\+\_\+poses} & 2D position of obstacle \\
+\hline
+{\em time} & time \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_project_1_1_u_r5_af7d3bf71970551f46d4a12e8f1bd35bc}\label{class_project_1_1_u_r5_af7d3bf71970551f46d4a12e8f1bd35bc} 
+\index{Project::UR5@{Project::UR5}!trajectory\_with\_object@{trajectory\_with\_object}}
+\index{trajectory\_with\_object@{trajectory\_with\_object}!Project::UR5@{Project::UR5}}
+\doxysubsubsection{\texorpdfstring{trajectory\_with\_object()}{trajectory\_with\_object()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily bool Project\+::\+UR5\+::trajectory\+\_\+with\+\_\+object (\begin{DoxyParamCaption}\item[{std\+::string}]{model\+\_\+name,  }\item[{\mbox{\hyperlink{class_project_1_1_move__linear}{Move\+\_\+linear}} \&}]{trajectory }\end{DoxyParamCaption})}
+
+
+
+use the same linear trajectory for both the robot and for the object 
+
+
+\begin{DoxyParams}{Parameters}
+{\em model\+\_\+name} & name of model \\
+\hline
+{\em trajectory} & linear trajectory \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_project_1_1_u_r5_a05f04af84400b0b023a828ae05112b92}\label{class_project_1_1_u_r5_a05f04af84400b0b023a828ae05112b92} 
+\index{Project::UR5@{Project::UR5}!trajectory\_with\_object@{trajectory\_with\_object}}
+\index{trajectory\_with\_object@{trajectory\_with\_object}!Project::UR5@{Project::UR5}}
+\doxysubsubsection{\texorpdfstring{trajectory\_with\_object()}{trajectory\_with\_object()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily bool Project\+::\+UR5\+::trajectory\+\_\+with\+\_\+object (\begin{DoxyParamCaption}\item[{std\+::string}]{model\+\_\+name,  }\item[{\mbox{\hyperlink{class_project_1_1_move__trajectory}{Move\+\_\+trajectory}} \&}]{trajectory }\end{DoxyParamCaption})}
+
+
+
+use the same trajectory for both the robot and for the object 
+
+
+\begin{DoxyParams}{Parameters}
+{\em model\+\_\+name} & name of model \\
+\hline
+{\em trajectory} & trajectory \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_project_1_1_u_r5_af76973895fcf65b2d4746f92e1f9553b}\label{class_project_1_1_u_r5_af76973895fcf65b2d4746f92e1f9553b} 
+\index{Project::UR5@{Project::UR5}!trajectory\_without\_object@{trajectory\_without\_object}}
+\index{trajectory\_without\_object@{trajectory\_without\_object}!Project::UR5@{Project::UR5}}
+\doxysubsubsection{\texorpdfstring{trajectory\_without\_object()}{trajectory\_without\_object()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily bool Project\+::\+UR5\+::trajectory\+\_\+without\+\_\+object (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_project_1_1_move__linear}{Move\+\_\+linear}} \&}]{trajectory }\end{DoxyParamCaption})}
+
+
+
+\doxylink{class_project_1_1_u_r5}{UR5} linear trajectory to be traversed. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em trajectory} & linear trajectory \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_project_1_1_u_r5_a9c22803c365948071ce1e9a3a2447cb5}\label{class_project_1_1_u_r5_a9c22803c365948071ce1e9a3a2447cb5} 
+\index{Project::UR5@{Project::UR5}!trajectory\_without\_object@{trajectory\_without\_object}}
+\index{trajectory\_without\_object@{trajectory\_without\_object}!Project::UR5@{Project::UR5}}
+\doxysubsubsection{\texorpdfstring{trajectory\_without\_object()}{trajectory\_without\_object()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily bool Project\+::\+UR5\+::trajectory\+\_\+without\+\_\+object (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_project_1_1_move__trajectory}{Move\+\_\+trajectory}} \&}]{trajectory }\end{DoxyParamCaption})}
+
+
+
+\doxylink{class_project_1_1_u_r5}{UR5} trajectory to be traversed. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em trajectory} & trajectory \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_project_1_1_u_r5_a463715343a4be5ffabe545b2e0405d0f}\label{class_project_1_1_u_r5_a463715343a4be5ffabe545b2e0405d0f} 
+\index{Project::UR5@{Project::UR5}!transformation01@{transformation01}}
+\index{transformation01@{transformation01}!Project::UR5@{Project::UR5}}
+\doxysubsubsection{\texorpdfstring{transformation01()}{transformation01()}}
+{\footnotesize\ttfamily Eigen\+::\+Matrix4d Project\+::\+UR5\+::transformation01 (\begin{DoxyParamCaption}\item[{double}]{th }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [private]}}
+
+
+
+transformation matrix 0-\/\texorpdfstring{$>$}{>}1 
+
+
+\begin{DoxyParams}{Parameters}
+{\em th} & theta \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_project_1_1_u_r5_a2a0788680894e46ca8edcc70dee6f936}\label{class_project_1_1_u_r5_a2a0788680894e46ca8edcc70dee6f936} 
+\index{Project::UR5@{Project::UR5}!transformation12@{transformation12}}
+\index{transformation12@{transformation12}!Project::UR5@{Project::UR5}}
+\doxysubsubsection{\texorpdfstring{transformation12()}{transformation12()}}
+{\footnotesize\ttfamily Eigen\+::\+Matrix4d Project\+::\+UR5\+::transformation12 (\begin{DoxyParamCaption}\item[{double}]{th }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [private]}}
+
+
+
+transformation matrix 1-\/\texorpdfstring{$>$}{>}2 
+
+
+\begin{DoxyParams}{Parameters}
+{\em th} & theta \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_project_1_1_u_r5_a2e27d825a41de836d451fb1471ec5e3a}\label{class_project_1_1_u_r5_a2e27d825a41de836d451fb1471ec5e3a} 
+\index{Project::UR5@{Project::UR5}!transformation23@{transformation23}}
+\index{transformation23@{transformation23}!Project::UR5@{Project::UR5}}
+\doxysubsubsection{\texorpdfstring{transformation23()}{transformation23()}}
+{\footnotesize\ttfamily Eigen\+::\+Matrix4d Project\+::\+UR5\+::transformation23 (\begin{DoxyParamCaption}\item[{double}]{th }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [private]}}
+
+
+
+transformation matrix 2-\/\texorpdfstring{$>$}{>}3 
+
+
+\begin{DoxyParams}{Parameters}
+{\em th} & theta \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_project_1_1_u_r5_abb0df8cf9c26d7b0615e4271f1b13eda}\label{class_project_1_1_u_r5_abb0df8cf9c26d7b0615e4271f1b13eda} 
+\index{Project::UR5@{Project::UR5}!transformation34@{transformation34}}
+\index{transformation34@{transformation34}!Project::UR5@{Project::UR5}}
+\doxysubsubsection{\texorpdfstring{transformation34()}{transformation34()}}
+{\footnotesize\ttfamily Eigen\+::\+Matrix4d Project\+::\+UR5\+::transformation34 (\begin{DoxyParamCaption}\item[{double}]{th }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [private]}}
+
+
+
+transformation matrix 3-\/\texorpdfstring{$>$}{>}4 
+
+
+\begin{DoxyParams}{Parameters}
+{\em th} & theta \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_project_1_1_u_r5_a03c1ce47a9b647441edaba95e772851a}\label{class_project_1_1_u_r5_a03c1ce47a9b647441edaba95e772851a} 
+\index{Project::UR5@{Project::UR5}!transformation45@{transformation45}}
+\index{transformation45@{transformation45}!Project::UR5@{Project::UR5}}
+\doxysubsubsection{\texorpdfstring{transformation45()}{transformation45()}}
+{\footnotesize\ttfamily Eigen\+::\+Matrix4d Project\+::\+UR5\+::transformation45 (\begin{DoxyParamCaption}\item[{double}]{th }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [private]}}
+
+
+
+transformation matrix 4-\/\texorpdfstring{$>$}{>}5 
+
+
+\begin{DoxyParams}{Parameters}
+{\em th} & theta \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_project_1_1_u_r5_a86b24faa89d42d5e14645c29bbe58757}\label{class_project_1_1_u_r5_a86b24faa89d42d5e14645c29bbe58757} 
+\index{Project::UR5@{Project::UR5}!transformation56@{transformation56}}
+\index{transformation56@{transformation56}!Project::UR5@{Project::UR5}}
+\doxysubsubsection{\texorpdfstring{transformation56()}{transformation56()}}
+{\footnotesize\ttfamily Eigen\+::\+Matrix4d Project\+::\+UR5\+::transformation56 (\begin{DoxyParamCaption}\item[{double}]{th }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [private]}}
+
+
+
+transformation matrix 5-\/\texorpdfstring{$>$}{>}6 
+
+
+\begin{DoxyParams}{Parameters}
+{\em th} & theta \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/aless/\+One\+Drive/\+Documenti/\+Git\+Hub/\+UR5-\/project/src/motion-\/control/ur5/UR5.\+h\item 
+C\+:/\+Users/aless/\+One\+Drive/\+Documenti/\+Git\+Hub/\+UR5-\/project/src/motion-\/control/ur5/UR5.\+cpp\end{DoxyCompactItemize}

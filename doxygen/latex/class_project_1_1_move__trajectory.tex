@@ -1,0 +1,117 @@
+\doxysection{Project\+::Move\+\_\+trajectory Class Reference}
+\hypertarget{class_project_1_1_move__trajectory}{}\label{class_project_1_1_move__trajectory}\index{Project::Move\_trajectory@{Project::Move\_trajectory}}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_project_1_1_move__trajectory_ae80de4e4b8a27fcdf87078fd4cc09620}\label{class_project_1_1_move__trajectory_ae80de4e4b8a27fcdf87078fd4cc09620} 
+{\bfseries Move\+\_\+trajectory} ()
+\begin{DoxyCompactList}\small\item\em \doxylink{class_project_1_1_move__trajectory}{Move\+\_\+trajectory} default constructr. It does nothing, but it is necessary ~\newline
+ \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_project_1_1_move__trajectory_a29d897a2630c117cce58cdd656bb55af}{Move\+\_\+trajectory}} (Eigen\+::\+Vector3d start\+\_\+point, Eigen\+::\+Vector3d traget\+\_\+point, double starting\+\_\+yaw, double target\+\_\+yaw, \mbox{\hyperlink{class_project_1_1_stay__away__from}{Stay\+\_\+away\+\_\+from}} obstacle, std\+::vector$<$ Eigen\+::\+Vector2d $>$ obstacle\+\_\+poses, double time, double time\+\_\+step, double height=0.\+25, double distance=0.\+05)
+\begin{DoxyCompactList}\small\item\em trajectory with cubic interpolation ensuring smooth movement \end{DoxyCompactList}\item 
+\Hypertarget{class_project_1_1_move__trajectory_af4917bc2d4df3f7ba4dfb957003ac98a}\label{class_project_1_1_move__trajectory_af4917bc2d4df3f7ba4dfb957003ac98a} 
+double {\bfseries get\+\_\+time} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_project_1_1_move__trajectory_a415edb4e94a8072c78572210c13609e4}\label{class_project_1_1_move__trajectory_a415edb4e94a8072c78572210c13609e4} 
+double {\bfseries time\+\_\+step}
+\item 
+\Hypertarget{class_project_1_1_move__trajectory_abae47b599e3ac544d8786dcf9675dc14}\label{class_project_1_1_move__trajectory_abae47b599e3ac544d8786dcf9675dc14} 
+std\+::vector$<$ Eigen\+::\+Vector\+Xd $>$ {\bfseries points}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+std\+::vector$<$ double $>$ \mbox{\hyperlink{class_project_1_1_move__trajectory_ad8870ef44ea105a3a41e21c5d1adba19}{move\+\_\+vertical}} (double starting\+\_\+height, double height, double distance)
+\begin{DoxyCompactList}\small\item\em vertical trajectory ensuring smooth movement \end{DoxyCompactList}\item 
+std\+::vector$<$ Eigen\+::\+Vector2d $>$ \mbox{\hyperlink{class_project_1_1_move__trajectory_af904e466e2b40e019ffb34ce835d6f60}{move\+\_\+horizontal}} (\mbox{\hyperlink{class_project_1_1_stay__away__from}{Project\+::\+Stay\+\_\+away\+\_\+from}} obstacle, double distance, double step=0.\+001, double precision=0.\+0015, int max=5000)
+\begin{DoxyCompactList}\small\item\em horizontal trajectory it creates checkpoints avoiding obstacles \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_project_1_1_move__trajectory_a29d897a2630c117cce58cdd656bb55af}\label{class_project_1_1_move__trajectory_a29d897a2630c117cce58cdd656bb55af} 
+\index{Project::Move\_trajectory@{Project::Move\_trajectory}!Move\_trajectory@{Move\_trajectory}}
+\index{Move\_trajectory@{Move\_trajectory}!Project::Move\_trajectory@{Project::Move\_trajectory}}
+\doxysubsubsection{\texorpdfstring{Move\_trajectory()}{Move\_trajectory()}}
+{\footnotesize\ttfamily Project\+::\+Move\+\_\+trajectory\+::\+Move\+\_\+trajectory (\begin{DoxyParamCaption}\item[{Eigen\+::\+Vector3d}]{start\+\_\+point,  }\item[{Eigen\+::\+Vector3d}]{traget\+\_\+point,  }\item[{double}]{starting\+\_\+yaw,  }\item[{double}]{target\+\_\+yaw,  }\item[{\mbox{\hyperlink{class_project_1_1_stay__away__from}{Stay\+\_\+away\+\_\+from}}}]{obstacle,  }\item[{std\+::vector$<$ Eigen\+::\+Vector2d $>$}]{obstacle\+\_\+poses,  }\item[{double}]{time,  }\item[{double}]{time\+\_\+step,  }\item[{double}]{height = {\ttfamily 0.25},  }\item[{double}]{distance = {\ttfamily 0.05} }\end{DoxyParamCaption})}
+
+
+
+trajectory with cubic interpolation ensuring smooth movement 
+
+
+\begin{DoxyParams}{Parameters}
+{\em start\+\_\+point} & starting 3D vector \\
+\hline
+{\em target\+\_\+point} & target 3D vector \\
+\hline
+{\em starting\+\_\+yaw} & starting yaw \\
+\hline
+{\em target\+\_\+yaw} & target yaw \\
+\hline
+{\em obstacle} & obtsacles to avoid \\
+\hline
+{\em obstacle\+\_\+poses} & X and Y poses of obstacles \\
+\hline
+{\em time} & time \\
+\hline
+{\em time\+\_\+step} & time step \\
+\hline
+{\em height} & final distance between end-\/effector and table = 0.\+25 \\
+\hline
+{\em distance} & offset of 0.\+05 \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_project_1_1_move__trajectory_af904e466e2b40e019ffb34ce835d6f60}\label{class_project_1_1_move__trajectory_af904e466e2b40e019ffb34ce835d6f60} 
+\index{Project::Move\_trajectory@{Project::Move\_trajectory}!move\_horizontal@{move\_horizontal}}
+\index{move\_horizontal@{move\_horizontal}!Project::Move\_trajectory@{Project::Move\_trajectory}}
+\doxysubsubsection{\texorpdfstring{move\_horizontal()}{move\_horizontal()}}
+{\footnotesize\ttfamily std\+::vector$<$ Eigen\+::\+Vector2d $>$ Project\+::\+Move\+\_\+trajectory\+::move\+\_\+horizontal (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_project_1_1_stay__away__from}{Project\+::\+Stay\+\_\+away\+\_\+from}}}]{obstacle,  }\item[{double}]{distance,  }\item[{double}]{step = {\ttfamily 0.001},  }\item[{double}]{precision = {\ttfamily 0.0015},  }\item[{int}]{max = {\ttfamily 5000} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+horizontal trajectory it creates checkpoints avoiding obstacles 
+
+
+\begin{DoxyParams}{Parameters}
+{\em obstacle} & obtsacles to avoid \\
+\hline
+{\em distance} & offset \\
+\hline
+{\em step} & time step between a position and another \\
+\hline
+{\em precision} & how much distant we want to be from the table limits \\
+\hline
+{\em max} & maximum time \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_project_1_1_move__trajectory_ad8870ef44ea105a3a41e21c5d1adba19}\label{class_project_1_1_move__trajectory_ad8870ef44ea105a3a41e21c5d1adba19} 
+\index{Project::Move\_trajectory@{Project::Move\_trajectory}!move\_vertical@{move\_vertical}}
+\index{move\_vertical@{move\_vertical}!Project::Move\_trajectory@{Project::Move\_trajectory}}
+\doxysubsubsection{\texorpdfstring{move\_vertical()}{move\_vertical()}}
+{\footnotesize\ttfamily std\+::vector$<$ double $>$ Project\+::\+Move\+\_\+trajectory\+::move\+\_\+vertical (\begin{DoxyParamCaption}\item[{double}]{starting\+\_\+height,  }\item[{double}]{height,  }\item[{double}]{distance }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+vertical trajectory ensuring smooth movement 
+
+
+\begin{DoxyParams}{Parameters}
+{\em start\+\_\+height} & starting height \\
+\hline
+{\em height} & final distance between end-\/effector and table \\
+\hline
+{\em distance} & offset \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/aless/\+One\+Drive/\+Documenti/\+Git\+Hub/\+UR5-\/project/src/motion-\/control/trajectory/move\+\_\+trajectory/move\+\_\+trajectory.\+h\item 
+C\+:/\+Users/aless/\+One\+Drive/\+Documenti/\+Git\+Hub/\+UR5-\/project/src/motion-\/control/trajectory/move\+\_\+trajectory/move\+\_\+trajectory.\+cpp\end{DoxyCompactItemize}
