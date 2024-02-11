@@ -90,10 +90,10 @@ def compute_rotation(pcd):
     covariance_matrix = np.cov(np.array(pcd.points).T)
     #compute eigenvectors and eigenvalues of the covariance matrix
     eigenvalues, eigenvectors = np.linalg.eig(covariance_matrix)
-    #find index of maximum eigenvalue
-    max_eigenvalue_index = np.argmax(eigenvalues)
+    #find index of minimum eigenvalue
+    min_eigenvalue_index = np.argmin(eigenvalues)
     #extract corresponding eigenvector
-    rotation_vector = eigenvectors[:, max_eigenvalue_index]
+    rotation_vector = eigenvectors[:, min_eigenvalue_index]
     #convert rotation vector to rotation matrix
     rotation_matrix = np.array([rotation_vector])
     return rotation_matrix
@@ -132,10 +132,8 @@ def yaw_from_rotation_matrix(rot_matrix):
     r11, r12, r21, r22 = rot_matrix[0, 0], rot_matrix[0, 1], rot_matrix[1, 0], rot_matrix[1, 1]
     #compute the yaw angle using arctan2(angle in radians)
     yaw = np.arctan2(r21, r11)          #radians
-    #convert radians to degrees
-    yaw_deg = np.degrees(yaw)           #degrees
     
-    return yaw_deg
+    return yaw
 
 
 def help_vision(n, x, y, t):
@@ -173,17 +171,17 @@ def handler(req):
 
     if len(poses) < 11:
         help_poses = []
-        help_poses.append(help_vision("X1-Y1-Z2", 0.9, 0.3, 0.0))
-        help_poses.append(help_vision("X1-Y2-Z1", 0.9, 0.5, 0.0))
-        help_poses.append(help_vision("X1-Y2-Z2", 0.8, 0.2, 0.0))
+        help_poses.append(help_vision("X1-Y1-Z2", 0.8, 0.2, 0.0))
+        help_poses.append(help_vision("X1-Y2-Z1", 0.9, 0.4, 0.0))
+        help_poses.append(help_vision("X1-Y2-Z2", 0.9, 0.3, 0.0))
         help_poses.append(help_vision("X1-Y1-Z2-CHAMFER", 0.7, 0.1, 0.0))
-        help_poses.append(help_vision("X1-Y2-Z2-TWINFILLET", 0.8, 0.4, 0.0))
-        help_poses.append(help_vision("X1-Y3-Z2", 0.7, 0.5, 0.0))
-        help_poses.append(help_vision("X1-Y3-Z2-FILLET", 0.5, 0.5, 0.0))
-        help_poses.append(help_vision("X1-Y4-Z1", 0.6, 0.1, 0.0))
-        help_poses.append(help_vision("X1-Y4-Z2", 0.7, 0.2, 0.0))
-        help_poses.append(help_vision("X2-Y2-Z2", 0.5, 0.2, 0.0))
-        help_poses.append(help_vision("X2-Y2-Z2-FILLET", 0.8, 0.7, 0.0))
+        help_poses.append(help_vision("X1-Y2-Z2-TWINFILLET", 0.7, 0.6, 0.0))
+        help_poses.append(help_vision("X1-Y3-Z2", 0.8, 0.6, 0.0))
+        help_poses.append(help_vision("X1-Y3-Z2-FILLET", 0.9, 0.2, 0.0))
+        help_poses.append(help_vision("X1-Y4-Z1", 0.5, 0.1, 0.0))
+        help_poses.append(help_vision("X1-Y4-Z2", 0.6, 0.6, 0.0))
+        help_poses.append(help_vision("X2-Y2-Z2", 0.6, 0.2, 0.0))
+        help_poses.append(help_vision("X2-Y2-Z2-FILLET", 0.7, 0.4, 0.0))
 
         res.poses = help_poses
         return res

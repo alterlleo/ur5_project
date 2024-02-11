@@ -58,17 +58,17 @@ int main(int argc, char **argv){
     spawner_client.waitForExistence();
 
     // first draft of positioning:
-    object_positioning(spawner_client, "X1-Y1-Z2", "X1-Y1-Z2", {0.9, 0.3, 0.0}, {0.0, 0.0, 0.0});
-	object_positioning(spawner_client, "X1-Y2-Z1", "X1-Y2-Z1", {0.9, 0.5, 0.0}, {0.0, 0.0, 0.0});
-	object_positioning(spawner_client, "X1-Y2-Z2", "X1-Y2-Z2", {0.8, 0.2, 0.0}, {0.0, 0.0, 0.0});
+    object_positioning(spawner_client, "X1-Y1-Z2", "X1-Y1-Z2", {0.8, 0.2, 0.0}, {0.0, 0.0, 0.0});
+	object_positioning(spawner_client, "X1-Y2-Z1", "X1-Y2-Z1", {0.9, 0.4, 0.0}, {0.0, 0.0, 0.0});
+	object_positioning(spawner_client, "X1-Y2-Z2", "X1-Y2-Z2", {0.9, 0.3, 0.0}, {0.0, 0.0, 0.0});
 	object_positioning(spawner_client, "X1-Y2-Z2-CHAMFER", "X1-Y2-Z2-CHAMFER", {0.7, 0.1, 0.0}, {0.0, 0.0, 0.0});
-	object_positioning(spawner_client, "X1-Y2-Z2-TWINFILLET", "X1-Y2-Z2-TWINFILLET", {0.8, 0.4, 0.0}, {0.0, 0.0, 0.0});
-	object_positioning(spawner_client, "X1-Y3-Z2", "X1-Y3-Z2", {0.7, 0.5, 0.0}, {0.0, 0.0, 0.0});
-	object_positioning(spawner_client, "X1-Y3-Z2-FILLET", "X1-Y3-Z2-FILLET", {0.5, 0.5, 0.0}, {0.0, 0.0, 0.0});
-	object_positioning(spawner_client, "X1-Y4-Z1", "X1-Y4-Z1", {0.6, 0.1, 0.0}, {0.0, 0.0, 0.0});
-	object_positioning(spawner_client, "X1-Y4-Z2", "X1-Y4-Z2", {0.7, 0.2, 0.0}, {0.0, 0.0, 0.0});
-	object_positioning(spawner_client, "X2-Y2-Z2", "X2-Y2-Z2", {0.5, 0.2, 0.0}, {0.0, 0.0, 0.0});
-	object_positioning(spawner_client, "X2-Y2-Z2-FILLET", "X2-Y2-Z2-FILLET", {0.8, 0.7, 0.0}, {0.0, 0.0, 0.0});
+	object_positioning(spawner_client, "X1-Y2-Z2-TWINFILLET", "X1-Y2-Z2-TWINFILLET", {0.7, 0.6, 0.0}, {0.0, 0.0, 0.0});
+	object_positioning(spawner_client, "X1-Y3-Z2", "X1-Y3-Z2", {0.8, 0.6, 0.0}, {0.0, 0.0, 0.0});
+	object_positioning(spawner_client, "X1-Y3-Z2-FILLET", "X1-Y3-Z2-FILLET", {0.9, 0.2, 0.0}, {0.0, 0.0, 0.0});
+	object_positioning(spawner_client, "X1-Y4-Z1", "X1-Y4-Z1", {0.5, 0.1, 0.0}, {0.0, 0.0, 0.0});
+	object_positioning(spawner_client, "X1-Y4-Z2", "X1-Y4-Z2", {0.6, 0.6, 0.0}, {0.0, 0.0, 0.0});
+	object_positioning(spawner_client, "X2-Y2-Z2", "X2-Y2-Z2", {0.6, 0.2, 0.0}, {0.0, 0.0, 0.0});
+	object_positioning(spawner_client, "X2-Y2-Z2-FILLET", "X2-Y2-Z2-FILLET", {0.7, 0.4, 0.0}, {0.0, 0.0, 0.0});
     
 
     return 0;
