@@ -6,9 +6,6 @@
 
 #include "../src/motion-control/checkpoint/checkpoint.h"
 
-//#include <hill.h>
-//#include <obstacle.h>
-
 #include "../src/motion-control/Stay_away_from/Stay_away_from.h"
 
 #include "../src/motion-control/Stay_away_from/Obstacle.h"

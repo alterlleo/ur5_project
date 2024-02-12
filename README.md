@@ -60,5 +60,4 @@ rosrun ur5_project project
 ```
 Please note: It may not work on the first compilation attempt. Don't worry and try again!
 # How to use  ```doxygen```
-Open 'doxygen' directory, open 'html' directory.
-Then, open annotated.html
+The overall Doxygen documentation can be found in `doxygen/html/annotated.html`.
